@@ -12,3 +12,6 @@ class Queue(LinkedList):
         data = self.topFront()
         self.popFront()
         return data
+
+    def first(self):
+        return self.topFront()
