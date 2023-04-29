@@ -1,6 +1,6 @@
-from LinkedList import LinkedList
+from DoubleLinkedListTail import DoubleLinkedListTail
 
-class Queue(LinkedList):
+class Queue(DoubleLinkedListTail):
 
     def __init__(self):
         super().__init__()
@@ -9,9 +9,12 @@ class Queue(LinkedList):
         self.pushBack(newNode)
 
     def dequeue(self):
-        data = self.topFront()
-        self.popFront()
-        return data
+        if not self.isEmpty():
+            data = self.topFront()
+            self.popFront()
+            return data
+        else:
+            raise Exception("Queue is empty")
 
     def first(self):
         return self.topFront()
