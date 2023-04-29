@@ -2,21 +2,18 @@ from typing import TypeVar, Generic
 
 T = TypeVar('T')
 
-class Error(Exception):
-    pass
-
 class Node(Generic[T]):
 
     key = None
     next = None
 
     # Constructor
-    def __init__(self, data):
+    def __init__(self, data:T):
         self.key = data
         self.next = None
 
     # Métodos
-    def get_data(self):
+    def get_data(self) -> T:
         return self.key
 
     def get_next(self):
