@@ -92,11 +92,10 @@ class StaticList(Generic[T]):
                 if (self.list[i] == key):
                     found = True
                     self.positionFound = i
-                    i = self.index
                     break
         return found
 
-    def findPosition(self,key:int) -> int:
+    def findPosition(self,key:T) -> int:
         isThere:bool = self.find(key)
         if (self.empty()):
             raise Error("Fail find. La lista esta vacia")
@@ -105,7 +104,7 @@ class StaticList(Generic[T]):
         else:
             return self.positionFound
 
-    def erase(self, key:int):
+    def erase(self, key:T):
         if (self.empty()):
             raise Error("Fail erase. La lista esta vacia")
         elif (not self.find(key)):
