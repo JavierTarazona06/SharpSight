@@ -89,6 +89,14 @@ class LinkedList(Generic[T]):
     def isEmpty(self):
         return self.head == None
 
+    def getNode(self,index):
+        if index>=self.size():
+            raise Exception("Index out of bound")
+        ptr = self.head
+        for i in range(index):
+            ptr = ptr.next
+        return ptr
+
     def find(self, node_To_Find):
         return not self.findPosition(node_To_Find)==-1
 
