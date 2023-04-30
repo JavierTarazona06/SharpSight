@@ -44,5 +44,7 @@ def grafica(x,y,arg):
 # Valores de entrada para la función
 n_values = [10, 100, 1000,10000,100000,1000000]
 
+print("Hola")
+
 #grafica(n_values,pushFrontDynamic(n_values),"Push Front Dynamic List")
 #grafica(n_values,pushBackDynamic(n_values),"Push Back Dynamic List")
