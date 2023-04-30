@@ -6,11 +6,13 @@ class Node(Generic[T]):
 
     key = None
     next = None
+    prev = None
 
     # Constructor
     def __init__(self, data:T):
         self.key = data
         self.next = None
+        self.prev = None
 
     # Métodos
     def get_data(self) -> T:
@@ -18,6 +20,9 @@ class Node(Generic[T]):
 
     def get_next(self):
         return self.next
+
+    def get_prev(self):
+        return self.prev
 
     def update_key(self, data):
         self.key = data

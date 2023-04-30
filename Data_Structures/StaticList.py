@@ -6,9 +6,9 @@ class Error(Exception):
     pass
 
 class StaticList(Generic[T]):
-    size:int = None
+    size:int = None #Capacidad
     list: list = None
-    index : int = None
+    index : int = None #Número de elementos+1
     positionFound : int = None
 
     def __init__(self, size:int):
