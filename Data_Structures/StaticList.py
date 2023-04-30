@@ -138,3 +138,19 @@ class StaticList(Generic[T]):
                 self.list[j] = self.list[j-1]
             self.list[i] = data
             self.index+=1
+
+    def sort(self):
+        listaSort = StaticList(self.size)
+        for i in range(self.index):
+            listaSort.insertOrdered(self.list[i])
+        self.list = listaSort.list
+
+    def reverse(self):
+        listaReversed = StaticList(self.size)
+        for i in range(self.index):
+            listaReversed.list[i] = self.list[self.index-i-1]
+        self.list = listaReversed.list
+
+    def reversedSort(self):
+        self.sort()
+        self.reverse()

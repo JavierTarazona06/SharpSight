@@ -101,7 +101,8 @@ class OrderedList(Generic[T]):
             i = 0
             while i<self.index and self.list[i]<data:
                 i+=1
-            for j in range (self.index,i,-1):
-                self.list[j] = self.list[j-1]
-            self.list[i] = data
-            self.index+=1
+            if not self.list[i]==data:
+                for j in range (self.index,i,-1):
+                    self.list[j] = self.list[j-1]
+                self.list[i] = data
+                self.index+=1
