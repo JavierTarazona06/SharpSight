@@ -1,4 +1,6 @@
 from LinkedList import LinkedList
+from Node import Node
+
 
 class DoubleLinkedListTail(LinkedList):
 
@@ -51,3 +53,63 @@ class DoubleLinkedListTail(LinkedList):
             return self.tail.key
         else:
             raise ValueError("Fail topBack. Linked List Vacia")
+
+    def insert(self,index,newNode):
+        if index==0:
+            self.pushFront(newNode)
+        else:
+            ptr = self.head
+            acc = 0
+            while acc<index-1:
+                ptr = ptr.next
+                acc+=1
+            if not ptr:
+                raise ValueError("Position out of range")
+            newNode.next = ptr.next
+            ptr.next = newNode
+            newNode.prev = ptr
+            if (newNode.next is not None):
+                newNode.next.prev = newNode
+            else:
+                self.tail = newNode
+
+    def insertOrder(self, new_node):
+        if self.isEmpty():
+            self.head = new_node
+            self.tail = new_node
+        elif new_node.key < self.head.key:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        else:
+            ptr = self.head
+            while ptr.next is not None and ptr.next.key < new_node.key:
+                ptr = ptr.next
+            new_node.next = ptr.next
+            ptr.next = new_node
+            new_node.prev = ptr
+            if new_node.next is not None:
+                new_node.next.prev = new_node
+            else:
+                self.tail = new_node
+
+    def sort(self):
+        if not self.isEmpty():
+            linkedListSorted = DoubleLinkedListTail()
+            ptr_Or = self.head
+            while not (ptr_Or is None):
+                ptr_nw = Node(ptr_Or.key)
+                linkedListSorted.insertOrder(ptr_nw)
+                ptr_Or = ptr_Or.next
+            self.head = linkedListSorted.head
+            self.tail = linkedListSorted.tail
+
+    def reverse(self):
+        if not self.isEmpty():
+            linkedListReversed = DoubleLinkedListTail()
+            ptr_Or = self.head
+            while not (ptr_Or is None):
+                linkedListReversed.pushFront(Node(ptr_Or.key))
+                ptr_Or = ptr_Or.next
+            self.head = linkedListReversed.head
+            self.tail = linkedListReversed.tail

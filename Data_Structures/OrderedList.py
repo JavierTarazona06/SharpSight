@@ -52,26 +52,29 @@ class OrderedList(Generic[T]):
             list += str(self.list[a+1])
             return list
 
-    def find(self, key:T) -> bool:
-        found:bool = False
-        if (self.empty()):
-            raise Error("Fail find. La lista esta vacia");
-        else :
-            for i in range(0,self.index):
-                if (self.list[i] == key):
-                    found = True
-                    self.positionFound = i
-                    break
-        return found
-
-    def findPosition(self,key:T) -> int:
-        isThere:bool = self.find(key)
-        if (self.empty()):
-            raise Error("Fail find. La lista esta vacia")
-        elif (not isThere):
-            raise Error("Fail findPosition. Key no esta en la lista")
+    def find(self,key):
+        if self.empty():
+            raise Exception("Empty List")
         else:
-            return self.positionFound
+            return not self.findPosition(key)==-1
+
+    def findPosition(self, key):
+        if self.empty():
+            raise Exception("Empty List")
+        else:
+            return self.binarySearch(0,self.index-1,key)
+
+    def binarySearch(self,inicio,fin,key):
+        if fin>=inicio:
+            mid = (fin+inicio)//2
+            if self.list[mid] == key:
+                return mid
+            elif self.list[mid] > key:
+                return self.binarySearch(inicio,mid-1,key)
+            else:
+                return self.binarySearch(mid+1,fin,key)
+        else:
+            return -1
 
     def delete(self, key:T):
         if (self.empty()):
@@ -101,7 +104,8 @@ class OrderedList(Generic[T]):
             i = 0
             while i<self.index and self.list[i]<data:
                 i+=1
-            for j in range (self.index,i,-1):
-                self.list[j] = self.list[j-1]
-            self.list[i] = data
-            self.index+=1
+            if not self.list[i]==data:
+                for j in range (self.index,i,-1):
+                    self.list[j] = self.list[j-1]
+                self.list[i] = data
+                self.index+=1
