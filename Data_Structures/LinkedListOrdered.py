@@ -1,25 +1,12 @@
-from typing import TypeVar, Generic
-
 from Node import Node
 
-T = TypeVar('T')
 
-class LinkedList(Generic[T]):
+class LinkedListOrdered():
     # Constr.
     def __init__(self):
         self.head = None
 
     # Meth.
-    def pushFront(self, newNode):
-        newNode.next = self.head
-        self.head = newNode
-
-    def popFront(self):
-        if not self.isEmpty():
-            self.head = self.head.next
-        else:
-            raise Exception("Fail popFront. Linked List Vacia")
-
     def topFront(self):
         data = None
         if not self.isEmpty():
@@ -27,27 +14,6 @@ class LinkedList(Generic[T]):
         else:
             raise Exception("Fail topFront. Linked List Vacia")
         return data
-
-    def pushBack(self, newNode):
-        if self.head == None:
-            self.head = newNode
-        else:
-            headRef = self.head
-            while headRef.next != None:
-                headRef = headRef.next
-            headRef.next = newNode
-
-    def popBack(self):
-        if not self.isEmpty():
-            if self.head.next == None:
-                self.head = None
-            else:
-                headRef = self.head
-                while headRef.next.next != None:
-                    headRef = headRef.next
-                headRef.next = None
-        else:
-            raise Exception("Fail popBack. Linked List Vacia")
 
     def topBack(self):
         ans = None
@@ -59,13 +25,6 @@ class LinkedList(Generic[T]):
         else:
             raise Exception("Fail topBack. Linked List Vacia")
         return ans
-
-    def print(self):
-        headRef = self.head
-        while headRef != None:
-            print(headRef.key, end=" ")
-            headRef = headRef.next
-        print("")
 
     def __str__(self):
         if self.isEmpty():
@@ -104,23 +63,7 @@ class LinkedList(Generic[T]):
                 headRef = headRef.next
             return size + 1
 
-    def insert(self,index,value):
-        newNode = Node(value)
-        if index==0:
-            self.pushFront(newNode)
-        else:
-            ptr = self.head
-            acc = 0
-            while acc<index-1:
-                ptr = ptr.next
-                acc+=1
-            if not ptr:
-                raise ValueError("Position out of range")
-            newNode.next = ptr.next
-            ptr.next = newNode
-
-
-    def insertOrder(self, value):
+    def insert(self, value):
         new_node = Node(value)
         if self.isEmpty() or value < self.head.key:
             new_node.next = self.head
