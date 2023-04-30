@@ -57,10 +57,16 @@ class LinkedListOrdered():
         return ptr
 
     def find(self,node_to_find):
-        return not self.findPosition(node_to_find)==-1
+        if self.isEmpty():
+            raise Exception("Empty List")
+        else:
+            return not self.findPosition(node_to_find)==-1
 
     def findPosition(self, node_to_find):
-        return self.binarySearch(0,self.size()-1,node_to_find)
+        if self.isEmpty():
+            raise Exception("Empty List")
+        else:
+            return self.binarySearch(0,self.size()-1,node_to_find)
 
     def binarySearch(self,inicio,fin,node_to_find):
         if fin>=inicio:
