@@ -3,35 +3,46 @@ from StaticList import *
 import matplotlib.pyplot as plt
 import time
 
+def pushFrontDynamic(n_values):
+    times = []
+    for n in n_values:
+        lista_Prueba = DynamicList()
+        #Crear Lista
+        for i in range(n):
+            lista_Prueba.pushBack(i)
+        #Análisis
+        start_time = time.time()
+        lista_Prueba.pushFront(12)
+        end_time = time.time()
+        times.append(end_time - start_time)
+    return times
 
-p=DynamicList()
+def pushBackDynamic(n_values):
+    times = []
+    for n in n_values:
+        lista_Prueba = DynamicList()
+        #Crear lista
+        for i in range(n):
+            lista_Prueba.pushBack(i)
+        #Análisis
+        start_time = time.time()
+        lista_Prueba.pushBack(12)
+        end_time = time.time()
+        times.append(end_time - start_time)
+    return times
 
-# Función que realiza operaciones básicas
-def basic_operations(n):
-    
-    start_time = time.time()
+def grafica(x,y,arg):
+    # Grafica los resultados
+    plt.plot(x, y, '-o')
+    plt.style.use("seaborn")
+    plt.xlabel('Número de operaciones')
+    plt.ylabel('Tiempo de ejecución (segundos)')
+    plt.title('Complejidad del código: '+arg)
+    plt.show()
 
-    
-    p.pushFront(0)
-
-    end_time = time.time()
-
-    return end_time - start_time
 
 # Valores de entrada para la función
-n_values = [10, 100, 1000,10000]
+n_values = [10, 100, 1000,10000,100000,1000000]
 
-# Lista vacía para almacenar los tiempos de ejecución
-times = []
-
-# Ejecuta la función para cada valor de entrada y mide el tiempo de ejecución
-for n in n_values:
-    time_taken = basic_operations(n)
-    times.append(time_taken)
-
-# Grafica los resultados
-plt.plot(n_values, times, '-o')
-plt.xlabel('Número de operaciones básicas')
-plt.ylabel('Tiempo de ejecución (segundos)')
-plt.title('Complejidad del código')
-plt.show()
+#grafica(n_values,pushFrontDynamic(n_values),"Push Front Dynamic List")
+#grafica(n_values,pushBackDynamic(n_values),"Push Back Dynamic List")
