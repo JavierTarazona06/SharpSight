@@ -1,7 +1,7 @@
 from Node import Node
 
 
-class LinkedListOrdered():
+class LinkedListOrdered:
     # Constr.
     def __init__(self):
         self.head = None
