@@ -111,7 +111,7 @@ class LinkedList(Generic[T]):
         if self.isEmpty():
             return size
         else:
-            while headRef.next != None:
+            while headRef.next is not None:
                 size += 1
                 headRef = headRef.next
             return size + 1
