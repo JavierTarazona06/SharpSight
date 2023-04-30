@@ -5,30 +5,19 @@ T = TypeVar('T')
 class Error(Exception):
     pass
 
-class StaticList(Generic[T]):
+class OrderedList(Generic[T]):
     size:int = None #Capacidad
     list: list = None
     index : int = None #Número de elementos+1
     positionFound : int = None
 
-    def __init__(self, size:int):
+    def __init__(self):
+        size = 1
         self.size = size
         self.list = []
         for i in range(0,size):
             self.list.append(None)
         self.index = 0
-
-    def pushFront(self,key:T):
-        if (self.full()):
-            raise Error("Fail pushFront. La lista esta llena. No se pueden guardar más datos")
-        else :
-            if (self.empty()):
-                self.list[0] = key
-            else :
-                for i in range (self.index,0,-1):
-                    self.list[i] = self.list[i-1]
-                self.list[0] = key
-            self.index += 1
 
     def topFront(self) -> T:
         if (self.empty()):
@@ -36,32 +25,12 @@ class StaticList(Generic[T]):
         else:
             return self.list[0]
 
-    def popFront(self):
-        if (self.empty()):
-            raise Error("Fail popFront. La lista esta vacía")
-        else:
-            for i in range(0,self.index-1):
-                self.list[i] = self.list[i+1]
-            self.index -= 1
-
-    def pushBack(self,key:T):
-        if (self.full()):
-            raise Error("Fail pushBack. La lista esta llena. No se pueden guardar más datos");
-        else:
-            self.list[self.index] = key
-            self.index += 1
 
     def topBack(self) -> T:
         if (self.empty()):
             raise Error("Fail topBack. La lista esta vacía")
         else :
             return self.list[self.index-1]
-
-    def popBack(self):
-        if (self.empty()):
-            raise Error("Fail popBack. La lista esta vacía")
-        else:
-            self.index -= 1
 
     def full(self):
         return self.size ==self.index
@@ -115,21 +84,19 @@ class StaticList(Generic[T]):
                 self.list[i] = self.list[i + 1]
             self.index -= 1
 
-    def insert(self, pos,data):
-        if pos< 0 or pos >= self.index:
-            raise IndexError('Index out of range')
-        if self.full():
-            raise ValueError('List is full')
-        for i in range(self.index, pos, -1):
-            self.list[i] = self.list[i - 1]
-        self.list[pos] = data
-        self.index += 1
-
-    def insertOrdered(self,data):
+    def insert(self,data):
         if self.empty():
-            self.pushBack(data)
+            self.list[self.index] = data
+            self.index += 1
         elif self.full():
-            raise Exception("List is full")
+            self.size *= 2
+            newList = []
+            for j in range(0, self.index):
+                newList.append(self.list[j])
+            for j in range(self.index, self.size):
+                newList.append(None)
+            self.list = newList
+            self.insert(data)
         else:
             i = 0
             while i<self.index and self.list[i]<data:
