@@ -28,9 +28,32 @@ def insercion(Lista_Doblemente_Encadenada):
 
 
 #Actualizacion
+
+def ordenar_lista(Lista_Doblemente_Encadenada):
+        
+        actual1 = Lista_Doblemente_Encadenada.head
+        while actual1:
+            actual2 = actual1.next
+            while actual2:
+                if actual1.key > actual2.key:
+                    actual1.key, actual2.key = actual2.key, actual1.key
+                actual2 = actual2.next
+            actual1 = actual1.next
+
+
 def actualizacion(Lista_Doblemente_Encadenada):
 
-    Lista_Doblemente_Encadenada.ordenar_lista()
+    ordenar_lista(Lista_Doblemente_Encadenada)
+
+
+##Consulta de todos los datos
+
+def imprimir_lista(Lista_Doblemente_Encadenada):
+    actual = Lista_Doblemente_Encadenada.head
+    while actual:
+        print(actual.key, end=' ')
+        actual = actual.next
+    print()
 
 
 def eliminacion(Lista_Doblemente_Encadenada):
@@ -56,7 +79,7 @@ actualizacion(Lista_Doblemente_Encadenada)
 
 eliminacion(Lista_Doblemente_Encadenada)
 
-Lista_Doblemente_Encadenada.imprimir_lista()
+imprimir_lista(Lista_Doblemente_Encadenada)
 
 
 
