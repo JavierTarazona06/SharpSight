@@ -49,7 +49,7 @@ def searchProduct(keyWord):
 
 
     df = pd.DataFrame(data_product)
-    df.to_csv("productos.csv")
+    df.to_csv("src/productos.csv")
 
     #print(price_products)
     #print(title_products)
@@ -61,5 +61,3 @@ def searchProduct(keyWord):
     #//li[@class="ui-search-layout__item shops__layout-item"]//div[@class="ui-search-result__content-columns shops__content-columns"]//div[@class="ui-search-result__content-column ui-search-result__content-column--left shops__content-columns-left"]/div[1]/div//div[@class="ui-search-price__second-line shops__price-second-line"]//span[@class="price-tag-amount"]//span[2]
 
     #//div[@=class="ui-search-item__group ui-search-item__group--title shops__items-group"]//a[1]
-
-

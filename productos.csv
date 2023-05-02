@@ -1,186 +1,51 @@
-,precio
-0,1.899.900
-1,1.629.900
-2,1.629.900
-3,1.899.900
-4,984.900
-5,1.099.900
-6,829.000
-7,1.749.900
-8,1.099.900
-9,1.749.900
-10,2.859.900
-11,2.199.900
-12,2.499.900
-13,1.639.900
-14,2.899.900
-15,1.864.800
-16,3.749.900
-17,1.449.900
-18,2.859.900
-19,2.199.900
-20,3.149.900
-21,1.450.000
-22,1.927.000
-23,1.758.800
-24,2.049.900
-25,2.399.900
-26,2.178.000
-27,4.499.980
-28,2.184.905
-29,1.434.000
-30,2.619.412
-31,2.199.000
-32,2.099.900
-33,2.979.900
-34,5.999.900
-35,1.629.900
-36,1.187.405
-37,2.999.900
-38,1.479.900
-39,1.467.880
-40,1.499.900
-41,2.949.900
-42,2.747.425
-43,3.099.000
-44,2.640.000
-45,2.509.900
-46,2.399.900
-47,1.949.900
-48,1.923.634
-49,2.859.900
-50,2.402.911
-51,1.499.900
-52,1.999.407
-53,1.984.900
-54,1.899.900
-55,1.699.900
-56,2.350.000
-57,2.646.000
-58,2.990.000
-59,2.890.000
-60,1.139.905
-61,2.899.000
-62,1.199.999
-63,2.149.000
-64,1.649.999
-65,2.390.000
-66,2.450.581
-67,2.777.900
-68,2.679.999
-69,4.199.999
-70,3.249.999
-71,3.590.000
-72,3.389.900
-73,2.790.000
-74,2.299.000
-75,2.679.999
-76,2.179.000
-77,2.549.999
-78,2.700.900
-79,2.679.999
-80,2.759.900
-81,3.799.999
-82,88.698
-83,4.199.999
-84,2.679.999
-85,3.799.999
-86,3.290.000
-87,4.199.999
-88,4.199.999
-89,2.650.000
-90,3.749.999
-91,3.199.900
-92,3.799.999
-93,3.799.999
-94,3.749.999
-95,3.190.000
-96,3.749.999
-97,3.759.999
-98,2.549.999
-99,3.699.999
-100,2.889.900
-101,2.649.999
-102,2.679.999
-103,2.549.999
-104,3.179.900
-105,3.800.000
-106,1.815.990
-107,1.760.990
-108,1.399.900
-109,1.500.000
-110,1.300.000
-111,1.600.000
-112,1.400.000
-113,1.400.000
-114,1.100.000
-115,900.000
-116,1.200.000
-117,1.200.000
-118,1.100.000
-119,1.200.000
-120,1.300.000
-121,1.200.000
-122,1.500.000
-123,1.430.000
-124,1.600.000
-125,800.000
-126,1.200.000
-127,1.200.000
-128,1.400.000
-129,1.400.000
-130,410.000
-131,1.200.000
-132,1.350.000
-133,1.400.000
-134,1.780.000
-135,1.139.905
-136,959.000
-137,779.935
-138,2.450.581
-139,1.649.999
-140,320.000
-141,2.646.000
-142,1.187.500
-143,744.000
-144,475.000
-145,750.000
-146,550.000
-147,440.000
-148,450.000
-149,480.000
-150,470.000
-151,500.000
-152,350.000
-153,290.000
-154,450.000
-155,600.000
-156,360.000
-157,660.000
-158,530.000
-159,600.000
-160,450.000
-161,520.000
-162,550.000
-163,380.000
-164,650.000
-165,400.000
-166,800.000
-167,470.000
-168,475.000
-169,400.000
-170,600.000
-171,400.000
-172,415.000
-173,589.000
-174,420.000
-175,450.000
-176,630.000
-177,450.000
-178,720.000
-179,950.000
-180,72$0.000
-181,480.000
-182,600.000
-183,450.000
-184,750.000
+,titulo,precio,link
+0,Apple iPhone 14 Pro Max (256 GB) - Morado oscuro,6350000,https://www.mercadolibre.com.co/apple-iphone-14-pro-max-256-gb-morado-oscuro/p/MCO19615354?pdp_filters=category:MCO1055#searchVariation=MCO19615354&position=1&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+1,Apple iPhone 14 Pro Max (128 GB) - Color plata,5734900,https://www.mercadolibre.com.co/apple-iphone-14-pro-max-128-gb-color-plata/p/MCO19615338?pdp_filters=category:MCO1055#searchVariation=MCO19615338&position=2&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+2,Apple iPhone 14 (128 GB) - Medianoche,4299000,https://www.mercadolibre.com.co/apple-iphone-14-128-gb-medianoche/p/MCO19615360?pdp_filters=category:MCO1055#searchVariation=MCO19615360&position=3&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+3,Apple iPhone 14 Pro (128 GB) - Morado oscuro,5558900,https://www.mercadolibre.com.co/apple-iphone-14-pro-128-gb-morado-oscuro/p/MCO19615353?pdp_filters=category:MCO1055#searchVariation=MCO19615353&position=4&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+4,Apple iPhone 14 Pro Max (512 GB) - Morado oscuro,7669000,https://www.mercadolibre.com.co/apple-iphone-14-pro-max-512-gb-morado-oscuro/p/MCO19615364?pdp_filters=category:MCO1055#searchVariation=MCO19615364&position=5&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+5,Apple iPhone 14 Plus (128 GB) - Morado,5899910,https://www.mercadolibre.com.co/apple-iphone-14-plus-128-gb-morado/p/MCO19615337?pdp_filters=category:MCO1055#searchVariation=MCO19615337&position=6&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+6,Apple iPhone 14 Pro (512 GB) - Color plata,6349000,https://www.mercadolibre.com.co/apple-iphone-14-pro-512-gb-color-plata/p/MCO19615361?pdp_filters=category:MCO1055#searchVariation=MCO19615361&position=7&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+7,Apple iPhone 14 Pro (1 TB) - Color oro,7400000,https://www.mercadolibre.com.co/apple-iphone-14-pro-1-tb-color-oro/p/MCO19615343?pdp_filters=category:MCO1055#searchVariation=MCO19615343&position=8&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+8,Apple iPhone 14 Plus (256 GB) - Morado,5549292,https://www.mercadolibre.com.co/apple-iphone-14-plus-256-gb-morado/p/MCO19615366?pdp_filters=category:MCO1055#searchVariation=MCO19615366&position=9&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+9,Apple iPhone 14 (256 GB) - Morado,5449990,https://www.mercadolibre.com.co/apple-iphone-14-256-gb-morado/p/MCO19615346?pdp_filters=category:MCO1055#searchVariation=MCO19615346&position=10&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+10,Apple iPhone 14 Pro (256 GB) - Negro espacial,5929666,https://www.mercadolibre.com.co/apple-iphone-14-pro-256-gb-negro-espacial/p/MCO19615357?pdp_filters=category:MCO1055#searchVariation=MCO19615357&position=11&search_layout=stack&type=product&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+11,Apple iPhone 14 Pro Max 256gb 6 Ram 1 Año De Garantia,6499900,https://articulo.mercadolibre.com.co/MCO-1031517189-apple-iphone-14-pro-max-256gb-6-ram-1-ano-de-garantia-_JM#position=12&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+12,Celular iPhone 14 128gb 4 Ram Esim,4329900,https://articulo.mercadolibre.com.co/MCO-1023280590-celular-iphone-14-128gb-4-ram-esim-_JM#position=13&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+13,iPhone 14 Pro - 256 gb - Morado Oscuro,6945900,https://articulo.mercadolibre.com.co/MCO-1218258518-iphone-14-pro-256gb-morado-oscuro-_JM#position=14&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+14,iPhone 14 Plus - 128gb - Medianoche,5749900,https://articulo.mercadolibre.com.co/MCO-1218195836-iphone-14-plus-128gb-medianoche-_JM#position=15&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+15,Apple iPhone 14 Pro Max 128gb 6 Ram 1 Año De Garantia,5899900,https://articulo.mercadolibre.com.co/MCO-1031516951-apple-iphone-14-pro-max-128gb-6-ram-1-ano-de-garantia-_JM#position=16&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+16,iPhone 14 - 128gb - Azul Claro,5001900,https://articulo.mercadolibre.com.co/MCO-1218221639-iphone-14-128gb-azul-claro-_JM#position=17&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+17,Apple iPhone 14 Pro 256 Gb 6 Ram 1 Año De Garantia,6039900,https://articulo.mercadolibre.com.co/MCO-1028237644-apple-iphone-14-pro-256-gb-6-ram-1-ano-de-garantia-_JM#position=18&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+18,iPhone 14 Plus (128gb) 5g Super Pantalla,6249000,https://articulo.mercadolibre.com.co/MCO-1026617214-iphone-14-plus-128gb-5g-super-pantalla-_JM#position=19&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+19,Apple iPhone 14 Pro (128 Gb) -6 Ram 1 Año De Garantia,5558900,https://articulo.mercadolibre.com.co/MCO-1027852045-apple-iphone-14-pro-128-gb-6-ram-1-ano-de-garantia-_JM#position=20&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+20,Preventa - iPhone 14 Pro Max - 128gb - Plata,7014900,https://articulo.mercadolibre.com.co/MCO-1218257315-preventa-iphone-14-pro-max-128gb-plata-_JM#position=21&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+21,iPhone 14 - 128gb - Medianoche,5001900,https://articulo.mercadolibre.com.co/MCO-1218415933-iphone-14-128gb-medianoche-_JM#position=22&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+22,iPhone 14 Plus Azul (128gb),5100000,https://articulo.mercadolibre.com.co/MCO-1291269342-iphone-14-plus-azul-128gb-_JM#position=23&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+23,iPhone 14 Pro - 128gb - Plata,6355900,https://articulo.mercadolibre.com.co/MCO-1218230062-iphone-14-pro-128gb-plata-_JM#position=24&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+24,Apple iPhone 14 128 Gb 6 Ram 1 Año De Garantia E-sim,4329000,https://articulo.mercadolibre.com.co/MCO-1031547475-apple-iphone-14-128-gb-6-ram-1-ano-de-garantia-e-sim-_JM#position=25&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+25,Celular iPhone 14 Pro Max 128gb - 1 Año De Garantía,5958000,https://articulo.mercadolibre.com.co/MCO-1023131886-celular-iphone-14-pro-max-128gb-1-ano-de-garantia-_JM#position=26&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+26,Apple iPhone 14 (128 Gb) - Medianoche,4000000,https://articulo.mercadolibre.com.co/MCO-1509005160-apple-iphone-14-128-gb-medianoche-_JM#position=27&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+27,Apple iPhone 14 Pro (128 Gb) - Morado Oscuro,5509000,https://articulo.mercadolibre.com.co/MCO-1478393228-apple-iphone-14-pro-128-gb-morado-oscuro-_JM#position=28&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+28,iPhone 14 Pro Max - 128 Gb- Morado Oscuro,7014900,https://articulo.mercadolibre.com.co/MCO-1218447739-iphone-14-pro-max-128-gb-morado-oscuro-_JM#position=29&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+29,Celular iPhone 14 128gb - 1 Año De Garantia,4379000,https://articulo.mercadolibre.com.co/MCO-1023292223-celular-iphone-14-128gb-1-ano-de-garantia-_JM#position=30&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+30,iPhone 14 Pro - 512gb- Plata,8210900,https://articulo.mercadolibre.com.co/MCO-1218228418-iphone-14-pro-512gb-plata-_JM#position=31&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+31,iPhone 14 Pro Max - 256gb - Morado Oscuro,7635900,https://articulo.mercadolibre.com.co/MCO-1218307221-iphone-14-pro-max-256gb-morado-oscuro-_JM#position=32&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+32,Apple iPhone 14 (128 Gb) - Azul Con Sim,4159000,https://articulo.mercadolibre.com.co/MCO-1285986475-apple-iphone-14-128-gb-azul-con-sim-_JM#position=33&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+33,iPhone 14 Pro - 128gb - Morado Oscuro,6324900,https://articulo.mercadolibre.com.co/MCO-1218448090-iphone-14-pro-128gb-morado-oscuro-_JM#position=34&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+34,Apple iPhone 14 Pro Max (256 Gb) - Negro Espacial,5899999,https://articulo.mercadolibre.com.co/MCO-1469924122-apple-iphone-14-pro-max-256-gb-negro-espacial-_JM#position=35&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+35,Apple iPhone 14 (128 Gb) - (product)red Con Sim,4159000,https://articulo.mercadolibre.com.co/MCO-1478378454-apple-iphone-14-128-gb-productred-con-sim-_JM#position=36&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+36,Apple iPhone 14 Pro (256 Gb) Purple,6600000,https://articulo.mercadolibre.com.co/MCO-1045208684-apple-iphone-14-pro-256-gb-purple-_JM#position=37&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+37,Apple iPhone 14 Pro Max (256 Gb) - Color Plata,5899999,https://articulo.mercadolibre.com.co/MCO-1281048989-apple-iphone-14-pro-max-256-gb-color-plata-_JM#position=38&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+38,iPhone 14 - 128gb - Morado,5001900,https://articulo.mercadolibre.com.co/MCO-1218195834-iphone-14-128gb-morado-_JM#position=39&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+39,iPhone 14 Pro - 128gb - Dorado,6324900,https://articulo.mercadolibre.com.co/MCO-1218453985-iphone-14-pro-128gb-dorado-_JM#position=40&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+40,iPhone 14 Pro Max - 128gb - Negro,7014900,https://articulo.mercadolibre.com.co/MCO-1218447381-iphone-14-pro-max-128gb-negro-_JM#position=41&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+41,iPhone 14 - 256gb - Medianoche,5622900,https://articulo.mercadolibre.com.co/MCO-1218195835-iphone-14-256gb-medianoche-_JM#position=42&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+42,iPhone 14 Pro - 128gb - Negro Espacial,6348900,https://articulo.mercadolibre.com.co/MCO-1218204321-iphone-14-pro-128gb-negro-espacial-_JM#position=43&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+43,iPhone 14 Pro Max - 256gb - Plata,7635900,https://articulo.mercadolibre.com.co/MCO-1218263509-iphone-14-pro-max-256gb-plata-_JM#position=44&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+44,Apple iPhone 14 Pro (256 Gb) - Negro Espacial,4899999,https://articulo.mercadolibre.com.co/MCO-1277289507-apple-iphone-14-pro-256-gb-negro-espacial-_JM#position=45&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+45,iPhone 14 De 256 gb En purpura,5622900,https://articulo.mercadolibre.com.co/MCO-1261208356-iphone14-de256gb-enpurpura-_JM#position=46&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+46,iPhone 14 (128gb),4500000,https://articulo.mercadolibre.com.co/MCO-1269421156-iphone-14-128gb-_JM#position=47&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+47,Apple iPhone 14 Pro (256 Gb) - Color Plata,5590000,https://articulo.mercadolibre.com.co/MCO-1284361651-apple-iphone-14-pro-256-gb-color-plata-_JM#position=48&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+48,iPhone 14 Pro *256gb* (nuevo Sellado),7500000,https://articulo.mercadolibre.com.co/MCO-1189902211-iphone-14-pro-256gb-nuevo-sellado-_JM#position=49&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30
+49,iPhone 14 Pro Max 128gb,6400000,https://articulo.mercadolibre.com.co/MCO-1501266954-iphone-14-pro-max-128gb-_JM#position=50&search_layout=stack&type=item&tracking_id=5d000d41-7e3b-4808-8b09-a1f5e5859c30

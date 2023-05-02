@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 
+import menu
+'''
 app = FastAPI()
 
 
@@ -11,3 +13,10 @@ async def root():
 @app.get("/hello/{name}")
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
+
+'''
+
+def __init__():
+    menu.startMenu()
+
+__init__()

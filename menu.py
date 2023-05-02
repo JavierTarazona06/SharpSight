@@ -1,7 +1,9 @@
-from data.Node import Node
-from data.WishList import WishList
 from src import productos
+#from SharpSight.data.Node import *
+from data.WishList import WishList
+#from WishList import *
 from data import Results
+#from data import Results
 
 
 def menuProductsSaved(resImplem):
@@ -68,7 +70,7 @@ def menuProductsSaved(resImplem):
                 wish.insert(prodWished)
                 print("Inserted in wish list: "+str(prodWished))
         else:
-            print("Good bye")
+            print("Good bye\n")
             flag = False
 
 
@@ -158,7 +160,7 @@ def menuSearchProducts():
                 menuProductsSaved(resImplem)
                 flag = False
         else:
-            print("Good bye")
+            print("Good bye\n")
             flag = False
 
 def menuWishList():
@@ -178,7 +180,7 @@ def menuWishList():
             wishList = WishList()
             wishList.delete()
         else:
-            print("Good bye")
+            print("Good bye\n")
             flag = False
 
 
@@ -191,7 +193,7 @@ def startMenu():
         print("Please select the number:")
         print("1. Search a product")
         print("2. Whish List")
-        print("3. Cerrar")
+        print("3. Close")
         n = int(input())
         if not (n == 1 or n == 2 or n == 3):
             print("Número incorrecto")
@@ -200,8 +202,5 @@ def startMenu():
         elif n == 2:
             menuWishList()
         else:
-            print("Good bye")
+            print("Good bye\n")
             flag = False
-
-
-startMenu()
