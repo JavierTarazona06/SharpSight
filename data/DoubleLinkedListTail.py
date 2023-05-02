@@ -1,5 +1,5 @@
-from LinkedList import LinkedList
-from Node import Node
+from data.LinkedList import LinkedList
+from data.Node import Node
 
 
 class DoubleLinkedListTail(LinkedList):
@@ -93,6 +93,26 @@ class DoubleLinkedListTail(LinkedList):
             else:
                 self.tail = new_node
 
+    def insertOrderPrice(self, new_node):
+        if self.isEmpty():
+            self.head = new_node
+            self.tail = new_node
+        elif new_node.key.price < self.head.key.price:
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
+        else:
+            ptr = self.head
+            while ptr.next is not None and ptr.next.key.price < new_node.key.price:
+                ptr = ptr.next
+            new_node.next = ptr.next
+            ptr.next = new_node
+            new_node.prev = ptr
+            if new_node.next is not None:
+                new_node.next.prev = new_node
+            else:
+                self.tail = new_node
+
     def sort(self):
         if not self.isEmpty():
             linkedListSorted = DoubleLinkedListTail()
@@ -104,6 +124,41 @@ class DoubleLinkedListTail(LinkedList):
             self.head = linkedListSorted.head
             self.tail = linkedListSorted.tail
 
+    def sortPrice(self):
+        if not self.isEmpty():
+            linkedListSorted = DoubleLinkedListTail()
+            ptr_Or = self.head
+            while not (ptr_Or is None):
+                ptr_nw = Node(ptr_Or.key)
+                linkedListSorted.insertOrderPrice(ptr_nw)
+                ptr_Or = ptr_Or.next
+            self.head = linkedListSorted.head
+            self.tail = linkedListSorted.tail
+
+    def filterPriceGreater(self,priceFiltered):
+        if not self.isEmpty():
+            linkedListFiltered = DoubleLinkedListTail()
+            ptr_Or = self.head
+            while not (ptr_Or is None):
+                ptr_nw = Node(ptr_Or.key)
+                if (ptr_nw.key.price>=priceFiltered):
+                    linkedListFiltered.insertOrderPrice(ptr_nw)
+                ptr_Or = ptr_Or.next
+            self.head = linkedListFiltered.head
+            self.tail = linkedListFiltered.tail
+
+    def filterPriceLower(self,priceFiltered):
+        if not self.isEmpty():
+            linkedListFiltered = DoubleLinkedListTail()
+            ptr_Or = self.head
+            while not (ptr_Or is None):
+                ptr_nw = Node(ptr_Or.key)
+                if (ptr_nw.key.price<=priceFiltered):
+                    linkedListFiltered.insertOrderPrice(ptr_nw)
+                ptr_Or = ptr_Or.next
+            self.head = linkedListFiltered.head
+            self.tail = linkedListFiltered.tail
+
     def reverse(self):
         if not self.isEmpty():
             linkedListReversed = DoubleLinkedListTail()
@@ -113,3 +168,17 @@ class DoubleLinkedListTail(LinkedList):
                 ptr_Or = ptr_Or.next
             self.head = linkedListReversed.head
             self.tail = linkedListReversed.tail
+
+    def strProductList(self):
+        if self.isEmpty():
+            return ""
+        else:
+            list = []
+            headRef = self.head
+            while headRef.next != None:
+                prod = headRef.key
+                list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link))
+                headRef = headRef.next
+            prod = headRef.key
+            list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link))
+            return " ".join(list)

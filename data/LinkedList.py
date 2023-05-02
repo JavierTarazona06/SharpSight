@@ -1,6 +1,6 @@
 from typing import TypeVar, Generic
 
-from Node import Node
+from data.Node import Node
 
 T = TypeVar('T')
 
