@@ -1,3 +1,5 @@
+from data.Node import Node
+from data.WishList import WishList
 from src import productos
 from data import Results
 
@@ -12,9 +14,10 @@ def menuProductsSaved(resImplem):
         print("4. Best product")
         print("5. Filter Greater")
         print("6. Filter Lower")
-        print("7. Close")
+        print("7. Save in wish list")
+        print("8. Close")
         n = int(input())
-        if not (n == 1 or n == 2 or n == 3 or n == 4 or n == 5 or n == 6 or n == 7):
+        if not (n == 1 or n == 2 or n == 3 or n == 4 or n == 5 or n == 6 or n == 7 or n == 8):
             print("Número incorrecto")
         elif n == 1:
             print(resImplem.list_data.strProductList())
@@ -35,7 +38,6 @@ def menuProductsSaved(resImplem):
                 flag2=True
             except:
                 print("Num is not integer")
-                flag = False
             if flag2:
                 resImplem.filterGreater(num)
                 print(resImplem.list_data.strProductList())
@@ -48,10 +50,23 @@ def menuProductsSaved(resImplem):
                 flag2=True
             except:
                 print("Num is not integer")
-                flag = False
             if flag2:
                 resImplem.filterLower(num)
                 print(resImplem.list_data.strProductList())
+        elif n==7:
+            flag2=False
+            print("Insert index of product to save:")
+            num = -1
+            try:
+                num = int(input())
+                flag2=True
+            except:
+                print("Num is not integer")
+            if flag2:
+                wish = WishList()
+                prodWished = resImplem.list_data.getNode(num).key
+                wish.insert(prodWished)
+                print("Inserted in wish list: "+str(prodWished))
         else:
             print("Good bye")
             flag = False
@@ -72,9 +87,10 @@ def menuSearchProducts():
         print("4. Best product")
         print("5. Filter Greater")
         print("6. Filter Lower")
-        print("7. Close")
+        print("7. Save in wish list")
+        print("8. Close")
         n = int(input())
-        if not (n == 1 or n == 2 or n == 3 or n == 4 or n == 5 or n == 6 or n == 7):
+        if not (n == 1 or n == 2 or n == 3 or n == 4 or n == 5 or n == 6 or n == 7 or n == 8):
             print("Número incorrecto")
         elif n == 1:
             print(resImplem.list_data.strProductList())
@@ -124,9 +140,47 @@ def menuSearchProducts():
                 print(resImplem.list_data.strProductList())
                 menuProductsSaved(resImplem)
                 flag = False
+        elif n==7:
+            flag2=False
+            print("Insert index of product to save:")
+            num = -1
+            try:
+                num = int(input())
+                flag2=True
+            except:
+                print("Num is not integer")
+                flag = False
+            if flag2:
+                wish = WishList()
+                prodWished = resImplem.list_data.getNode(num).key
+                wish.insert(prodWished)
+                print("Inserted in wish list: "+str(prodWished))
+                menuProductsSaved(resImplem)
+                flag = False
         else:
             print("Good bye")
             flag = False
+
+def menuWishList():
+    flag = True
+    while flag:
+        print("Select an option:")
+        print("1. View wish list")
+        print("2. Delete last element in wish list")
+        print("3. Close")
+        n = int(input())
+        if not(n==1 or n==2 or n==3):
+            print("Número incorrecto")
+        elif n==1:
+            wishList = WishList()
+            print(wishList.list.strProductList())
+        elif n==2:
+            wishList = WishList()
+            wishList.delete()
+        else:
+            print("Good bye")
+            flag = False
+
 
 
 def startMenu():
@@ -144,8 +198,7 @@ def startMenu():
         elif n == 1:
             menuSearchProducts()
         elif n == 2:
-            # whishList()
-            pass
+            menuWishList()
         else:
             print("Good bye")
             flag = False

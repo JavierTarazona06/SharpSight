@@ -1,7 +1,7 @@
 from data.DoubleLinkedListTail import *
 
 
-class Stack(DoubleLinkedListTail):
+class StackDLLT(DoubleLinkedListTail):
 
     def __init__(self):
         super().__init__()
