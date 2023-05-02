@@ -178,7 +178,10 @@ def menuWishList():
             print(wishList.list.strProductList())
         elif n==2:
             wishList = WishList()
-            wishList.delete()
+            try:
+                wishList.delete()
+            except:
+                print("The wish list is empty!!\n")
         else:
             print("Good bye\n")
             flag = False
