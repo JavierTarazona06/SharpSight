@@ -53,15 +53,15 @@ class Results:
 
 
 def generalResultsImplementation():
-    myImplementation = Results("../src/productos.csv")
+    myImplementation = Results("src/productos.csv")
     return myImplementation
 
-
+'''
 myImplementation = generalResultsImplementation()
 print(myImplementation.list_data.strProductList())
 myImplementation.filterLower(3000000)
 print(myImplementation.list_data.strProductList())
-
+'''
 '''
 myImplementation.orderListPrice()
 print(myImplementation.printProduct())
