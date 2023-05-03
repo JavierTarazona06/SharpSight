@@ -177,8 +177,8 @@ class DoubleLinkedListTail(LinkedList):
             headRef = self.head
             while headRef.next != None:
                 prod = headRef.key
-                list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link))
+                list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link)+"\n")
                 headRef = headRef.next
             prod = headRef.key
             list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link))
-            return " ".join(list)
+            return "".join(list)
