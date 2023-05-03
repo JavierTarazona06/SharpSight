@@ -34,6 +34,20 @@ def popFrontDynamic(n_values):
         times.append(end_time - start_time)
     return times
 
+def sortDynamic(n_values):
+    times = []
+    for n in n_values:
+        print("Go")
+        lista_Prueba = DynamicList()
+        #Crear Lista
+        for i in range(n):
+            lista_Prueba.pushBack(i)
+        #Análisis
+        start_time = time.time()
+        lista_Prueba.sort()
+        end_time = time.time()
+        times.append(end_time - start_time)
+    return times
 
 def pushBackLinkedList(n_values):
     times = []
@@ -79,15 +93,16 @@ def grafica(x,y,arg):
 
 
 # Valores de entrada para la función
-n_values = [10, 100, 1000,10000,100000,1000000,10000000]
+n_values = [10, 100, 1000,10000,100000,1000000]
 
 
 
 #grafica(n_values,pushFrontDynamic(n_values),"Push Front Dynamic List")
 
 
-grafica(n_values,popFrontDynamic(n_values),"Pop Front Dynamic List")
+#grafica(n_values,popFrontDynamic(n_values),"Pop Front Dynamic List")
 
+grafica(n_values,sortDynamic(n_values),"Sort Dynamic List")
 
 #grafica(n_values,pushBackLinkedList(n_values),"Push Back LinkedList")
 
