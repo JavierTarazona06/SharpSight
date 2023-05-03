@@ -115,6 +115,18 @@ class StaticList(Generic[T]):
                 self.list[i] = self.list[i + 1]
             self.index -= 1
 
+    def deleteIndex(self, ind):
+        if (self.empty()):
+            raise Error("Fail erase. La lista esta vacia")
+        elif ind>=self.index:
+            raise Error("Index out of bounds")
+        else:
+            val = self.list[ind]
+            for i in range(ind,self.index-1):
+                self.list[i] = self.list[i + 1]
+            self.index -= 1
+        return val
+
     def insert(self, pos,data):
         if pos< 0 or pos >= self.index:
             raise IndexError('Index out of range')

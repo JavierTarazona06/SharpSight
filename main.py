@@ -1,6 +1,8 @@
 from fastapi import FastAPI
-
 import menu
+from data import *
+from data.ComparaisonList import ComparisonList
+
 '''
 app = FastAPI()
 
@@ -16,7 +18,9 @@ async def say_hello(name: str):
 
 '''
 
+
 def __init__():
     menu.startMenu()
+
 
 __init__()
