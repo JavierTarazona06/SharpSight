@@ -47,7 +47,6 @@ def searchProduct(keyWord):
         data_product["link"].extend(links_products)
 
 
-
     df = pd.DataFrame(data_product)
     df.to_csv("src/productos.csv")
 
