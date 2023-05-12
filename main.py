@@ -7,16 +7,15 @@ import time
 import pandas as pd
 from tqdm import tqdm
 
-
-
 PATH = "/Users/knsmolina.28/Downloads/chromedriver_mac64/chromedriver"
 driver  = webdriver.Chrome(PATH)
 driver.get("https://www.mercadolibre.com.co/")
 
+
 print(driver.title)
 search_bar = driver.find_element(by=By.CLASS_NAME, value="nav-search-input")
 search_bar.clear()
-busqueda = ["Televisor Samsung", "Iphone 11", "Samsung a53","Xiaomi redmi note 8"]
+busqueda = ["Iphone 14 128 gigas"]
 
 longitud = len( busqueda )
 #data_product = {"titulo":[],"precio":[],"link":[]}
@@ -36,8 +35,6 @@ for i in tqdm(range(longitud)):
     links_products = driver.find_elements(by=By.XPATH, value="//div[@class='ui-search-item__group ui-search-item__group--title shops__items-group']//a[1]")
     links_products = [link.get_attribute("href") for link in links_products]
     print(links_products)
-    print(price_products)
-    print(title_products)
 
      #diccionario
     #data_product["titulo"].extend(title_products)
@@ -59,5 +56,3 @@ driver.close()
 #//li[@class="ui-search-layout__item shops__layout-item"]//div[@class="ui-search-result__content-columns shops__content-columns"]//div[@class="ui-search-result__content-column ui-search-result__content-column--left shops__content-columns-left"]/div[1]/div//div[@class="ui-search-price__second-line shops__price-second-line"]//span[@class="price-tag-amount"]//span[2]
 
 #//div[@=class="ui-search-item__group ui-search-item__group--title shops__items-group"]//a[1]
-
-
