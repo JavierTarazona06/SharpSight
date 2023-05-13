@@ -1,7 +1,3 @@
-.vscode
-*__pycache__*
+**/__pycache__/
 .idea
 extend.py
-Exito.py
-Ktronix.py
-AVLTree.py
