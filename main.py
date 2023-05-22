@@ -27,8 +27,8 @@ async def say_hello(name: str):
 def __init__():
     #menu.startMenu()
     #Scrapping.MercadoLibre.searchProduct("Iphone 12")
-    #Scrapping.Ktronix.searchProduct("motorola g52")
-    Exito.searchProduct("reloj samsung a4")
+    Scrapping.Ktronix.searchProduct("motorola g52")
+    #Exito.searchProduct("reloj samsung a4")
 
 
 __init__()

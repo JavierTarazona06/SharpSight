@@ -47,7 +47,7 @@ def searchProduct(keyWord):
 
 
     df = pd.DataFrame(data_product)
-    df.to_csv("productos.csv")
+    df.to_csv("src/productos.csv")
 
     time.sleep(4)
     driver.close()

@@ -48,7 +48,7 @@ def searchProduct(keyWord):
     data_product = {"titulo":title_texts,"precio":price_products,"link":links}
 
     df = pd.DataFrame(data_product)
-    df.to_csv("productos.csv")
+    df.to_csv("src/productos.csv")
 
     time.sleep(5)
     driver.close()
