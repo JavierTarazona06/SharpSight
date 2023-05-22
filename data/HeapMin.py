@@ -1,4 +1,4 @@
-from data import Heap
+from data.Heap import Heap
 
 
 class HeapMin(Heap):
@@ -18,7 +18,7 @@ class HeapMin(Heap):
                 self.sift_up(self.parent(index))
 
     def insert(self, key):
-        self.array.push_back(key)
+        self.array.pushBack(key)
         self.sift_up(self.get_size() - 1)
 
     def sift_down(self, index):
@@ -84,5 +84,3 @@ class HeapMin(Heap):
             value = self.extract_min()
             self.array.list[size - (i + 1)] = value
         self.array.index = size
-
-

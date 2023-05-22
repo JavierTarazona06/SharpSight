@@ -88,7 +88,7 @@ def menuProductsSaved(resImplem):
                     comp.insert(prodToComp)
                     print("Inserted in compare list: "+str(prodToComp))
             else:
-                print("Good bye\n")
+                print("Goodbye\n")
                 flag = False
         except:
             print("Not a number!!\n")
@@ -205,7 +205,7 @@ def menuSearchProducts():
                     menuProductsSaved(resImplem)
                     flag = False
             else:
-                print("Good bye\n")
+                print("Goodbye\n")
                 flag = False
         except:
             print("Not a number!!\n")
@@ -233,7 +233,7 @@ def menuWishList():
                 except:
                     print("The wish list is empty!!\n")
             else:
-                print("Good bye\n")
+                print("Goodbye\n")
                 flag = False
         except:
             print("Not a number!!\n")
@@ -301,7 +301,7 @@ def startMenu():
             elif n == 3:
                 menuComparisonList()
             else:
-                print("Good bye\n")
+                print("Goodbye\n")
                 flag = False
         except:
             print("Not a number!!\n")
