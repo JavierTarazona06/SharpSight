@@ -33,8 +33,3 @@ class NodeT:
 
     def __eq__(self, other):
         return self.key == other.key
-
-
-lo = NodeT("aa")
-la = NodeT("ss")
-print(lo <= la)

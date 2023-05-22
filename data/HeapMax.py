@@ -1,4 +1,4 @@
-from data import Heap
+from data.Heap import Heap
 
 
 class HeapMax(Heap):
@@ -17,7 +17,7 @@ class HeapMax(Heap):
                 self.sift_up(self.parent(index))
 
     def insert(self, key):
-        self.array.push_back(key)
+        self.array.pushBack(key)
         self.sift_up(self.get_size() - 1)
 
     def sift_down(self, index):
