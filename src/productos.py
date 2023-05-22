@@ -50,10 +50,6 @@ def searchProduct(keyWord):
     df = pd.DataFrame(data_product)
     df.to_csv("src/productos.csv")
 
-    #print(price_products)
-    #print(title_products)
-
-
     time.sleep(4)
     driver.close()
 

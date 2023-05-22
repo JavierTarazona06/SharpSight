@@ -7,14 +7,22 @@ import time
 import pandas as pd
 from tqdm import tqdm
 
-PATH = "/Users/knsmolina.28/Downloads/chromedriver_mac64/chromedriver"
-driver = webdriver.Chrome(PATH)
-driver.get("https://www.exito.com/")
+def searchProduct(keyWord):
 
-print(driver.title)
-search_bar = driver.find_element(by=By.ID, value="downshift-1-input")
-search_bar.clear()
-search_bar.send_keys("reloj samsung a4")
-search_bar.submit()
-time.sleep(5)
-driver.close()
+    keyWord = "reloj samsung a4"
+
+    PATH = "chromedriver"
+    driver = webdriver.Chrome(PATH)
+    driver.get("https://www.exito.com/")
+
+    print(driver.title)
+    search_bar = driver.find_element(by=By.ID, value="downshift-1-input")
+    search_bar.clear()
+    search_bar.send_keys(f"{keyWord}")
+    search_bar.submit()
+
+    # Wait for the search results to load
+    time.sleep(5)
+
+    time.sleep(5)
+    driver.close()
