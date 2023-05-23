@@ -73,11 +73,11 @@ class LinkedList(Generic[T]):
         else:
             list = []
             headRef = self.head
-            while headRef.next != None:
-                list.append(str(headRef.key))
+            while headRef.next is not None:
+                list.append(str(headRef.key)+"\n")
                 headRef = headRef.next
             list.append(str(headRef.key))
-            return " ".join(list)
+            return "".join(list)
 
     def printRecursive(self, headRef):
         if headRef != None:
@@ -87,7 +87,7 @@ class LinkedList(Generic[T]):
             print("")
 
     def isEmpty(self):
-        return self.head == None
+        return self.head is None
 
     def getNode(self,index):
         if index>=self.size():

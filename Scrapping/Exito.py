@@ -7,7 +7,7 @@ import time
 import pandas as pd
 from tqdm import tqdm
 
-def searchProduct(keyWord):
+def searchProduct(keyWord, data_product):
 
     keyWord = "reloj samsung a4"
 
@@ -26,3 +26,5 @@ def searchProduct(keyWord):
 
     time.sleep(5)
     driver.close()
+
+    return data_product

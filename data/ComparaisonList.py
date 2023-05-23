@@ -16,62 +16,30 @@ class ComparisonList:
             self.lector = pd.read_csv("src/comparisonList.csv")
             for i in range(self.lector.shape[0]):
                 curProduct = Product(title=self.lector['title'][i], price=self.lector['price'][i],
-                                     link=self.lector['link'][i])
+                                     link=self.lector['link'][i], brand=self.lector['brand'][i])
                 self.list.pushBack(curProduct)
         else:
             with open("src/comparisonList.csv", 'w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(['title', 'price', 'link'])
+                writer.writerow(['title', 'price', 'link','brand'])
 
     def insert(self, prod: Product):
         self.list.pushFront(prod)
         df = pd.read_csv("src/comparisonList.csv")
         rows = df.shape[0]
-        data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link}, index=[rows])
+        data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link, "brand": prod.brand}, index=[rows])
         df = pd.concat([df, data])
         df.to_csv("src/comparisonList.csv", index=False)
 
     def delete(self, index):
         prod = self.list.list[index]
-        print(self.list.deleteIndex(index))
         df = pd.read_csv("src/comparisonList.csv")
         df = df.drop(index)
         df.to_csv("src/comparisonList.csv", index=False)
-        print("Deleted from wish list: " + str(prod))
+        print("Deleted from comparison list: " + str(prod))
 
     def __str__(self):
-        if self.list.empty():
-            return ""
-        elif self.list.size == 1:
-            prod = self.list.list[0]
-            return str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link)
-        else:
-            list = ""
-            a = 0
-            for i in range(0, self.list.index - 1):
-                prod = self.list.list[i]
-                list += str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link) + "\n"
-                a = i
-            prod = self.list.list[a + 1]
-            list += str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link)
-            return list
-
-    def strListProd(self,lista):
-        if lista.empty():
-            return ""
-        elif lista.size == 1:
-            prod = lista.list[0]
-            return str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link)
-        else:
-            listy = ""
-            a = 0
-            for i in range(0, lista.index - 1):
-                prod = lista.list[i]
-                listy += str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link) + "\n"
-                a = i
-            prod = lista.list[a + 1]
-            listy += str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link)
-            return listy
+        return str(self.list)
 
     def insertOrderedPrice(self, listToSort, data):
         if listToSort.empty():
@@ -102,5 +70,5 @@ class ComparisonList:
         returning += "  The best product is: "+str(best)+"\n"
         returning += "  The most expensive product is: " + str(worst) + "\n"
         returning += "--Presenting all the results:\n"
-        returning += self.strListProd(listSortedPrice)
+        returning += str(listSortedPrice)
         return returning
