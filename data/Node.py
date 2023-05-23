@@ -29,3 +29,18 @@ class Node(Generic[T]):
 
     def __str__(self):
         return str(self.key)
+
+    def __lt__(self, other_node):
+        return self.key < other_node.key
+
+    def __le__(self, other_node):
+        return self.key <= other_node.key
+
+    def __eq__(self, other_node):
+        return self.key == other_node.key
+
+    def __gt__(self, other_node):
+        return self.key > other_node.key
+
+    def __ge__(self, other_node):
+        return self.key >= other_node.key

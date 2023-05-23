@@ -78,7 +78,7 @@ class StaticList(Generic[T]):
             list = ""
             a = 0
             for i in range(0,self.index-1):
-                list += str(self.list[i]) + " "
+                list += str(self.list[i]) + "\n"
                 a = i
             list += str(self.list[a+1])
             return list

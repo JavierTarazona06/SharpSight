@@ -3,11 +3,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 import time
 import pandas as pd
 from tqdm import tqdm
 
-def searchProduct(keyWord):
+def searchProduct(keyWord, data_product):
 
     PATH = "chromedriver"
     driver = webdriver.Chrome(PATH)
@@ -16,7 +17,7 @@ def searchProduct(keyWord):
     print(driver.title)
     search_bar = driver.find_element(by=By.ID, value="js-site-search-input")
     search_bar.clear()
-    search_bar.send_keys(f"{keyWord}")
+    search_bar.send_keys(f"{data_product}")
     search_bar.submit()
 
     # Wait for the search results to load
@@ -32,23 +33,38 @@ def searchProduct(keyWord):
             break
         last_height = new_height
 
+    # Extract DOM all product prices
+    # xpath = '//*[@id="js-hits"]/div/div/ol/li/div[2]/div[3]/div[2]/div[1]/div[2]/div/div/span'
+    xpath2 = "//div[@id='js-hits']/div/div/ol/li[not(contains(@class, 'some-class'))]//span[contains(@class, 'price')]"
+
+    # time.sleep(30)
+
     # Extract all product titles
     title_products = driver.find_elements(by=By.XPATH, value='//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
-    title_texts = [title.text for title in title_products]
-    print(title_texts)
+    title_products = [title.text for title in title_products]
 
-    price_products = driver.find_elements(by=By.XPATH, value='//*[@id="js-hits"]/div/div/ol/li/div[2]/div[3]/div[2]/div[1]/div[2]/div/p[2]/span[1]')
-    price_products = [price.text for price in price_products]
-    print(price_products)
+    # Extract all product prices
+    price_products = driver.find_elements(By.XPATH, xpath2)
+    price_products= [int(price.text.replace("$", "").replace(".", "")) for price in price_products]
 
+    # Extract all product links
     link_elements = driver.find_elements(By.XPATH, '//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
-    links = [link.get_attribute("href") for link in link_elements]
-    print(links)
+    links_products = [link.get_attribute("href") for link in link_elements]
 
-    data_product = {"titulo":title_texts,"precio":price_products,"link":links}
+    brand_products = ["Ktronix" for i in range(len(links_products))]
 
-    df = pd.DataFrame(data_product)
-    df.to_csv("productos.csv")
+    print(title_products)
+    print(price_products)
+    print(links_products)
+    print(brand_products)
+
+    # diccionario
+    data_product["titulo"].extend(title_products)
+    data_product["precio"].extend(price_products)
+    data_product["link"].extend(links_products)
+    data_product["marca"].extend(brand_products)
 
     time.sleep(5)
     driver.close()
+
+    return data_product

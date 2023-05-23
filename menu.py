@@ -1,11 +1,11 @@
 from data.ComparaisonList import ComparisonList
-from src import productos
 
 #from SharpSight.data.Node import *
 from data.WishList import WishList
 #from WishList import *
 from data import Results
 #from data import Results
+from Scrapping import Search
 
 
 def menuProductsSaved(resImplem):
@@ -26,15 +26,15 @@ def menuProductsSaved(resImplem):
             if not (n == 1 or n == 2 or n == 3 or n == 4 or n == 5 or n == 6 or n == 7 or n == 8 or n == 9):
                 print("Número incorrecto")
             elif n == 1:
-                print(resImplem.list_data.strProductList())
+                print(resImplem)
             elif n == 2:
                 resImplem.orderListPrice()
-                print(resImplem.list_data.strProductList())
+                print(resImplem)
             elif n == 3:
                 resImplem.orderListPriceReverse()
-                print(resImplem.list_data.strProductList())
+                print(resImplem)
             elif n == 4:
-                print(resImplem.bestProduct().strProductList())
+                print(resImplem.bestProduct())
             elif n==5:
                 flag2=False
                 print("Insert value to filter Greater")
@@ -46,7 +46,7 @@ def menuProductsSaved(resImplem):
                     print("Num is not integer")
                 if flag2:
                     resImplem.filterGreater(num)
-                    print(resImplem.list_data.strProductList())
+                    print(resImplem)
             elif n==6:
                 flag2=False
                 print("Insert value to filter Lower")
@@ -58,7 +58,7 @@ def menuProductsSaved(resImplem):
                     print("Num is not integer")
                 if flag2:
                     resImplem.filterLower(num)
-                    print(resImplem.list_data.strProductList())
+                    print(resImplem)
             elif n==7:
                 flag2=False
                 print("Insert index of product to save:")
@@ -90,8 +90,9 @@ def menuProductsSaved(resImplem):
             else:
                 print("Goodbye\n")
                 flag = False
-        except:
+        except Exception as e:
             print("Not a number!!\n")
+            print(e)
 
 
 def menuSearchProducts():
@@ -99,7 +100,7 @@ def menuSearchProducts():
     while flag:
         print("Insert a product name:")
         keyProd = input()
-        productos.searchProduct(keyProd)
+        Search.Search(keyProd)
         resImplem = Results.generalResultsImplementation()
         print("Data loadaded")
         print("What do you want to do:")
@@ -119,21 +120,21 @@ def menuSearchProducts():
                 menuProductsSaved(resImplem)
                 flag=False
             elif n == 1:
-                print(resImplem.list_data.strProductList())
+                print(resImplem)
                 menuProductsSaved(resImplem)
                 flag=False
             elif n == 2:
                 resImplem.orderListPrice()
-                print(resImplem.list_data.strProductList())
+                print(resImplem)
                 menuProductsSaved(resImplem)
                 flag=False
             elif n == 3:
                 resImplem.orderListPriceReverse()
-                print(resImplem.list_data.strProductList())
+                print(resImplem)
                 menuProductsSaved(resImplem)
                 flag=False
             elif n == 4:
-                print(resImplem.bestProduct().strProductList())
+                print(resImplem.bestProduct())
                 menuProductsSaved(resImplem)
                 flag=False
             elif n==5:
@@ -149,7 +150,7 @@ def menuSearchProducts():
                     flag = False
                 if flag2:
                     resImplem.filterGreater(num)
-                    print(resImplem.list_data.strProductList())
+                    print(resImplem)
                     menuProductsSaved(resImplem)
                     flag = False
             elif n==6:
@@ -165,7 +166,7 @@ def menuSearchProducts():
                     flag = False
                 if flag2:
                     resImplem.filterLower(num)
-                    print(resImplem.list_data.strProductList())
+                    print(resImplem)
                     menuProductsSaved(resImplem)
                     flag = False
             elif n==7:
@@ -225,7 +226,7 @@ def menuWishList():
                 print("Número incorrecto")
             elif n==1:
                 wishList = WishList()
-                print(wishList.list.strProductList())
+                print(wishList)
             elif n==2:
                 wishList = WishList()
                 try:
@@ -255,7 +256,6 @@ def menuComparisonList():
                 print(comparison)
             elif n==2:
                 comparison = ComparisonList()
-                #print(comparison.strListProd(comparison.sortPrice()))
                 print(comparison.compareByPrice())
             elif n==3:
                 comparison = ComparisonList()
@@ -271,7 +271,7 @@ def menuComparisonList():
                     try:
                         comparison.delete(num)
                     except Exception as e:
-                        print("The wish list is empty or wrong index!!\n")
+                        print("The comparison list is empty or wrong index!!\n")
                         print(e)
             else:
                 print("Good bye\n")

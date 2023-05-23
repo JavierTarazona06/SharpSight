@@ -39,7 +39,7 @@ class DoubleLinkedListTail(LinkedList):
 
     def popBack(self):
         if not self.isEmpty():
-            if self.head.next == None:
+            if self.head.next is None:
                 self.head = None
                 self.tail = None
             else:
@@ -175,10 +175,10 @@ class DoubleLinkedListTail(LinkedList):
         else:
             list = []
             headRef = self.head
-            while headRef.next != None:
+            while headRef.next is not None:
                 prod = headRef.key
-                list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link)+"\n")
+                list.append(str(prod)+"\n")
                 headRef = headRef.next
             prod = headRef.key
-            list.append(str(prod.title) + " " + str(format(prod.price, ',')) + " " + str(prod.link))
+            list.append(str(prod))
             return "".join(list)
