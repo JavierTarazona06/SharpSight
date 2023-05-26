@@ -1,13 +1,24 @@
 class Product:
 
     def __init__(self, title : str, price : int, link : str, brand : str):
-        self.title = title
-        self.price = price
-        self.link = link
-        self.brand = brand
+        self.title = str(title)
+        self.price = int(price)
+        self.link = str(link)
+        self.brand = str(brand)
 
     def __str__(self):
         return str(self.title) + " $" + str(f"{self.price:,}") + " " + str(self.link) + " " + str(self.brand)
+    
+    def json(self) -> dict:
+        result = {'titulo':self.title,'precio':self.price,'link':self.link,'tienda':self.brand}
+        #result = ""
+        #result += "{"
+        #result += f'''titulo: "{self.title}"'''
+        #result += f"precio: {self.price}"
+        #result += f'''link:"{self.link}"'''
+        #result += f'''marca:"{self.brand}"'''
+        #result += "}"
+        return result
 
     def __lt__(self, other_prod):
         return self.price < other_prod.price
