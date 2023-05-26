@@ -208,7 +208,8 @@ def menuSearchProducts():
             else:
                 print("Goodbye\n")
                 flag = False
-        except:
+        except Exception as e:
+            print(e)
             print("Not a number!!\n")
             menuProductsSaved(resImplem)
             flag = False

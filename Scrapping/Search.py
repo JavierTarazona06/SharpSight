@@ -10,7 +10,7 @@ class Search:
 
         data_product = MercadoLibre.searchProduct(product_to_search, data_product)
         data_product = Ktronix.searchProduct(product_to_search, data_product)
-        #data_product = Exito.searchProduct(product_to_search, data_product)
+        data_product = Exito.searchProduct(product_to_search, data_product)
 
 
         df = pd.DataFrame(data_product)
