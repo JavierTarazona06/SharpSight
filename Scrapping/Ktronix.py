@@ -17,7 +17,7 @@ def searchProduct(keyWord, data_product):
     print(driver.title)
     search_bar = driver.find_element(by=By.ID, value="js-site-search-input")
     search_bar.clear()
-    search_bar.send_keys(f"{data_product}")
+    search_bar.send_keys(f"{keyWord}")
     search_bar.submit()
 
     # Wait for the search results to load
