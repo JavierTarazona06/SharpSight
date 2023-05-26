@@ -39,8 +39,8 @@ async def root():
 async def say_hello(name: str):
     return {"message": f"Hello {name}"}
 
-@app.get("/products/{key_word}", tags=["Products"])
-def get_products_key(key_word:str) -> JSONResponse:
+@app.get("/products/", tags=["Products"])
+def get_products_key() -> JSONResponse:
     impDLL = Results.generalResultsImplementation()
     products = impDLL.list_data
     print(products)
