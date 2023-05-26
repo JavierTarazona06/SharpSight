@@ -58,8 +58,10 @@ def searchProduct(keyWord, data_product):
     data_product["precio"].extend(price_texts)
     data_product["link"].extend(links)
     data_product["marca"].extend(brand_products)
-
+    
     time.sleep(5)
     driver.close()
+    # Cerrar el navegador
+    #driver.quit()
 
     return data_product
