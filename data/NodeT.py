@@ -1,4 +1,6 @@
+
 class NodeT:
+    
     def __init__(self, data):
         self.key = data
         self.right = None
