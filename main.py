@@ -14,6 +14,8 @@ from fastapi.security import HTTPBearer
 from fastapi.encoders import jsonable_encoder
 #Cors: All origins can have access
 from fastapi.middleware.cors import CORSMiddleware
+from data import ResultsAVL
+from Scrapping import Search
 
 #Data Structures
 from data import Results
@@ -49,13 +51,8 @@ class Products(BaseModel):
 async def root():
     return {"message": "Hello World"}
 
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
-
 @app.get("/products/", tags=["Products"])
-def get_products_key() -> JSONResponse:
+def get_products() -> JSONResponse:
     impDLL = Results.generalResultsImplementation()
     products = impDLL.list_data
     result = []
@@ -68,3 +65,9 @@ def get_products_key() -> JSONResponse:
             headRef = headRef.next
         result.append(headRef.key.json())
         return result
+    
+@app.get("/products/{keyProd}", tags=["Products"])
+def get_products_key(keyProd:str) -> JSONResponse:
+    Search.Search(keyProd)
+    resulAVL_imp = ResultsAVL.results_AVL_imp()
+    return resulAVL_imp.preOrder_JSON()
