@@ -47,6 +47,8 @@ class Products(BaseModel):
     image : Optional[Text]
 
 
+#Results
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -91,3 +93,6 @@ def get_filter_products_lower(price_max:int) -> JSONResponse:
 def get_filter_products_lower(price_min:int, price_max:int) -> JSONResponse:
     resulAVL_imp = ResultsAVL.results_AVL_imp()
     return resulAVL_imp.filter_json(price_min, price_max)
+
+
+#WishList
