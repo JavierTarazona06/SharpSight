@@ -12,6 +12,8 @@ from starlette.responses import JSONResponse
 #Tokens
 from fastapi.security import HTTPBearer
 from fastapi.encoders import jsonable_encoder
+#Cors: All origins can have access
+from fastapi.middleware.cors import CORSMiddleware
 
 from data import Results
 
@@ -19,6 +21,17 @@ from data import Results
 app = FastAPI()
 app.title = "Sharp Sight Backend"
 app.version = "1.0.0"
+
+#Cors config.
+origins = ["*"]  # Configura aquí los orígenes permitidos
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 #Models
 

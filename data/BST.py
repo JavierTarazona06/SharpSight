@@ -104,7 +104,7 @@ class BST:
         else:
             raise Exception("Node not in tree")
 
-    def next(self, ptr):
+    def next(self, ptr : NodeT) -> NodeT:
         if ptr.right is not None:
             return self.leftDescendant(ptr.right)
         else:
@@ -177,13 +177,13 @@ class BST:
     def max(self):
         return self.maxCall(self.root)
 
-    def minCall(self, ptr):
+    def minCall(self, ptr:NodeT) -> NodeT:
         if ptr.left is not None:
             return self.minCall(ptr.left)
         else:
             return ptr
 
-    def min(self):
+    def min(self) -> NodeT:
         return self.minCall(self.root)
 
     def insertCall(self, num, ptr):
@@ -253,26 +253,26 @@ class BST:
             nlevel = 1
             return self.levelOrderCall(level, nlevel)
 
-    def inOrderCall(self, ptr):
+    def inOrderCall(self, ptr:NodeT) -> str:
         if ptr is None:
             return ""
         else:
             result = ""
             result += self.inOrderCall(ptr.left)
-            result += ptr.key + " "
+            result += str(ptr.key) + " "
             result += self.inOrderCall(ptr.right)
             return result
 
     def inOrder(self):
         return self.inOrderCall(self.root)
 
-    def inOrderInvCall(self, ptr):
+    def inOrderInvCall(self, ptr:NodeT) -> str:
         if ptr is None:
             return ""
         else:
             result = ""
             result += self.inOrderInvCall(ptr.right)
-            result += ptr.key + " "
+            result += str(ptr.key) + " "
             result += self.inOrderInvCall(ptr.left)
             return result
 
@@ -284,7 +284,7 @@ class BST:
             return ""
         else:
             result = ""
-            result += ptr.key + " "
+            result += str(ptr.key) + " "
             result += self.preOrderCall(ptr.left)
             result += self.preOrderCall(ptr.right)
             return result
