@@ -2,7 +2,7 @@ from datetime import *
 import time
 from typing import TypeVar, Generic
 
-from StaticList import StaticList
+from data.StaticList import StaticList
 
 T = TypeVar('T')
 

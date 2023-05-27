@@ -1,4 +1,4 @@
-from DoubleLinkedListTail import DoubleLinkedListTail
+from data.DoubleLinkedListTail import DoubleLinkedListTail
 
 class Queue(DoubleLinkedListTail):
 
