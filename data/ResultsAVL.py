@@ -47,6 +47,21 @@ class ResultsAVL():
                 flag = False
         return best_prod_list
     
+    
+    def bestProduct_json(self) -> list:
+        cur_prod_node : NodeT = self.tree_data.min()
+        min_prod : Product = self.tree_data.min().key
+        best_prod_list : list = []
+        best_prod_list.append(min_prod.json())
+        flag : bool = True
+        while (self.tree_data.next(cur_prod_node) is not None) and flag:
+            if (self.tree_data.next(cur_prod_node).key == min_prod):
+                best_prod_list.append(self.tree_data.next(cur_prod_node).key.json())
+                cur_prod_node = self.tree_data.next(cur_prod_node)
+            else:
+                flag = False
+        return best_prod_list
+    
     def findCall_price(self, toSearch_price:int, ptr:NodeT) -> NodeT:
         cur_product : Product = ptr.key
         if toSearch_price == cur_product.price:
@@ -82,13 +97,33 @@ class ResultsAVL():
             except Exception as nullNode:
                 pass
         return values
+    
+    def rangeSearch_json(self, x:int, y:int) -> list:
+        values = []
+        st : NodeT= self.find_price(x)
 
+        cur_prod : Product = st.key
+
+        while st is not None and (cur_prod.price < y or cur_prod.price == y):
+            values.append(cur_prod.json())
+            st = self.tree_data.next(st)
+            try:
+                cur_prod = st.key
+            except Exception as nullNode:
+                pass
+        return values
 
     def filterGreater(self,price:int) -> str:
         max : Product = self.tree_data.max().key
         max_price : int = max.price
         filter : DynamicList = self.rangeSearch(price,max_price)
         return str(filter)
+    
+    def filterGreater_json(self,price:int) -> list:
+        max : Product = self.tree_data.max().key
+        max_price : int = max.price
+        filter : list = self.rangeSearch_json(price,max_price)
+        return filter
         
     def filterLower(self,price : int) -> str:
         min : Product = self.tree_data.min().key
@@ -96,9 +131,19 @@ class ResultsAVL():
         filter : DynamicList = self.rangeSearch(min_price,price)
         return str(filter)
     
+    def filterLower_json(self,price : int) -> list:
+        min : Product = self.tree_data.min().key
+        min_price : int = min.price
+        filter : list = self.rangeSearch_json(min_price,price)
+        return filter
+    
     def filter(self,price_min : int ,price_max: int) -> str:
         filter : DynamicList = self.rangeSearch(price_min,price_max)
         return str(filter)
+    
+    def filter_json(self,price_min : int ,price_max: int) -> list:
+        filter : list = self.rangeSearch_json(price_min,price_max)
+        return filter
     
     def preOrderCall_JSON(self, ptr:NodeT, result:list) -> list:
         if ptr is None:
@@ -113,6 +158,41 @@ class ResultsAVL():
         result = []
         return self.preOrderCall_JSON(self.tree_data.root, result)
 
+    def view_results(self) -> list:
+        return self.preOrder_JSON()
+    
+
+    def inOrderCall_JSON(self, ptr:NodeT, result:list) -> list:
+        if ptr is None:
+            return result
+        else:
+            result = self.inOrderCall_JSON(ptr.left, result)
+            result.append(ptr.key.json())
+            result = self.inOrderCall_JSON(ptr.right, result)
+            return result
+
+    def inOrder_JSON(self) -> list:
+        result = []
+        return self.inOrderCall_JSON(self.tree_data.root, result)
+    
+    def view_results_order(self) -> list:
+        return self.inOrder_JSON()
+    
+    def inOrderCallInv_JSON(self, ptr:NodeT, result:list) -> list:
+        if ptr is None:
+            return result
+        else:
+            result = self.inOrderCallInv_JSON(ptr.right, result)
+            result.append(ptr.key.json())
+            result = self.inOrderCallInv_JSON(ptr.left, result)
+            return result
+
+    def inOrderInv_JSON(self) -> list:
+        result = []
+        return self.inOrderCallInv_JSON(self.tree_data.root, result)
+    
+    def view_results_orderInv(self) -> list:
+        return self.inOrderInv_JSON()
 
 def results_AVL_imp():
     myImplementation = ResultsAVL("src/productos.csv")

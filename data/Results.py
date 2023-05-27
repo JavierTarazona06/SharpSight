@@ -50,6 +50,19 @@ class Results:
     def filterLower(self,price):
         self.list_data.filterPriceLower(price)
 
+    def get_products_json(self) -> list:
+        products : DoubleLinkedListTail = self.list_data
+        result = []
+        if products.isEmpty():
+            return result
+        else:
+            headRef : Node = products.head
+            while headRef.next is not None:
+                result.append(headRef.key.json())
+                headRef = headRef.next
+            result.append(headRef.key.json())
+            return result
+
 
 def generalResultsImplementation():
     myImplementation = Results("src/productos.csv")

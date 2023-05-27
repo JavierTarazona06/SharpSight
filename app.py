@@ -8,7 +8,7 @@ def __init__():
     #print(resulAVL_imp.orderListPrice())
     #Search.Search("Nintendo Switch")
     resulAVL_imp = ResultsAVL.results_AVL_imp()
-    print(resulAVL_imp.preOrder_JSON())
+    print(resulAVL_imp.filter_json(300000,600000))
     
 
 
