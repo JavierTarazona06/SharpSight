@@ -15,7 +15,9 @@ from fastapi.encoders import jsonable_encoder
 #Cors: All origins can have access
 from fastapi.middleware.cors import CORSMiddleware
 
+#Data Structures
 from data import Results
+from data.Node import Node
 
 
 app = FastAPI()
@@ -56,12 +58,11 @@ async def say_hello(name: str):
 def get_products_key() -> JSONResponse:
     impDLL = Results.generalResultsImplementation()
     products = impDLL.list_data
-    print(products)
     result = []
     if products.isEmpty():
         return result
     else:
-        headRef = products.head
+        headRef : Node = products.head
         while headRef.next is not None:
             result.append(headRef.key.json())
             headRef = headRef.next
