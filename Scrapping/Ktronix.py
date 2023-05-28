@@ -39,7 +39,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
     # Extract all product titles
     title_products = driver.find_elements(by=By.XPATH, value='//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
-    title_products = [title.text for title in title_products]
+    title_texts = [title.text for title in title_products]
 
     # Extract all product prices
     price_products = driver.find_elements(By.XPATH, xpath2)
@@ -48,6 +48,29 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     # Extract all product links
     link_elements = driver.find_elements(By.XPATH, '//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
     links_products = [link.get_attribute("href") for link in link_elements]
+
+    #Extract all images links
+    image_elements = driver.find_elements(By.XPATH, '//a[@class="js-algolia-product-click"]/img[@srcset]')
+    image_urls = [f"https://www.ktronix.com{element.get_attribute('srcset').split(', ')[0].split(' ')[0]}" for element
+                  in image_elements]
+    print(image_urls)
+
+    marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
+              'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
+              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
+              'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
+              'Tecno', 'Legion', 'Moto']
+
+    marcas_productos = []
+    for title in title_texts:
+        marca_encontrada = False
+        for marca in marcas:
+            if marca in title:
+                marcas_productos.append(marca)
+                marca_encontrada = True
+                break
+        if not marca_encontrada:
+            marcas_productos.append("Otra")
 
     brand_products = ["Ktronix" for i in range(len(links_products))]
 
@@ -61,6 +84,8 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     data_product["precio"].extend(price_products)
     data_product["link"].extend(links_products)
     data_product["marca"].extend(brand_products)
+    data_product["imagen"].extend(image_urls)
+    data_product["empresa"].extend(marcas_productos)
 
     time.sleep(5)
     driver.close()

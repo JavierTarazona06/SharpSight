@@ -11,7 +11,7 @@ class Search:
 
     def __init__(self, product_to_search):
 
-        data_product = {"titulo": [], "precio": [], "link": [], "marca":[]}
+        data_product = {"titulo": [], "precio": [], "link": [], "marca":[], "imagen":[], "empresa":[]}
 
         driver : webdriver.Chrome = self.reload_driver()
 
