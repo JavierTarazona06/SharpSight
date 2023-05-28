@@ -36,6 +36,7 @@ class BST:
         if ptr is None:
             if not checked:
                 raise Exception("Node not in tree")
+                #return 0
             else:
                 return 0
         else:
@@ -56,7 +57,7 @@ class BST:
         except Exception:
             return False
 
-    def findCall(self, toSearch, ptr):
+    def findCall(self, toSearch, ptr:NodeT) -> NodeT:
         if toSearch == ptr.key:
             return ptr
         elif toSearch > ptr.key:
@@ -70,7 +71,7 @@ class BST:
             else:
                 raise Exception("Node not in tree")
 
-    def find(self, toSearch):
+    def find(self, toSearch) -> NodeT:
         return self.findCall(toSearch, self.root)
 
     def prev(self, ptr):
@@ -126,7 +127,7 @@ class BST:
             else:
                 return stack.pop()
         else:
-            return None
+            return stack.pop()
 
     def rightAncestor(self, fixed):
         if self.isNode(fixed):
@@ -168,13 +169,13 @@ class BST:
         else:
             raise Exception("Node not in tree")
 
-    def maxCall(self, ptr):
+    def maxCall(self, ptr) -> NodeT:
         if ptr.right is not None:
             return self.maxCall(ptr.right)
         else:
             return ptr
 
-    def max(self):
+    def max(self) -> NodeT:
         return self.maxCall(self.root)
 
     def minCall(self, ptr:NodeT) -> NodeT:
@@ -240,9 +241,9 @@ class BST:
                 level.enqueue(Node(cur_node.right))
 
             if nlevel + 1 == self.level(cur_node.key):
-                return "\n" + cur_node.key + " " + self.levelOrderCall(level, nlevel + 1)
+                return "\n" + str(cur_node.key) + " " + self.levelOrderCall(level, nlevel + 1)
             else:
-                return cur_node.key + " " + self.levelOrderCall(level, nlevel)
+                return str(cur_node.key) + " " + self.levelOrderCall(level, nlevel)
 
     def levelOrder(self):
         if self.isEmpty():
