@@ -193,6 +193,22 @@ class ResultsAVL():
     
     def view_results_orderInv(self) -> list:
         return self.inOrderInv_JSON()
+    
+    def preOrderCall_list(self, ptr:NodeT, result:list) -> list:
+        if ptr is None:
+            return result
+        else:
+            result.append(ptr.key)
+            result = self.preOrderCall_list(ptr.left,result)
+            result = self.preOrderCall_list(ptr.right, result)
+            return result
+
+    def preOrder_list(self) -> list:
+        result = []
+        return self.preOrderCall_list(self.tree_data.root, result)
+
+    def results_list(self) -> list:
+        return self.preOrder_list()
 
 def results_AVL_imp():
     myImplementation = ResultsAVL("src/productos.csv")

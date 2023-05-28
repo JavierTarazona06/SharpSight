@@ -23,6 +23,7 @@ from data.Node import Node
 from data.WishListHeap import WishListHeap
 from data.Product import Product
 from data.ComparisonListAVL import ComparisonListAVL
+from data.SetSeller import SetSeller
 
 #Users
 from Models.User import User
@@ -265,3 +266,18 @@ def delete_in_comparison_list(product:Products) -> JSONResponse:
     
 
 #Set by seller
+@app.get("/products/set/seller/{seller}", tags=["Set"])
+def get_products_seller(seller:str) -> JSONResponse:
+    try:
+        mySet = SetSeller()
+        return mySet.products_seller_json(seller)
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: No hay tienda {e}"})
+    
+@app.get("/products/set/seller", tags=["Set"])
+def get_sellers() -> JSONResponse:
+    try:
+        mySet = SetSeller()
+        return mySet.sellers_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})

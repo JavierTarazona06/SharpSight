@@ -5,6 +5,7 @@ from data import Results,ResultsAVL
 import menu
 from data.WishListHeap import WishListHeap
 from data.ComparisonListAVL import ComparisonListAVL
+from data.SetSeller import SetSeller
 
 #Data Base
 from config.Data_base import data_base
@@ -30,14 +31,24 @@ def __init__():
 
 
 
-    db = data_base()
-    db.close()
+    #db = data_base()
+    #db.close()
 
-    juan = User(email="Juan2@juan.com", password="pato_feliz", operation=1)
+    #juan = User(email="Juan2@juan.com", password="pato_feliz", operation=1)
     #juan = User(email="Juan@juan.com", password="pato_feliz", operation=2, name="Juan", last_name="Perez")
     #juan = User(email="Juan2@juan.com", password="pato_feliz", operation=2, name="Juan2", last_name="Perez2")
     #juan.update(name="Juana", last_name="Perez", email="pepa@pepa.com", password="pata_feliz")
-    print(juan.json())
+    #print(juan.json())
+
+    #mySet = SetSeller()
+    #print(mySet.products)
+    #print("------------------------------")
+    #print(mySet.setSellers)
+    #print("------------------------------")
+    #print(mySet.sellers_json())
+    #print("------------------------------")
+    #print("------------------------------")
+    #print(mySet.products_seller_json('Ktronix'))
 
 
 
