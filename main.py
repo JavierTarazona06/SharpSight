@@ -96,3 +96,9 @@ def get_filter_products_lower(price_min:int, price_max:int) -> JSONResponse:
 
 
 #WishList
+'''
+@app.get("/whish_list/", tags=["Whish List"])
+def show_whish_list() -> JSONResponse:
+    resulAVL_imp = ResultsAVL.results_AVL_imp()
+    return resulAVL_imp.filter_json(price_min, price_max)
+'''
