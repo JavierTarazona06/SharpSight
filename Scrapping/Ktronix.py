@@ -80,7 +80,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     print(brand_products)
 
     # diccionario
-    data_product["titulo"].extend(title_products)
+    data_product["titulo"].extend(title_texts)
     data_product["precio"].extend(price_products)
     data_product["link"].extend(links_products)
     data_product["marca"].extend(brand_products)
