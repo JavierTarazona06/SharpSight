@@ -22,6 +22,7 @@ from data import Results
 from data.Node import Node
 from data.WishListHeap import WishListHeap
 from data.Product import Product
+from data.ComparisonListAVL import ComparisonListAVL
 
 
 app = FastAPI()
@@ -93,7 +94,7 @@ def get_filter_products_lower(price_max:int) -> JSONResponse:
     return resulAVL_imp.filterLower_json(price_max)
 
 @app.get("/products/filter/{price_min}/{price_max}", tags=["Products"])
-def get_filter_products_lower(price_min:int, price_max:int) -> JSONResponse:
+def get_filter_products(price_min:int, price_max:int) -> JSONResponse:
     resulAVL_imp = ResultsAVL.results_AVL_imp()
     return resulAVL_imp.filter_json(price_min, price_max)
 
@@ -132,3 +133,37 @@ def delete_min_in_whish() -> JSONResponse:
         return JSONResponse(content={"message":f"Se eliminó el producto: {prod_del.title}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto con menor precio ya que {e}"})
+    
+
+#ComparisonList
+@app.get("/comparison_list/", tags=["Comparison List"])
+def show_comparison_list() -> JSONResponse:
+    comparison = ComparisonListAVL()
+    return comparison.view_comparison_list_json()
+
+@app.post("/comparison_list/product", tags=["Comparison List"])
+def new_in_comparison_list(product:Products) -> JSONResponse:
+    try:
+        comparison = ComparisonListAVL()
+        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        comparison.insert(cur_product)
+        return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
+    
+@app.delete("/comparison_list/product", tags=["Comparison List"])
+def delete_in_comparison_list(product:Products) -> JSONResponse:
+    '''
+    try:
+        comparison = ComparisonListAVL()
+        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        comparison.delete(cur_product)
+        return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
+    except Exception as e:
+        print(e)
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
+    '''
+    comparison = ComparisonListAVL()
+    cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+    comparison.delete(cur_product)
+    return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})

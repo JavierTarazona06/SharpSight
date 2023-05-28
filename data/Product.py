@@ -25,8 +25,8 @@ class Product:
         return self.price <= other_prod.price
 
     def __eq__(self, other_prod):
-        return (self.price == other_prod.price) and (self.title == other_prod.title) and (self.link == other_prod.link) and (self.seller == other_prod.seller)
-        #return (self.price == other_prod.price) 
+        #return (self.price == other_prod.price) and (self.title == other_prod.title) and (self.link == other_prod.link) and (self.seller == other_prod.seller)
+        return (self.price == other_prod.price) and (self.title == other_prod.title)
 
     def __gt__(self, other_prod):
         return self.price > other_prod.price

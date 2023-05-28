@@ -32,6 +32,7 @@ class WishListHeap:
         self.list.insert(prod)
         df = pd.read_csv("src/wishList.csv")
         rows = df.shape[0]
+        self.indices_csv[str(prod)] = len(df)
         data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link, "seller":prod.seller, "image":prod.image, "brand": prod.brand}, index=[rows])
         df = pd.concat([df, data])
         df.to_csv("src/wishList.csv", index=False)
