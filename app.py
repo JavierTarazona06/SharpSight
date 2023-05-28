@@ -6,6 +6,10 @@ import menu
 from data.WishListHeap import WishListHeap
 from data.ComparisonListAVL import ComparisonListAVL
 
+#Data Base
+from config.Data_base import data_base
+from Models.user import User
+
 def __init__():
     #menu.startMenu()
     #Search.Search(str("Nintendo Switch"))
@@ -24,10 +28,18 @@ def __init__():
     #comparison.delete(resulAVL_imp.tree_data.root.key)
     #print(comparison.compareByPrice_json())
 
-    
 
-    #whishList.delete_min()
+
+    db = data_base()
+    db.close()
+
+    juan = User(email="Juan@juan.com", password="pato_feliz", operation=1)
+    #juan = User(email="Juan@juan.com", password="pato_feliz", operation=2, name="Juan", last_name="Perez")
+    #juan = User(email="Juan2@juan.com", password="pato_feliz", operation=2, name="Juan2", last_name="Perez2")
+    #juan.update(name="Juana", last_name="Perez", email="pepa@pepa.com", password="pata_feliz")
+    print(juan)
     
+    juan.delete()
 
 
 __init__()
