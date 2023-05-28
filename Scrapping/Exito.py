@@ -53,11 +53,36 @@ def searchProduct(keyWord, data_product):
     brand_products = ["Exito" for i in range(len(links))]
     print(brand_products)
 
+    image_elements = driver.find_elements(By.XPATH,'//img[@class="vtex-product-summary-2-x-imageNormal vtex-product-summary-2-x-image vtex-product-summary-2-x-mainImageHovered"]')
+    image_urls = [image.get_attribute("src") for image in image_elements]
+    print(image_urls)
+
+    marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
+              'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
+              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
+              'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
+              'Tecno', 'Legion', 'Moto']
+
+    marcas_productos = []
+    for title in titles_products:
+        marca_encontrada = False
+        for marca in marcas:
+            if marca in title:
+                marcas_productos.append(marca)
+                marca_encontrada = True
+                break
+        if not marca_encontrada:
+            marcas_productos.append("Otra")
+    print(marcas_productos)
+
+
     # diccionario
     data_product["titulo"].extend(titles_products)
     data_product["precio"].extend(price_texts)
     data_product["link"].extend(links)
     data_product["marca"].extend(brand_products)
+    data_product["imagen"].extend(image_urls)
+    data_product["empresa"].extend(marcas_productos)
     
     time.sleep(5)
     driver.close()

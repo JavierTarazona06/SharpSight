@@ -6,7 +6,7 @@ class Search:
 
     def __init__(self, product_to_search):
 
-        data_product = {"titulo": [], "precio": [], "link": [], "marca":[]}
+        data_product = {"titulo": [], "precio": [], "link": [], "marca":[], "imagen":[], "empresa":[]}
 
         data_product = MercadoLibre.searchProduct(product_to_search, data_product)
         data_product = Ktronix.searchProduct(product_to_search, data_product)
