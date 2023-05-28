@@ -16,18 +16,18 @@ class ComparisonList:
             self.lector = pd.read_csv("src/comparisonList.csv")
             for i in range(self.lector.shape[0]):
                 curProduct = Product(title=self.lector['title'][i], price=self.lector['price'][i],
-                                     link=self.lector['link'][i], brand=self.lector['brand'][i])
+                                 link=self.lector['link'][i], seller=self.lector['seller'][i], image=self.lector['image'][i], brand=self.lector['brand'][i])
                 self.list.pushBack(curProduct)
         else:
             with open("src/comparisonList.csv", 'w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(['title', 'price', 'link','brand'])
+                writer.writerow(['title', 'price', 'link','seller','image','brand'])
 
     def insert(self, prod: Product):
         self.list.pushFront(prod)
         df = pd.read_csv("src/comparisonList.csv")
         rows = df.shape[0]
-        data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link, "brand": prod.brand}, index=[rows])
+        data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link, "seller":prod.seller, "image":prod.image, "brand": prod.brand}, index=[rows])
         df = pd.concat([df, data])
         df.to_csv("src/comparisonList.csv", index=False)
 

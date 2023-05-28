@@ -20,7 +20,7 @@ class ResultsAVL():
     def insertProducts(self):
         for i in range(self.lector.shape[0]):
             curProduct = Product(title=self.lector['titulo'][i], price=self.lector['precio'][i],
-                                 link=self.lector['link'][i], seller=self.lector['marca'][i])
+                                 link=self.lector['link'][i], seller=self.lector['marca'][i], image=self.lector['imagen'][i], brand=self.lector['empresa'][i])
             self.tree_data.insert(curProduct)
 
     def __str__(self):

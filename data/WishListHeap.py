@@ -13,30 +13,30 @@ class WishListHeap:
             self.lector = pd.read_csv("src/wishList.csv")
             row_count = len(self.lector)
             for i in range(row_count):
-                print(i)
-                print(self.lector.iloc[i])
                 curProduct : Product = Product(title=self.lector['title'][i], price=self.lector['price'][i],
-                                     link=self.lector['link'][i], seller=self.lector['seller'][i])
+                                 link=self.lector['link'][i], seller=self.lector['seller'][i], image=self.lector['image'][i], brand=self.lector['brand'][i])
                 self.list.insert(curProduct)
                 self.indices_csv[str(curProduct)] = i
-                print(self.indices_csv[str(curProduct)])
         else:
             with open("src/wishList.csv", 'w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(['title', 'price', 'link','seller'])
+                writer.writerow(['title', 'price', 'link','seller','image','brand'])
 
     def __str__(self):
         return str(self.list.array)
+    
+    def view_whish_list_json(self):
+        return self.list.array.json()
     
     def insert(self, prod: Product):
         self.list.insert(prod)
         df = pd.read_csv("src/wishList.csv")
         rows = df.shape[0]
-        data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link, "seller": prod.seller}, index=[rows])
+        data = pd.DataFrame({"title": prod.title, "price": prod.price, "link": prod.link, "seller":prod.seller, "image":prod.image, "brand": prod.brand}, index=[rows])
         df = pd.concat([df, data])
         df.to_csv("src/wishList.csv", index=False)
 
-    def delete_min(self):
+    def delete_min(self) -> Product:
         prod : Product = self.list.get_min()
         index_prod = self.indices_csv[str(prod)]
         prod : Product = self.list.extract_min()
@@ -50,6 +50,7 @@ class WishListHeap:
             df = pd.concat([df.iloc[0:index_prod], df.iloc[index_prod+1:]]) #Elimina la fila del indice
         df.to_csv("src/wishList.csv", index=False)
         print("Deleted from wish list: "+str(prod))
+        return prod
 
     
     def delete(self, prod:Product):

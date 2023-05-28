@@ -20,6 +20,8 @@ from Scrapping import Search
 #Data Structures
 from data import Results
 from data.Node import Node
+from data.WishListHeap import WishListHeap
+from data.Product import Product
 
 
 app = FastAPI()
@@ -40,11 +42,12 @@ app.add_middleware(
 #Models
 
 class Products(BaseModel):
-    title: str
-    price : int
+    titulo: str
+    precio : int
     link : Text
-    brand : str
-    image : Optional[Text]
+    tienda : Optional[str]
+    imagen : Optional[Text]
+    marca : Optional[str]
 
 
 #Results
@@ -96,9 +99,36 @@ def get_filter_products_lower(price_min:int, price_max:int) -> JSONResponse:
 
 
 #WishList
-'''
 @app.get("/whish_list/", tags=["Whish List"])
 def show_whish_list() -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.filter_json(price_min, price_max)
-'''
+    whishListHeap_imp = WishListHeap()
+    return whishListHeap_imp.view_whish_list_json()
+
+@app.post("/whish_list/product", tags=["Whish List"])
+def new_in_whish_list(product:Products) -> JSONResponse:
+    try:
+        whishListHeap_imp = WishListHeap()
+        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        whishListHeap_imp.insert(cur_product)
+        return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
+
+@app.delete("/whish_list/product", tags=["Whish List"])
+def delete_in_whish_list(product:Products) -> JSONResponse:
+    try:
+        whishListHeap_imp = WishListHeap()
+        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        whishListHeap_imp.delete(cur_product)
+        return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
+    
+@app.delete("/whish_list/min_product", tags=["Whish List"])
+def delete_min_in_whish() -> JSONResponse:
+    try:
+        whishListHeap_imp = WishListHeap()
+        prod_del = whishListHeap_imp.delete_min()
+        return JSONResponse(content={"message":f"Se eliminó el producto: {prod_del.title}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"No se eliminó el producto con menor precio ya que {e}"})

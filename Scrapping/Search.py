@@ -32,13 +32,13 @@ class Search:
     def reload_driver(self) -> webdriver.Chrome:
         
         # Ejecutar en modo headless sin ventana visible
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
+        #chrome_options = Options()
+        #chrome_options.add_argument("--headless")
 
         PATH = "chromedriver"
         #Visible
-        #driver = webdriver.Chrome(PATH)
+        driver = webdriver.Chrome(PATH)
         #No visible
-        driver = webdriver.Chrome(PATH, options=chrome_options)
+        #driver = webdriver.Chrome(PATH, options=chrome_options)
 
         return driver
