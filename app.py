@@ -8,7 +8,7 @@ from data.ComparisonListAVL import ComparisonListAVL
 
 #Data Base
 from config.Data_base import data_base
-from Models.user import User
+from Models.User import User
 
 def __init__():
     #menu.startMenu()
@@ -33,13 +33,12 @@ def __init__():
     db = data_base()
     db.close()
 
-    juan = User(email="Juan@juan.com", password="pato_feliz", operation=1)
+    juan = User(email="Juan2@juan.com", password="pato_feliz", operation=1)
     #juan = User(email="Juan@juan.com", password="pato_feliz", operation=2, name="Juan", last_name="Perez")
     #juan = User(email="Juan2@juan.com", password="pato_feliz", operation=2, name="Juan2", last_name="Perez2")
     #juan.update(name="Juana", last_name="Perez", email="pepa@pepa.com", password="pata_feliz")
-    print(juan)
-    
-    juan.delete()
+    print(juan.json())
+
 
 
 __init__()

@@ -24,6 +24,8 @@ from data.WishListHeap import WishListHeap
 from data.Product import Product
 from data.ComparisonListAVL import ComparisonListAVL
 
+#Users
+from Models.User import User
 
 app = FastAPI()
 app.title = "Sharp Sight Backend"
@@ -50,12 +52,57 @@ class Products(BaseModel):
     imagen : Optional[Text]
     marca : Optional[str]
 
+class Users(BaseModel):
+    id: Optional[int]
+    nombre : str
+    apellido : str
+    email : str
+    password : str
 
-#Results
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "Welcome to SharpSight API. For API's documentation write in path ./docs/"}
+
+
+#Users
+
+@app.get("/user/validate/{cur_email}/{cur_password}", tags=["User"])
+async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
+    try:
+        cur_user = User(email=cur_email, password=cur_password, operation=1)
+        return cur_user.json()
+    except Exception as e:
+        return {"Error:" : str(e)}
+    
+@app.post("/user/", tags=["User"])
+async def create_user(in_user:Users) -> JSONResponse:
+    try:
+        cur_user = User(email=in_user.email, password=in_user.password, operation=2, name=in_user.nombre, last_name=in_user.apellido)
+        return cur_user.json()
+    except Exception as e:
+        return {"Error:" : str(e)}
+    
+@app.put("/user/{cur_email}/{cur_password}", tags=["User"])
+async def modify_user(cur_email:str, cur_password:str, in_user:Users) -> JSONResponse:
+    try:
+        cur_user = User(email=cur_email, password=cur_password, operation=1)
+        cur_user.update(name=in_user.nombre, last_name=in_user.apellido, email=in_user.email, password=in_user.password)
+        return cur_user.json()
+    except Exception as e:
+        return {"Error:" : str(e)}
+    
+@app.delete("/user/{cur_email}/{cur_password}", tags=["User"])
+async def delete_user(cur_email:str, cur_password:str) -> JSONResponse:
+    try:
+        cur_user = User(email=cur_email, password=cur_password, operation=1)
+        cur_user.delete()
+        return {"Message": "Deleted successfully"}
+    except Exception as e:
+        return {"Error:" : str(e)}
+
+
+#Results
 
 @app.get("/products/{keyProd}", tags=["Products"])
 def get_products_key(keyProd:str) -> JSONResponse:
