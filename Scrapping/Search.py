@@ -16,14 +16,38 @@ class Search:
         driver : webdriver.Chrome = self.reload_driver()
 
         data_product = MercadoLibre.searchProduct(product_to_search, data_product, driver)
+
+        print("!!!!!Lengths Mercado libre-----------------------------------")
+        print(len(data_product["titulo"]))
+        print(len(data_product["precio"]))
+        print(len(data_product["link"]))
+        print(len(data_product["marca"]))
+        print(len(data_product["imagen"]))
+        print(len(data_product["empresa"]))
  
         driver : webdriver.Chrome = self.reload_driver()
  
         data_product = Ktronix.searchProduct(product_to_search, data_product, driver)
 
+        print("!!!!!Lengths Ktronix-----------------------------------")
+        print(len(data_product["titulo"]))
+        print(len(data_product["precio"]))
+        print(len(data_product["link"]))
+        print(len(data_product["marca"]))
+        print(len(data_product["imagen"]))
+        print(len(data_product["empresa"]))
+
         driver : webdriver.Chrome = self.reload_driver()
 
         data_product = Exito.searchProduct(product_to_search, data_product, driver)
+
+        print("!!!!!Lengths Exito-----------------------------------")
+        print(len(data_product["titulo"]))
+        print(len(data_product["precio"]))
+        print(len(data_product["link"]))
+        print(len(data_product["marca"]))
+        print(len(data_product["imagen"]))
+        print(len(data_product["empresa"]))
 
 
         df = pd.DataFrame(data_product)

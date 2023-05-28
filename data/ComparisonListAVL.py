@@ -37,8 +37,8 @@ class ComparisonListAVL:
         df.to_csv("src/comparisonList.csv", index=False)
 
     def delete(self, product:Product):
-        prod = self.tree_data.delete(NodeT(product))
-        index_csv = self.indices_csv[str(prod)]
+        self.tree_data.delete(NodeT(product))
+        index_csv = self.indices_csv[str(product)]
 
         df = pd.read_csv("src/comparisonList.csv")
         
@@ -50,7 +50,7 @@ class ComparisonListAVL:
             df = pd.concat([df.iloc[0:index_csv], df.iloc[index_csv+1:]]) #Elimina la fila del indice
 
         df.to_csv("src/comparisonList.csv", index=False)
-        print("Deleted from comparison list: " + str(prod))
+        print("Deleted from comparison list: " + str(product))
 
     def orderListPrice(self) -> str:
         return self.tree_data.inOrder()

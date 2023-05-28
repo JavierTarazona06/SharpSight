@@ -59,51 +59,78 @@ async def root():
 
 @app.get("/products/{keyProd}", tags=["Products"])
 def get_products_key(keyProd:str) -> JSONResponse:
-    Search.Search(keyProd)
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.view_results()
+    try:
+        Search.Search(str(keyProd))
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.view_results()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/", tags=["Products"])
 def get_products() -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.view_results()
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.view_results()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/order/", tags=["Products"])
 def get_products_order() -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.view_results_order()
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.view_results_order()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/order_inverted/", tags=["Products"])
 def get_products_orderInv() -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.view_results_orderInv()
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.view_results_orderInv()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/best_products/", tags=["Products"])
 def get_best_products() -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.bestProduct_json()
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.bestProduct_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/filter/greater/{price_min}", tags=["Products"])
 def get_filter_products_greater(price_min:int) -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.filterGreater_json(price_min)
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.filterGreater_json(price_min)
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/filter/lower/{price_max}", tags=["Products"])
 def get_filter_products_lower(price_max:int) -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.filterLower_json(price_max)
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.filterLower_json(price_max)
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/products/filter/{price_min}/{price_max}", tags=["Products"])
 def get_filter_products(price_min:int, price_max:int) -> JSONResponse:
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.filter_json(price_min, price_max)
+    try:
+        resulAVL_imp = ResultsAVL.results_AVL_imp()
+        return resulAVL_imp.filter_json(price_min, price_max)
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 
 #WishList
 @app.get("/whish_list/", tags=["Whish List"])
 def show_whish_list() -> JSONResponse:
-    whishListHeap_imp = WishListHeap()
-    return whishListHeap_imp.view_whish_list_json()
+    try:
+        whishListHeap_imp = WishListHeap()
+        return whishListHeap_imp.view_whish_list_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.post("/whish_list/product", tags=["Whish List"])
 def new_in_whish_list(product:Products) -> JSONResponse:
@@ -138,8 +165,35 @@ def delete_min_in_whish() -> JSONResponse:
 #ComparisonList
 @app.get("/comparison_list/", tags=["Comparison List"])
 def show_comparison_list() -> JSONResponse:
-    comparison = ComparisonListAVL()
-    return comparison.view_comparison_list_json()
+    try:
+        comparison = ComparisonListAVL()
+        return comparison.view_comparison_list_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
+@app.get("/comparison_list/order/", tags=["Comparison List"])
+def show_ComparisonList_order() -> JSONResponse:
+    try:
+        comparison = ComparisonListAVL()
+        return comparison.inOrder_JSON()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+@app.get("/comparison_list/order_inverted/", tags=["Comparison List"])
+def show_ComparisonList_order_inverted() -> JSONResponse:
+    try:
+        comparison = ComparisonListAVL()
+        return comparison.inOrderInv_JSON()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
+@app.get("/comparison_list/comparison/", tags=["Comparison List"])
+def show_ComparisonList_comparison() -> JSONResponse:
+    try:
+        comparison = ComparisonListAVL()
+        return comparison.compareByPrice_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.post("/comparison_list/product", tags=["Comparison List"])
 def new_in_comparison_list(product:Products) -> JSONResponse:
@@ -153,7 +207,6 @@ def new_in_comparison_list(product:Products) -> JSONResponse:
     
 @app.delete("/comparison_list/product", tags=["Comparison List"])
 def delete_in_comparison_list(product:Products) -> JSONResponse:
-    '''
     try:
         comparison = ComparisonListAVL()
         cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
@@ -162,8 +215,6 @@ def delete_in_comparison_list(product:Products) -> JSONResponse:
     except Exception as e:
         print(e)
         return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
-    '''
-    comparison = ComparisonListAVL()
-    cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
-    comparison.delete(cur_product)
-    return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
+    
+
+#Set by seller
