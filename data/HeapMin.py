@@ -1,3 +1,4 @@
+from data.Product import Product
 from data.Heap import Heap
 
 
@@ -51,6 +52,13 @@ class HeapMin(Heap):
 
     def remove(self, index):
         self.array.list[index] = self.get_min() - 1
+        self.sift_up(index)
+        self.extract_min()
+
+    def remove_product(self, index):
+        prod_min : Product = self.get_min()
+        prod_min.price -= 1
+        self.array.list[index] = prod_min
         self.sift_up(index)
         self.extract_min()
 

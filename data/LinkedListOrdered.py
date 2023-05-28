@@ -1,4 +1,4 @@
-from Node import Node
+from data.Node import Node
 
 
 class LinkedListOrdered():

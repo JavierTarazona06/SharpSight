@@ -8,10 +8,8 @@ import time
 import pandas as pd
 from tqdm import tqdm
 
-def searchProduct(keyWord, data_product):
+def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dict:
 
-    PATH = "chromedriver"
-    driver = webdriver.Chrome(PATH)
     driver.get("https://www.ktronix.com/")
 
     print(driver.title)

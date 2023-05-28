@@ -1,23 +1,19 @@
 class Product:
 
-    def __init__(self, title : str, price : int, link : str, brand : str):
+    def __init__(self, title : str, price : int, link : str, seller : str):
         self.title = str(title)
         self.price = int(price)
         self.link = str(link)
-        self.brand = str(brand)
+        self.seller = str(seller)
 
     def __str__(self):
-        return str(self.title) + " $" + str(f"{self.price:,}") + " " + str(self.link) + " " + str(self.brand)
+        return str(self.title) + " $" + str(f"{self.price:,}") + " " + str(self.link) + " " + str(self.seller )
+        #return " $" + str(f"{self.price:,}")
+        #return str(self.seller)
+        #return str(self.title)
     
     def json(self) -> dict:
-        result = {'titulo':self.title,'precio':self.price,'link':self.link,'tienda':self.brand}
-        #result = ""
-        #result += "{"
-        #result += f'''titulo: "{self.title}"'''
-        #result += f"precio: {self.price}"
-        #result += f'''link:"{self.link}"'''
-        #result += f'''marca:"{self.brand}"'''
-        #result += "}"
+        result = {'titulo':self.title,'precio':self.price,'link':self.link,'tienda':self.seller}
         return result
 
     def __lt__(self, other_prod):
@@ -27,7 +23,8 @@ class Product:
         return self.price <= other_prod.price
 
     def __eq__(self, other_prod):
-        return self.price == other_prod.price
+        return (self.price == other_prod.price) and (self.title == other_prod.title) and (self.link == other_prod.link) and (self.seller == other_prod.seller)
+        #return (self.price == other_prod.price) 
 
     def __gt__(self, other_prod):
         return self.price > other_prod.price
@@ -43,10 +40,10 @@ class Product:
         else:
             return -1
 
-    def compare_brand(self, other_prod):
-        if self.brand > other_prod.brand:
+    def compare_seller (self, other_prod):
+        if self.seller  > other_prod.seller :
             return 1
-        elif self.brand == other_prod.brand:
+        elif self.seller  == other_prod.seller :
             return 0
         else:
             return -1

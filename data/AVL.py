@@ -48,7 +48,8 @@ class AVL(BST):
             elif num > ptr.key:
                 ptr.right = self.insertCall(num, ptr.right)
             else:
-                print("El elemento", num, "ya está en el árbol!")
+                #print("El elemento", num, "ya está en el árbol!")
+                pass
         factorBalance = self.factorBalance(ptr)
         if factorBalance > 1 and num > ptr.left.key:
             ptr = self.rotateDoubleToRight(ptr)

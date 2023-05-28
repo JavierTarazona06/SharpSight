@@ -1,9 +1,9 @@
-from DynamicList import *
-from StaticList import *
-from OrderedList import *
+from data.DynamicList import *
+from data.StaticList import *
+from data.OrderedList import *
 import matplotlib.pyplot as plt
-from LinkedList import *
-from Node import *
+from data.LinkedList import *
+from data.Node import *
 import time
 
 from data.DoubleLinkedListTail import DoubleLinkedListTail
