@@ -12,12 +12,12 @@ class WishList:
             self.lector = pd.read_csv("src/wishList.csv")
             for i in range(self.lector.shape[0]):
                 curProduct = Product(title=self.lector['title'][i], price=self.lector['price'][i],
-                                     link=self.lector['link'][i], brand=self.lector['brand'][i])
+                                     link=self.lector['link'][i], seller=self.lector['seller'][i])
                 self.list.enqueue(Node(curProduct))
         else:
             with open("src/wishList.csv", 'w', newline='') as file:
                 writer = csv.writer(file)
-                writer.writerow(['title', 'price', 'link','brand'])
+                writer.writerow(['title', 'price', 'link','seller'])
 
     def __str__(self):
         return str(self.list)

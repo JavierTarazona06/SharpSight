@@ -10,6 +10,7 @@ class Product:
         return str(self.title) + " $" + str(f"{self.price:,}") + " " + str(self.link) + " " + str(self.seller )
         #return " $" + str(f"{self.price:,}")
         #return str(self.seller)
+        #return str(self.title)
     
     def json(self) -> dict:
         result = {'titulo':self.title,'precio':self.price,'link':self.link,'tienda':self.seller}

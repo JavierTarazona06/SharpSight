@@ -5,10 +5,7 @@ import time
 import pandas as pd
 
 
-def searchProduct(keyWord, data_product):
-
-    PATH = "chromedriver"
-    driver = webdriver.Chrome(PATH)
+def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> dict:
 
     # Navegar hacia la página web y buscar el nombre
     driver.get("https://www.exito.com/")
