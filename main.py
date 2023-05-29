@@ -200,11 +200,11 @@ def delete_in_whish_list(product:Products) -> JSONResponse:
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
     
-@app.delete("/whish_list/min_product", tags=["Whish List"])
-def delete_min_in_whish() -> JSONResponse:
+@app.delete("/whish_list/max_product", tags=["Whish List"])
+def delete_max_in_whish_List() -> JSONResponse:
     try:
         whishListHeap_imp = WishListHeap()
-        prod_del = whishListHeap_imp.delete_min()
+        prod_del = whishListHeap_imp.delete_max()
         return JSONResponse(content={"message":f"Se eliminó el producto: {prod_del.title}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto con menor precio ya que {e}"})

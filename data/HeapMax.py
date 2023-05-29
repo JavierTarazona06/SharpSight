@@ -1,4 +1,5 @@
 from data.Heap import Heap
+from data.Product import Product
 
 
 class HeapMax(Heap):
@@ -50,6 +51,13 @@ class HeapMax(Heap):
 
     def remove(self, index):
         self.array.list[index] = self.get_max() + 1
+        self.sift_up(index)
+        self.extract_max()
+
+    def remove_product(self, index):
+        prod_max : Product = self.get_max()
+        prod_max.price += 1
+        self.array.list[index] = prod_max
         self.sift_up(index)
         self.extract_max()
 

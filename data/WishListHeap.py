@@ -1,4 +1,4 @@
-from data.HeapMin import HeapMin
+from data.HeapMax import HeapMax
 import pandas as pd
 import os
 import csv
@@ -7,7 +7,7 @@ from data.Product import Product
 class WishListHeap:
 
     def __init__(self) -> None:
-        self.list = HeapMin()
+        self.list = HeapMax()
         self.indices_csv :dict = {}
         if os.path.exists("src/wishList.csv"):
             self.lector = pd.read_csv("src/wishList.csv")
@@ -37,10 +37,10 @@ class WishListHeap:
         df = pd.concat([df, data])
         df.to_csv("src/wishList.csv", index=False)
 
-    def delete_min(self) -> Product:
-        prod : Product = self.list.get_min()
+    def delete_max(self) -> Product:
+        prod : Product = self.list.get_max()
         index_prod = self.indices_csv[str(prod)]
-        prod : Product = self.list.extract_min()
+        prod : Product = self.list.extract_max()
         df = pd.read_csv("src/wishList.csv")
 
         if index_prod == 0:
