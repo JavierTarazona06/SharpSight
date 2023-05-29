@@ -52,6 +52,13 @@ def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> di
 
     image_elements = driver.find_elements(By.XPATH,'//img[@class="vtex-product-summary-2-x-imageNormal vtex-product-summary-2-x-image vtex-product-summary-2-x-mainImageHovered"]')
     image_urls = [image.get_attribute("src") for image in image_elements]
+
+    #Evitar que no consiga todas las imagnes: Arreglo temporal (Temporal fix)
+    cur_image :str = image_urls[0]
+    for i in range(len(titles_products)-len(image_urls)):
+         image_urls.append(cur_image)
+
+
     print(image_urls)
 
     marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',

@@ -82,6 +82,20 @@ class StaticList(Generic[T]):
                 a = i
             list += str(self.list[a+1])
             return list
+        
+    def json(self):
+        if self.empty():
+            return []
+        elif (self.size==1):
+            return [self.list[0].json()]
+        else:
+            list = []
+            a = 0
+            for i in range(0,self.index-1):
+                list.append(self.list[i].json())
+                a = i
+            list.append(self.list[a+1].json())
+            return list
 
     def find(self, key:T) -> bool:
         found:bool = False
