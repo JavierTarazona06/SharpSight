@@ -1,0 +1,9 @@
+{
+    "buildCommand": "next build",
+    "routes" : [
+        {
+            "src" : "/(.*)",
+            "dest" : "main.py"
+        }
+    ]
+}
