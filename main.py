@@ -172,16 +172,16 @@ def get_filter_products(price_min:int, price_max:int) -> JSONResponse:
 
 
 #WishList
-@app.get("/whish_list/", tags=["Whish List"])
-def show_whish_list() -> JSONResponse:
+@app.get("/wish_list/", tags=["Wish List"])
+def show_wish_list() -> JSONResponse:
     try:
-        whishListHeap_imp = WishListHeap()
-        return whishListHeap_imp.view_whish_list_json()
+        wishListHeap_imp = WishListHeap()
+        return wishListHeap_imp.view_whish_list_json()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
-@app.post("/whish_list/product", tags=["Whish List"])
-def new_in_whish_list(product:Products) -> JSONResponse:
+@app.post("/wish_list/product", tags=["Wish List"])
+def new_in_wish_list(product:Products) -> JSONResponse:
     try:
         whishListHeap_imp = WishListHeap()
         cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
@@ -190,21 +190,21 @@ def new_in_whish_list(product:Products) -> JSONResponse:
     except Exception as e:
         return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
 
-@app.delete("/whish_list/product", tags=["Whish List"])
-def delete_in_whish_list(product:Products) -> JSONResponse:
+@app.delete("/wish_list/product", tags=["Wish List"])
+def delete_in_wish_list(product:Products) -> JSONResponse:
     try:
-        whishListHeap_imp = WishListHeap()
+        wishListHeap_imp = WishListHeap()
         cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
-        whishListHeap_imp.delete(cur_product)
+        wishListHeap_imp.delete(cur_product)
         return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
     
-@app.delete("/whish_list/max_product", tags=["Whish List"])
-def delete_max_in_whish_List() -> JSONResponse:
+@app.delete("/wish_list/max_product", tags=["Wish List"])
+def delete_max_in_wish_List() -> JSONResponse:
     try:
-        whishListHeap_imp = WishListHeap()
-        prod_del = whishListHeap_imp.delete_max()
+        wishListHeap_imp = WishListHeap()
+        prod_del = wishListHeap_imp.delete_max()
         return JSONResponse(content={"message":f"Se eliminó el producto: {prod_del.title}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto con menor precio ya que {e}"})
