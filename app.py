@@ -1,4 +1,7 @@
 import json
+from data.Node import Node
+from data.LinkedList import LinkedList
+from data.HashTable import HashTable
 from data.Product import Product
 from Scrapping import Search
 from data import Results,ResultsAVL
@@ -14,7 +17,7 @@ from Models.User import User
 def __init__():
     #menu.startMenu()
     #Search.Search(str("Nintendo Switch"))
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
+    ###resulAVL_imp = ResultsAVL.results_AVL_imp()
     #print("-------------------------")
     #print(resulAVL_imp.view_results())
 
@@ -49,6 +52,7 @@ def __init__():
     #print("------------------------------")
     #print("------------------------------")
     #print(mySet.products_seller_json('Ktronix'))
+    pass
 
 
 
