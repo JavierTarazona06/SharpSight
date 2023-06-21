@@ -1,0 +1,115 @@
+
+from data.HashTable import HashTable
+from data.Node import Node
+from data.LinkedList import LinkedList
+from data.StaticList import StaticList
+from data.Queue import Queue
+
+
+class Graph:
+
+    def __init__(self) -> None:
+        self.adj_list:HashTable = HashTable()
+
+    def __str__(self) -> str:
+        return_str = ""
+        size = self.adj_list.number_key()
+        acc = 0
+        for hash in self.adj_list:
+            hash:HashTable.HashData
+            if acc == size-1:
+                return_str += f"{hash.key} -> {hash.value}"
+            else:
+                return_str += f"{hash.key} -> {hash.value} \n"
+            acc += 1
+        return return_str
+    
+    def find_vertex(self, vertex):
+        return self.adj_list.find(vertex)
+    
+    def find_edge(self, vertex1, vertex2):
+        is_vertex1 = self.adj_list.find(vertex1)
+        if is_vertex1:
+            list_vertex1:LinkedList = self.adj_list.get(vertex1)
+            if not list_vertex1.isEmpty() and list_vertex1.find(Node(vertex2)):
+                return True
+        return False
+
+    def add_vertex(self, vertex):
+        is_vertex = self.adj_list.find(vertex)
+        if not is_vertex:
+            self.adj_list.insert(vertex, LinkedList())
+
+    def add_edge(self, vertex1,vertex2):
+        is_vertex1 = self.adj_list.find(vertex1)
+        is_vertex2 = self.adj_list.find(vertex2)
+        if is_vertex1 and is_vertex2:
+            list_vertex1:LinkedList = self.adj_list.get(vertex1)
+            list_vertex2:LinkedList = self.adj_list.get(vertex2)
+            if vertex1 == vertex2:
+                if list_vertex1.isEmpty() or not list_vertex1.find(Node(vertex2)):
+                    list_vertex1.pushBack(Node(vertex2)) 
+            else:
+                if list_vertex1.isEmpty() or not list_vertex1.find(Node(vertex2)):
+                    list_vertex1.pushBack(Node(vertex2)) 
+                if list_vertex2.isEmpty() or not list_vertex2.find(Node(vertex1)):
+                    list_vertex2.pushBack(Node(vertex1)) 
+                #self.adj_list.get(vertex2).pushBack(Node(vertex1))
+
+    def get_neighbors(self, vertex) -> list:
+        is_vertex = self.adj_list.find(vertex)
+        if is_vertex:
+            list_vertex:LinkedList = self.adj_list.get(vertex)
+            return list_vertex.to_list()
+        else:
+            raise KeyError("Key doesn't exists")
+        
+    #Breadth-First Search
+    def bfs(self, origin_vertex) -> str:
+        is_visited = HashTable()
+
+        for hash in self.adj_list:
+            hash:HashTable.HashData # {vertex:list_edges}
+            print(hash)
+            is_visited.insert(hash.key, False)
+        
+        queue = Queue()
+        queue.enqueue(Node(origin_vertex))
+        is_visited.set(origin_vertex, True)
+
+        to_return = ""
+
+        while not queue.isEmpty():
+            cur_vertex = queue.dequeue()
+            to_return += str(cur_vertex) + " "
+
+            neighbors_list:LinkedList = self.adj_list.get(cur_vertex)
+            for neighbor in neighbors_list:
+                if not is_visited.get(neighbor):
+                    queue.enqueue(Node(neighbor))
+                    is_visited.set(neighbor, True)
+        
+        return to_return
+    
+    #Depth-First Search
+    def dfs(self, origin_vertex) -> str:
+        is_visited = HashTable()
+        print(self.adj_list)
+        for hash in self.adj_list:
+            #hash = {vertex: list_edge}
+            hash = HashTable.HashData
+            print(hash)
+            is_visited.insert(hash.key, False)
+
+        return self.dfs_recursive(origin_vertex, is_visited, "")
+
+    def dfs_recursive(self, cur_vertex, is_visited:HashTable, to_return:str) -> str:
+        is_visited.set(cur_vertex, True)
+        to_return += str(cur_vertex) + " "
+
+        neighbors:LinkedList = self.adj_list.get(cur_vertex)
+        for neighbor in neighbors:
+            if not is_visited.get(neighbor):
+                return str(cur_vertex) + " " + self.dfs_recursive(neighbor, is_visited, to_return)
+            else:
+                return str(cur_vertex)

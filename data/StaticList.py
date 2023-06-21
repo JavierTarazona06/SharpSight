@@ -18,6 +18,18 @@ class StaticList(Generic[T]):
             self.list.append(None)
         self.index = 0
 
+    def __iter__(self):
+        self.iter_pointer = 0
+        return self
+    
+    def __next__(self):
+        if self.iter_pointer == self.size:
+            raise StopIteration
+        else:
+            current = self.list[self.iter_pointer]
+            self.iter_pointer += 1
+            return current
+
     def pushFront(self,key:T):
         if (self.full()):
             raise Error("Fail pushFront. La lista esta llena. No se pueden guardar más datos")

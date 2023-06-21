@@ -1,4 +1,5 @@
 import json
+from data.Graph import Graph
 from data.Node import Node
 from data.LinkedList import LinkedList
 from data.HashTable import HashTable
@@ -15,6 +16,20 @@ from config.Data_base import data_base
 from Models.User import User
 
 def __init__():
+    myGraph = Graph()
+    myGraph.add_vertex("A")
+    myGraph.add_vertex("B")
+    myGraph.add_vertex("C")
+    myGraph.add_vertex("D")
+    myGraph.add_edge("A", "A")
+    myGraph.add_edge("A", "B")
+    myGraph.add_edge("A", "C")
+    myGraph.add_edge("A", "D")
+    myGraph.add_edge("B", "D")
+    myGraph.add_edge("C", "D")
+    print(myGraph)
+    print(myGraph.bfs("A"))
+    print(myGraph.dfs("A"))
     #menu.startMenu()
     #Search.Search(str("Nintendo Switch"))
     ###resulAVL_imp = ResultsAVL.results_AVL_imp()
