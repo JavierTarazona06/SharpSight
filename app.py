@@ -21,15 +21,28 @@ def __init__():
     myGraph.add_vertex("B")
     myGraph.add_vertex("C")
     myGraph.add_vertex("D")
+    myGraph.add_vertex("E")
     myGraph.add_edge("A", "A")
     myGraph.add_edge("A", "B")
     myGraph.add_edge("A", "C")
     myGraph.add_edge("A", "D")
     myGraph.add_edge("B", "D")
     myGraph.add_edge("C", "D")
+
+    print(myGraph.bfs("B"))
+    print(myGraph.dfs("B"))
+    print(myGraph.bfs_shortest_path("A", "D"))
+
+    #print(myGraph)
+    #myGraph.remove_vertex("C")
+    #print("---------")
     print(myGraph)
-    print(myGraph.bfs("A"))
-    print(myGraph.dfs("A"))
+    myGraph.remove_edge("B", "C")
+    print("---------")
+    print(myGraph)
+
+
+
     #menu.startMenu()
     #Search.Search(str("Nintendo Switch"))
     ###resulAVL_imp = ResultsAVL.results_AVL_imp()
