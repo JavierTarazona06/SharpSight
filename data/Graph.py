@@ -152,3 +152,29 @@ class Graph:
                     queue.enqueue(Node((neighbor, path + [current_vertex])))
 
         return None
+    
+    def proves(self):
+        myGraph = Graph()
+        myGraph.add_vertex("A")
+        myGraph.add_vertex("B")
+        myGraph.add_vertex("C")
+        myGraph.add_vertex("D")
+        myGraph.add_vertex("E")
+        myGraph.add_edge("A", "A")
+        myGraph.add_edge("A", "B")
+        myGraph.add_edge("A", "C")
+        myGraph.add_edge("A", "D")
+        myGraph.add_edge("B", "D")
+        myGraph.add_edge("C", "D")
+
+        print(myGraph.bfs("B"))
+        print(myGraph.dfs("B"))
+        print(myGraph.bfs_shortest_path("A", "D"))
+
+        #print(myGraph)
+        #myGraph.remove_vertex("C")
+        #print("---------")
+        print(myGraph)
+        myGraph.remove_edge("B", "C")
+        print("---------")
+        print(myGraph)
