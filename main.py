@@ -68,7 +68,7 @@ async def root():
 
 #Users
 
-@app.get("/user/validate/{cur_email}/{cur_password}", tags=["User"])
+@app.get("/user/", tags=["User"])
 async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
     try:
         cur_user = User(email=cur_email, password=cur_password, operation=1)
@@ -84,7 +84,7 @@ async def create_user(in_user:Users) -> JSONResponse:
     except Exception as e:
         return {"Error:" : str(e)}
     
-@app.put("/user/{cur_email}/{cur_password}", tags=["User"])
+@app.put("/user/", tags=["User"])
 async def modify_user(cur_email:str, cur_password:str, in_user:Users) -> JSONResponse:
     try:
         cur_user = User(email=cur_email, password=cur_password, operation=1)
@@ -93,7 +93,7 @@ async def modify_user(cur_email:str, cur_password:str, in_user:Users) -> JSONRes
     except Exception as e:
         return {"Error:" : str(e)}
     
-@app.delete("/user/{cur_email}/{cur_password}", tags=["User"])
+@app.delete("/user/", tags=["User"])
 async def delete_user(cur_email:str, cur_password:str) -> JSONResponse:
     try:
         cur_user = User(email=cur_email, password=cur_password, operation=1)
@@ -105,7 +105,7 @@ async def delete_user(cur_email:str, cur_password:str) -> JSONResponse:
 
 #Results
 
-@app.get("/products/{keyProd}", tags=["Products"])
+@app.get("/product/", tags=["Products"])
 def get_products_key(keyProd:str) -> JSONResponse:
     try:
         Search.Search(str(keyProd))
@@ -145,28 +145,19 @@ def get_best_products() -> JSONResponse:
         return resulAVL_imp.bestProduct_json()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
-
-@app.get("/products/filter/greater/{price_min}", tags=["Products"])
-def get_filter_products_greater(price_min:int) -> JSONResponse:
+    
+@app.get("/products/filter/", tags=["Products"])
+def get_filter_products_greater(price_min:int=None, price_max:int=None) -> JSONResponse:
     try:
         resulAVL_imp = ResultsAVL.results_AVL_imp()
-        return resulAVL_imp.filterGreater_json(price_min)
-    except Exception as e:
-        return JSONResponse(content={f"message":f"Error: {e}"})
-
-@app.get("/products/filter/lower/{price_max}", tags=["Products"])
-def get_filter_products_lower(price_max:int) -> JSONResponse:
-    try:
-        resulAVL_imp = ResultsAVL.results_AVL_imp()
-        return resulAVL_imp.filterLower_json(price_max)
-    except Exception as e:
-        return JSONResponse(content={f"message":f"Error: {e}"})
-
-@app.get("/products/filter/{price_min}/{price_max}", tags=["Products"])
-def get_filter_products(price_min:int, price_max:int) -> JSONResponse:
-    try:
-        resulAVL_imp = ResultsAVL.results_AVL_imp()
-        return resulAVL_imp.filter_json(price_min, price_max)
+        if price_min and price_max:
+            return resulAVL_imp.filter_json(price_min, price_max)
+        elif not price_min:
+            return resulAVL_imp.filterLower_json(price_max)
+        elif not price_max:
+            return resulAVL_imp.filterGreater_json(price_min)
+        else:
+            return resulAVL_imp.view_results()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
@@ -266,7 +257,7 @@ def delete_in_comparison_list(product:Products) -> JSONResponse:
     
 
 #Set by seller
-@app.get("/products/set/seller/{seller}", tags=["Set"])
+@app.get("/products/filter/seller", tags=["Set"])
 def get_products_seller(seller:str) -> JSONResponse:
     try:
         mySet = SetSeller()
@@ -274,7 +265,7 @@ def get_products_seller(seller:str) -> JSONResponse:
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: No hay tienda {e}"})
     
-@app.get("/products/set/seller", tags=["Set"])
+@app.get("/sellers", tags=["Set"])
 def get_sellers() -> JSONResponse:
     try:
         mySet = SetSeller()
