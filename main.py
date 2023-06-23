@@ -57,16 +57,20 @@ class Products(BaseModel):
 
 class Users(BaseModel):
     id: Optional[int]
-    nombre : str
-    apellido : str
-    email : str
-    password : str
+    nombre : str = Field(default=None)
+    apellido : str = Field(default=None)
+    email : str = Field(default=None)
+    password : str = Field(default=None)
 
 
 @app.get("/")
 async def root():
     return {"message": "Welcome to SharpSight API. For API's documentation write in path ./docs/"}
 
+#Global Variables
+is_user_active:bool = False
+user_id:int = None
+user_active = None
 
 #Users
 
@@ -74,6 +78,9 @@ async def root():
 async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
     try:
         cur_user = User(email=cur_email, password=cur_password, operation=1)
+        is_user_active = True
+        user_id = cur_user.id
+        user_active = cur_user
         return cur_user.json()
     except Exception as e:
         return {"Error:" : str(e)}
@@ -100,7 +107,7 @@ async def delete_user(cur_email:str, cur_password:str) -> JSONResponse:
     try:
         cur_user = User(email=cur_email, password=cur_password, operation=1)
         cur_user.delete()
-        return {"Message": "Deleted successfully"}
+        return {"Message": f"Usuario con email {cur_email} eliminado exitosamente"}
     except Exception as e:
         return {"Error:" : str(e)}
 
@@ -109,17 +116,12 @@ async def delete_user(cur_email:str, cur_password:str) -> JSONResponse:
 
 @app.get("/product/", tags=["Products"])
 def get_products_key(keyProd:str) -> JSONResponse:
-    Search.Search(str(keyProd))
-    resulAVL_imp = ResultsAVL.results_AVL_imp()
-    return resulAVL_imp.view_results()
-    '''
     try:
         Search.Search(str(keyProd))
         resulAVL_imp = ResultsAVL.results_AVL_imp()
         return resulAVL_imp.view_results()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
-    '''
 
 @app.get("/products/", tags=["Products"])
 def get_products() -> JSONResponse:
@@ -287,6 +289,22 @@ def delete_in_comparison_list(product:Products) -> JSONResponse:
         print(e)
         return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
     
+@app.get("/sellers", tags=["Other"])
+def get_sellers() -> JSONResponse:
+    try:
+        mySet = SetSeller()
+        return mySet.sellers_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+@app.get("/brands", tags=["Other"])
+def get_brands() -> JSONResponse:
+    try:
+        graph_brands_implementation = GraphProductsByBrand.graph_brand_implementation()
+        return graph_brands_implementation.get_brands()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
 '''
 #Set by seller
 @app.get("/products/filter/seller", tags=["Set"])
@@ -296,12 +314,4 @@ def get_products_seller(seller:str) -> JSONResponse:
         return mySet.products_seller_json(seller)
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: No hay tienda {e}"})
-    
-@app.get("/sellers", tags=["Set"])
-def get_sellers() -> JSONResponse:
-    try:
-        mySet = SetSeller()
-        return mySet.sellers_json()
-    except Exception as e:
-        return JSONResponse(content={f"message":f"Error: {e}"})
 '''

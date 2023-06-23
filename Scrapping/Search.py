@@ -16,14 +16,14 @@ class Search:
 
         data_product = {"titulo": [], "precio": [], "link": [], "marca":[], "imagen":[], "empresa":[]}
 
-        #driver : webdriver.Chrome = self.reload_driver()
-        #data_product = MercadoLibre.searchProduct(product_to_search, data_product, driver)
- 
         driver : webdriver.Chrome = self.reload_driver()
-        data_product = Ktronix.searchProduct(product_to_search, data_product, driver)
-
+        data_product = MercadoLibre.searchProduct(product_to_search, data_product, driver)
+ 
         #driver : webdriver.Chrome = self.reload_driver()
-        #data_product = Exito.searchProduct(product_to_search, data_product, driver)
+        #data_product = Ktronix.searchProduct(product_to_search, data_product, driver)
+
+        driver : webdriver.Chrome = self.reload_driver()
+        data_product = Exito.searchProduct(product_to_search, data_product, driver)
 
         #Integridad de los titulos
         hash = HashTable()
@@ -39,6 +39,7 @@ class Search:
                 data_product.get("marca").pop(acc)
                 data_product.get("imagen").pop(acc)
                 data_product.get("empresa").pop(acc)
+                acc -= 1
             acc += 1
 
         print(len(data_product.get("titulo")))
@@ -47,6 +48,9 @@ class Search:
         print(len(data_product.get("marca")))
         print(len(data_product.get("imagen")))
         print(len(data_product.get("empresa")))
+
+        if len(data_product.get("titulo")) == 0:
+            raise Exception("La búsqueda no arrojó resultados. Intenta una búsqueda más general o verifica la ortografía")
 
         df = pd.DataFrame(data_product)
         df.to_csv("src/productos.csv")

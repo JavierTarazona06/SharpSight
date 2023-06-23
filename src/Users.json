@@ -1,0 +1,14 @@
+{
+    "1": {
+        "nombre": "prove2",
+        "apellido": "prove2",
+        "email": "prove2@prove.com",
+        "password": "$2b$12$NtiJcgRqmzh.I5dufZwPrun.UnmwAWOgf2kjBiB7dB/mdaUhLz3HW"
+    },
+    "2": {
+        "nombre": "prove",
+        "apellido": "prove",
+        "email": "prove@prove.com",
+        "password": "$2b$12$wtnyVi9EHnzPEzZs8BlBLer6snf0SjW102Ms1qoolPBsUyq0ANLP2"
+    }
+}

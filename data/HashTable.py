@@ -68,6 +68,28 @@ class HashTable:
                 index_interable += 1
         return lista
     
+    def to_dict(self) -> dict:
+        to_return = {}
+        for hash in self:
+            to_return[hash.key] = hash.value
+        return to_return
+    
+    def from_dict_to_hashTable(self, dictionary:dict):
+        for key, value in dictionary.items():
+            try:
+                key = int(key)
+                self.insert(key, value)
+            except Exception:
+                try:
+                    key = float(key)
+                    self.insert(key, value)
+                except Exception:
+                    try:
+                        key = complex(key)
+                        self.insert(key, value)
+                    except Exception:
+                        self.insert(key, value)
+    
     def is_prime(self, n):
         if n <= 1:
             return False
@@ -148,7 +170,7 @@ class HashTable:
                 sub_linked_list.pushBack(Node(data_to_hash))
             self.rehash()
 
-    def get(self, key:int)->object:
+    def get(self, key)->object:
         if (str(type(key))=="<class 'int'>"):
             hash_index = self.hash_function_int(key)
         elif (str(type(key))=="<class 'float'>"):
@@ -250,6 +272,8 @@ class HashTable:
         myHash.insert(81, "81-32")
         myHash.insert(81, "81-33")
         print(myHash)
+        print(myHash.to_dict())
+
         myHash.remove(5)
         print(myHash)
         print(myHash.size)

@@ -1,4 +1,5 @@
 import json
+import os
 from data.GraphProductsBySeller import GraphProductsBySeller
 from data.Graph import Graph
 from data.Node import Node
@@ -17,8 +18,62 @@ from config.Data_base import data_base
 from Models.User import User
 
 def __init__():
-    myHash = HashTable()
-    myHash.proves()
+
+    users_path = "src/Users.json"
+
+    if not os.path.exists(users_path):
+        users_file = open(users_path, "w", encoding="utf-8")
+        users_file.close()
+
+    print(os.path.getsize(users_path))
+    if os.path.getsize(users_path) > 0:
+        users_file = open(users_path, "r", encoding="utf-8")
+        users_data: dict = json.load(users_file)
+        users_file.close()
+    else:
+        users_data = {}
+
+    print(users_data)
+
+    if len(users_data.keys())==0:
+        id = 0
+    else:
+        id = max([int(id) for id in users_data.keys()]) + 1
+
+    print(id)
+
+    users_hash_table = HashTable()
+    users_hash_table.from_dict_to_hashTable(users_data)
+
+    flag_to_insert = True
+
+    for user_hash in users_hash_table:
+        if "n1om" == user_hash.value.get("email"):
+            flag_to_insert = False
+            break
+
+    if flag_to_insert:
+
+        cur_user = {"nombre":str("nom"), "apellido":str("nom"), "email":str("n1om"), "password":str("nom")}
+
+        users_hash_table.insert(id, cur_user)
+
+        users_data = users_hash_table.to_dict()
+
+        users_file = open(users_path, "w", encoding="utf-8")
+        json.dump(users_data, users_file, ensure_ascii=False, indent=4)
+        users_file.close()
+
+        print(users_data)
+
+    else:
+        raise Exception(f"El usuario con email {id} ya existe")
+
+    '''
+    archivo = open("src/Users.json", "w", encoding="utf-8")
+    json.dump({"a":"es"}, archivo, ensure_ascii=False, indent=4)
+    archivo.close()
+    '''
 
     #menu.startMenu()
     #Search.Search(str("Nintendo Switch"))
