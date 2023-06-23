@@ -5,6 +5,9 @@ For running the project:
 Open the terminal and run:
 
   python3 -m venv .env
+  
   .env\Scripts\activate
+  
   pip install -r requirements.txt 
+  
   uvicorn main:app --reload
