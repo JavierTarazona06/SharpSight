@@ -1,3 +1,4 @@
+import copy
 from typing import TypeVar, Generic
 
 from data.Node import Node
@@ -132,7 +133,10 @@ class LinkedList(Generic[T]):
             ptr = self.head
             i=0
             while (not ptr is None):
-                if ptr.key==node_To_Find.key:
+                ptr_cp = str(copy.deepcopy(ptr.key))
+                node_cp = str(copy.deepcopy(node_To_Find.key))
+                #if ptr.key==node_To_Find.key:
+                if ptr_cp ==node_cp :
                     return i
                 ptr = ptr.next
                 i+=1

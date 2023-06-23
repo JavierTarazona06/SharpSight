@@ -24,7 +24,7 @@ from data.WishListHeap import WishListHeap
 from data.Product import Product
 from data.ComparisonListAVL import ComparisonListAVL
 from data.SetSeller import SetSeller
-from data import GraphProductsBySeller
+from data import GraphProducts
 from data import GraphProductsByBrand
 
 #Users
@@ -175,8 +175,8 @@ async def get_products__by_seller(sellers:str=None) -> JSONResponse:
     #sellers is a str separeted by '_'
     try:
         if not sellers is None:
-            graph_companies_implementation = GraphProductsBySeller.graph_seller_implementation()
-            return graph_companies_implementation.get_products(sellers)
+            graph_implementation = GraphProducts.graph_implementation()
+            return graph_implementation.get_products_seller(sellers)
         else:
             resulAVL_imp = ResultsAVL.results_AVL_imp()
             return resulAVL_imp.view_results()
@@ -188,8 +188,8 @@ async def get_products__by_brand(brands:str=None) -> JSONResponse:
     #brands is a str separeted by '_'
     try:
         if not brands is None:
-            graph_brands_implementation = GraphProductsByBrand.graph_brand_implementation()
-            return graph_brands_implementation.get_products(brands)
+            graph_implementation = GraphProducts.graph_implementation()
+            return graph_implementation.get_products_brand(brands)
         else:
             resulAVL_imp = ResultsAVL.results_AVL_imp()
             return resulAVL_imp.view_results()
@@ -292,20 +292,53 @@ def delete_in_comparison_list(product:Products) -> JSONResponse:
 @app.get("/sellers", tags=["Other"])
 def get_sellers() -> JSONResponse:
     try:
-        mySet = SetSeller()
-        return mySet.sellers_json()
+        graph_implementation = GraphProducts.graph_implementation()
+        return graph_implementation.get_sellers()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
     
 @app.get("/brands", tags=["Other"])
 def get_brands() -> JSONResponse:
     try:
-        graph_brands_implementation = GraphProductsByBrand.graph_brand_implementation()
-        return graph_brands_implementation.get_brands()
+        graph_implementation = GraphProducts.graph_implementation()
+        return graph_implementation.get_brands()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
+
+@app.get("/brands/seller", tags=["Other"])
+def get_brands_by_seller(sellers:str=None) -> JSONResponse:
+    #Sellers is a str separated by '_'
+    try:
+        graph_implementation = GraphProducts.graph_implementation()
+        if not sellers is None:
+            graph_implementation = GraphProducts.graph_implementation()
+            return graph_implementation.get_brands_sellers(sellers)
+        else:
+            print(graph_implementation.get_sellers()["tiendas"])
+            tiendas_raw:list = graph_implementation.get_sellers()["tiendas"]
+            n_tiendas = len(tiendas_raw)
+            sellers = ""
+            for i in range(len(tiendas_raw)):
+                if i == n_tiendas -1:
+                    sellers += str(tiendas_raw[i])
+                else:
+                    sellers += str(tiendas_raw[i]) + "_"
+            print(sellers)
+            return graph_implementation.get_brands_sellers(sellers)
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
+
 '''
+@app.get("/sellers", tags=["Other"])
+def get_sellers() -> JSONResponse:
+    try:
+        mySet = SetSeller()
+        return mySet.sellers_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
 #Set by seller
 @app.get("/products/filter/seller", tags=["Set"])
 def get_products_seller(seller:str) -> JSONResponse:

@@ -38,20 +38,53 @@ class GraphProducts:
             self.graph.add_edge(cur_brand, cur_seller)
 
         self.brands = brands_inserted
+        self.sellers = sellers_inserted
 
-    def get_products(self, brands:str) -> list:
+    def get_products_brand(self, brands:str) -> list:
         brands_list:list = brands.split('_')
         products_asked:list = []
 
         for brand in brands_list:
             products = self.graph.get_neighbors(brand)
             for product in products:
-                products_asked.append(product.json())
+                if str(type(product)) == "<class 'data.Product.Product'>":
+                    products_asked.append(product.json())
 
         return products_asked
     
-    def get_brands(self) -> list:
-        return {"marcas":self.brands}
+    def get_products_seller(self, sellers:str) -> list:
+        sellers_list:list = sellers.split('_')
+        products_asked:list = []
 
-def graph_brand_implementation() -> GraphProductsByBrand:
-    return GraphProductsByBrand("src\productos.csv")
+        for seller in sellers_list:
+            products = self.graph.get_neighbors(seller)
+            for product in products:
+                if str(type(product)) == "<class 'data.Product.Product'>":
+                    products_asked.append(product.json())
+
+        return products_asked
+    
+    def get_brands(self) -> dict:
+        return {"marcas":self.brands}
+    
+    def get_sellers(self) -> dict:
+        return {"tiendas":self.sellers}
+    
+    def get_brands_sellers(self, sellers:str) -> dict:
+        sellers_list:list = sellers.split('_')
+        brands_asked:list = []
+        to_return = {}
+
+        for seller in sellers_list:
+            brands = self.graph.get_neighbors(seller)
+            for brand in brands:
+                if str(type(brand)) == "<class 'str'>":
+                    brands_asked.append(brand)
+            to_return[str(seller)] = brands_asked
+            brands_asked = []
+
+        return to_return
+
+
+def graph_implementation() -> GraphProducts:
+    return GraphProducts("src\productos.csv")
