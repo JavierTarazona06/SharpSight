@@ -55,14 +55,16 @@ class Graph:
         if is_vertex1 and is_vertex2:
             list_vertex1:LinkedList = self.adj_list.get(vertex1)
             list_vertex2:LinkedList = self.adj_list.get(vertex2)
-            if vertex1 == vertex2:
+            if str(vertex1) == str(vertex2):
                 if list_vertex1.isEmpty() or not list_vertex1.find(Node(vertex2)):
                     list_vertex1.pushBack(Node(vertex2)) 
             else:
                 if list_vertex1.isEmpty() or not list_vertex1.find(Node(vertex2)):
                     list_vertex1.pushBack(Node(vertex2)) 
                 if list_vertex2.isEmpty() or not list_vertex2.find(Node(vertex1)):
-                    list_vertex2.pushBack(Node(vertex1)) 
+                    list_vertex2.pushBack(Node(vertex1))
+        else:
+            raise Exception("Vertex1 or vertex2 don't exist")
 
     def remove_edge(self, vertex1, vertex2):
         is_vertex1 = self.adj_list.find(vertex1)

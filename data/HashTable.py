@@ -128,8 +128,16 @@ class HashTable:
         else:
             if (str(type(key))=="<class 'int'>"):
                 hash_index = self.hash_function_int(key)
+            elif (str(type(key))=="<class 'float'>"):
+                hash_index = self.hash_function_int(round(key))
+            elif (str(type(key))=="<class 'complex'>"):
+                hash_index = self.hash_function_int(int(key.real))
+            else:
+                hash_index = self.hash_function_str(str(key))
+            '''
             elif (str(type(key))=="<class 'str'>"):
                 hash_index = self.hash_function_str(key)
+            '''
             data_to_hash:HashTable.HashData = HashTable.HashData(key, value)
             if (self.lista_hash.list[hash_index] == None):
                 sub_linked_list = LinkedList()
@@ -143,12 +151,16 @@ class HashTable:
     def get(self, key:int)->object:
         if (str(type(key))=="<class 'int'>"):
             hash_index = self.hash_function_int(key)
-        elif (str(type(key))=="<class 'str'>"):
-            hash_index = self.hash_function_str(key)
+        elif (str(type(key))=="<class 'float'>"):
+            hash_index = self.hash_function_int(round(key))
+        elif (str(type(key))=="<class 'complex'>"):
+            hash_index = self.hash_function_int(int(key.real))
+        else:
+            hash_index = self.hash_function_str(str(key))
         possible_linked_list:LinkedList = self.lista_hash.list[hash_index]
         for hashed_data in possible_linked_list:
             hashed_data:HashTable.HashData
-            if hashed_data.key == key:
+            if str(hashed_data.key) == str(key):
                 return hashed_data.value
         raise KeyError("Key is not in HashTable")
 
@@ -161,23 +173,34 @@ class HashTable:
             return False
         
     def remove(self, key:int) -> bool:
-        value = self.get(key)
-        hash_data_to_remove = HashTable.HashData(key, value)
-        if (str(type(key))=="<class 'int'>"):
-            hash_index = self.hash_function_int(key)
-        elif (str(type(key))=="<class 'str'>"):
-            hash_index = self.hash_function_str(key)
-        elements_linked_list:LinkedList = self.lista_hash.list[hash_index]
-        elements_linked_list.delete(Node(hash_data_to_remove))
-        if elements_linked_list.isEmpty():
-            self.lista_hash.list[hash_index] = None
+        try:
+            value = self.get(key)
+            hash_data_to_remove = HashTable.HashData(key, value)
+            if (str(type(key))=="<class 'int'>"):
+                hash_index = self.hash_function_int(key)
+            elif (str(type(key))=="<class 'float'>"):
+                hash_index = self.hash_function_int(round(key))
+            elif (str(type(key))=="<class 'complex'>"):
+                hash_index = self.hash_function_int(int(key.real))
+            else:
+                hash_index = self.hash_function_str(str(key))
+            elements_linked_list:LinkedList = self.lista_hash.list[hash_index]
+            elements_linked_list.delete(Node(hash_data_to_remove))
+            if elements_linked_list.isEmpty():
+                self.lista_hash.list[hash_index] = None
+        except TypeError as e:
+            raise KeyError(f"Key doesn't exist or {e}")
 
     def set(self, key:int, value:object) -> None:
         new_hash:HashTable.HashData = HashTable.HashData(key, value)
         if (str(type(key))=="<class 'int'>"):
             hash_index = self.hash_function_int(key)
-        elif (str(type(key))=="<class 'str'>"):
-            hash_index = self.hash_function_str(key)
+        elif (str(type(key))=="<class 'float'>"):
+            hash_index = self.hash_function_int(round(key))
+        elif (str(type(key))=="<class 'complex'>"):
+            hash_index = self.hash_function_int(int(key.real))
+        else:
+            hash_index = self.hash_function_str(str(key))
         hash_linked_list:LinkedList = self.lista_hash.list[hash_index]
         if hash_linked_list is None:
             raise KeyError("Key is not in HashTable")
@@ -227,6 +250,8 @@ class HashTable:
         myHash.insert(81, "81-32")
         myHash.insert(81, "81-33")
         print(myHash)
+        myHash.remove(5)
+        print(myHash)
         print(myHash.size)
         print(myHash.number_key())
         print(myHash.load_factor())
@@ -241,3 +266,4 @@ class HashTable:
         
         
         print(myHash.rabin_karp("Samsung 58 Gigas", "58"))
+        print(myHash.rabin_karp("Samsung 58 Gigas", "21"))
