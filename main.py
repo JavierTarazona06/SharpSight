@@ -28,7 +28,7 @@ from data import GraphProductsBySeller
 from data import GraphProductsByBrand
 
 #Users
-from Models.User import User
+from Models.user import User
 
 app = FastAPI()
 app.title = "Sharp Sight Backend"

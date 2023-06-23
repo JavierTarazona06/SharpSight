@@ -15,7 +15,7 @@ from data.SetSeller import SetSeller
 
 #Data Base
 from config.Data_base import data_base
-from Models.User import User
+from Models.user import User
 
 def __init__():
 
