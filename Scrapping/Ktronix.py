@@ -43,7 +43,8 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
     # Extract all product prices
     price_products = driver.find_elements(By.XPATH, xpath2)
-    price_products= [int(price.text.replace("$", "").replace(".", "")) for price in price_products]
+    #price_products= [int(price.text.replace("$", "").replace(".", "")) if price else 0 for price in price_products]
+    price_products= [0 for price in title_texts]
 
     # Extract all product links
     link_elements = driver.find_elements(By.XPATH, '//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
@@ -53,7 +54,6 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     image_elements = driver.find_elements(By.XPATH, '//a[@class="js-algolia-product-click"]/img[@srcset]')
     image_urls = [f"https://www.ktronix.com{element.get_attribute('srcset').split(', ')[0].split(' ')[0]}" for element
                   in image_elements]
-    print(image_urls)
 
     marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
               'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
@@ -74,10 +74,12 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
     brand_products = ["Ktronix" for i in range(len(links_products))]
 
-    print(title_products)
+    print(title_texts)
     print(price_products)
     print(links_products)
     print(brand_products)
+    print(image_urls)
+    print(marcas_productos)
 
     # diccionario
     data_product["titulo"].extend(title_texts)

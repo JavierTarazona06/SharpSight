@@ -1,4 +1,5 @@
 import json
+from data.GraphProductsBySeller import GraphProductsBySeller
 from data.Graph import Graph
 from data.Node import Node
 from data.LinkedList import LinkedList
@@ -16,6 +17,9 @@ from config.Data_base import data_base
 from Models.User import User
 
 def __init__():
+    myHash = HashTable()
+    myHash.proves()
+
     #menu.startMenu()
     #Search.Search(str("Nintendo Switch"))
     ###resulAVL_imp = ResultsAVL.results_AVL_imp()
