@@ -3,6 +3,7 @@ This project aims to help buyers find their cell phones at the best prices by sh
 
 For running the project:
 Open the terminal and run:
+
   python3 -m venv .env
   .env\Scripts\activate
   pip install -r requirements.txt 
