@@ -65,13 +65,13 @@ def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> di
               'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
               'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
               'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto']
+              'Tecno', 'Legion', 'Moto', 'Nintendo', 'Microsoft', 'Sony']
 
     marcas_productos = []
     for title in titles_products:
         marca_encontrada = False
         for marca in marcas:
-            if marca in title:
+            if marca.lower() in title.lower():
                 marcas_productos.append(marca)
                 marca_encontrada = True
                 break

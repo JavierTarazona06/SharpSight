@@ -28,6 +28,8 @@ class GraphProductsByBrand:
 
             self.graph.add_edge(curProduct, cur_brand)
 
+        self.brands = brands_inserted
+
     def get_products(self, brands:str) -> list:
         brands_list:list = brands.split('_')
         products_asked:list = []
@@ -38,6 +40,9 @@ class GraphProductsByBrand:
                 products_asked.append(product.json())
 
         return products_asked
+    
+    def get_brands(self) -> list:
+        return {"marcas":self.brands}
 
 def graph_brand_implementation() -> GraphProductsByBrand:
     return GraphProductsByBrand("src\productos.csv")
