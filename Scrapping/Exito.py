@@ -52,19 +52,26 @@ def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> di
 
     image_elements = driver.find_elements(By.XPATH,'//img[@class="vtex-product-summary-2-x-imageNormal vtex-product-summary-2-x-image vtex-product-summary-2-x-mainImageHovered"]')
     image_urls = [image.get_attribute("src") for image in image_elements]
+
+    #Evitar que no consiga todas las imagnes: Arreglo temporal (Temporal fix)
+    cur_image :str = image_urls[0]
+    for i in range(len(titles_products)-len(image_urls)):
+         image_urls.append(cur_image)
+
+
     print(image_urls)
 
     marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
               'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
               'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
               'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto']
+              'Tecno', 'Legion', 'Moto', 'Nintendo', 'Microsoft', 'Sony']
 
     marcas_productos = []
     for title in titles_products:
         marca_encontrada = False
         for marca in marcas:
-            if marca in title:
+            if marca.lower() in title.lower():
                 marcas_productos.append(marca)
                 marca_encontrada = True
                 break

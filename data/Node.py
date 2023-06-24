@@ -37,7 +37,10 @@ class Node(Generic[T]):
         return self.key <= other_node.key
 
     def __eq__(self, other_node):
-        return self.key == other_node.key
+        try:
+            return self.key == other_node.key
+        except AttributeError as e:
+            return False
 
     def __gt__(self, other_node):
         return self.key > other_node.key

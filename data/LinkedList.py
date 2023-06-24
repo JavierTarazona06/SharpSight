@@ -1,3 +1,4 @@
+import copy
 from typing import TypeVar, Generic
 
 from data.Node import Node
@@ -7,7 +8,60 @@ T = TypeVar('T')
 class LinkedList(Generic[T]):
     # Constr.
     def __init__(self):
-        self.head = None
+        self.head:Node = None
+
+    def __iter__(self) -> object:
+        if self.isEmpty():
+            raise Exception("Empty List")
+        else:
+            self.node_iterable:Node = self.head
+            return self
+    
+    def __next__(self) -> object:
+        if self.node_iterable is None:
+            raise StopIteration
+        else:
+            cur_node:Node = self.node_iterable
+            self.node_iterable = cur_node.next
+            return cur_node.key
+
+    def __str__(self):
+        if self.isEmpty():
+            return ""
+        else:
+            list = ["["]
+            headRef:Node = self.head
+            while headRef.next is not None:
+                list.append(str(headRef.key)+", ")
+                headRef = headRef.next
+            list.append(str(headRef.key)+"]")
+            return "".join(list)
+        
+    def print(self):
+        headRef = self.head
+        while headRef != None:
+            print(headRef.key, end=" ")
+            headRef = headRef.next
+        print("")
+
+    def printRecursive(self, headRef):
+        if headRef != None:
+            print(headRef.key, end=" ")
+            self.printRecursive(headRef.next)
+        else:
+            print("")
+        
+    def to_list(self) -> list:
+        if self.isEmpty():
+            return []
+        else:
+            list = []
+            headRef:Node = self.head
+            while headRef.next is not None:
+                list.append(headRef.key)
+                headRef = headRef.next
+            list.append(headRef.key)
+            return list
 
     # Meth.
     def pushFront(self, newNode):
@@ -60,32 +114,6 @@ class LinkedList(Generic[T]):
             raise Exception("Fail topBack. Linked List Vacia")
         return ans
 
-    def print(self):
-        headRef = self.head
-        while headRef != None:
-            print(headRef.key, end=" ")
-            headRef = headRef.next
-        print("")
-
-    def __str__(self):
-        if self.isEmpty():
-            return ""
-        else:
-            list = []
-            headRef = self.head
-            while headRef.next is not None:
-                list.append(str(headRef.key)+"\n")
-                headRef = headRef.next
-            list.append(str(headRef.key))
-            return "".join(list)
-
-    def printRecursive(self, headRef):
-        if headRef != None:
-            print(headRef.key, end=" ")
-            self.printRecursive(headRef.next)
-        else:
-            print("")
-
     def isEmpty(self):
         return self.head is None
 
@@ -105,7 +133,10 @@ class LinkedList(Generic[T]):
             ptr = self.head
             i=0
             while (not ptr is None):
-                if ptr.key==node_To_Find.key:
+                ptr_cp = str(copy.deepcopy(ptr.key))
+                node_cp = str(copy.deepcopy(node_To_Find.key))
+                #if ptr.key==node_To_Find.key:
+                if ptr_cp ==node_cp :
                     return i
                 ptr = ptr.next
                 i+=1
@@ -150,19 +181,35 @@ class LinkedList(Generic[T]):
             new_node.next = ptr.next
             ptr.next = new_node
 
-    def delete(self, node_bye):
+    def delete(self, node_bye:Node):
         if self.isEmpty():
             raise Exception("Empty List")
         elif self.head.key == node_bye.key:
             self.head = self.head.next
         else:
-            curr_node = self.head
+            curr_node:Node = self.head
             prev_node = None
             while curr_node and curr_node.key != node_bye.key:
                 prev_node = curr_node
                 curr_node = curr_node.next
             if curr_node:
                 prev_node.next = curr_node.next
+
+    def replace(self, node_bye:Node, new_node:Node):
+        if self.isEmpty():
+            raise Exception("Empty List")
+        elif self.head.key == node_bye.key:
+            new_node.next = self.head.next
+            self.head = new_node
+        else:
+            curr_node:Node = self.head
+            prev_node = None
+            while curr_node and curr_node.key != node_bye.key:
+                prev_node = curr_node
+                curr_node = curr_node.next
+            if curr_node:
+                prev_node.next = new_node
+                new_node.next = curr_node.next
 
     def sort(self):
         if not self.isEmpty():

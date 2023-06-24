@@ -32,7 +32,7 @@ class BST:
     def height(self):
         return self.heightCall(self.root)
 
-    def levelCall(self, toSearch, ptr, checked):
+    def levelCall(self, toSearch, ptr:NodeT, checked):
         if ptr is None:
             if not checked:
                 raise Exception("Node not in tree")
@@ -50,7 +50,7 @@ class BST:
     def level(self, toSearch):
         return self.levelCall(toSearch, self.root, False)
 
-    def isNode(self, ptr):
+    def isNode(self, ptr:NodeT):
         try:
             self.level(ptr.key)
             return True

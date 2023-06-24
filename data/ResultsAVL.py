@@ -20,7 +20,7 @@ class ResultsAVL():
     def insertProducts(self):
         for i in range(self.lector.shape[0]):
             curProduct = Product(title=self.lector['titulo'][i], price=self.lector['precio'][i],
-                                 link=self.lector['link'][i], seller=self.lector['marca'][i])
+                                 link=self.lector['link'][i], seller=self.lector['marca'][i], image=self.lector['imagen'][i], brand=self.lector['empresa'][i])
             self.tree_data.insert(curProduct)
 
     def __str__(self):
@@ -193,6 +193,22 @@ class ResultsAVL():
     
     def view_results_orderInv(self) -> list:
         return self.inOrderInv_JSON()
+    
+    def preOrderCall_list(self, ptr:NodeT, result:list) -> list:
+        if ptr is None:
+            return result
+        else:
+            result.append(ptr.key)
+            result = self.preOrderCall_list(ptr.left,result)
+            result = self.preOrderCall_list(ptr.right, result)
+            return result
+
+    def preOrder_list(self) -> list:
+        result = []
+        return self.preOrderCall_list(self.tree_data.root, result)
+
+    def results_list(self) -> list:
+        return self.preOrder_list()
 
 def results_AVL_imp():
     myImplementation = ResultsAVL("src/productos.csv")
