@@ -20,9 +20,8 @@ from Models.user import User
 
 def __init__():
     u_wl_h = UserWListHash()
-    u_wl_h.insert(5,2)
-    u_wl_h.insert(5,3)
-    u_wl_h.insert(6,4)
+    u_wl_h.insert(1,1)
+    u_wl_h.insert(2,0)
 
     
     '''
