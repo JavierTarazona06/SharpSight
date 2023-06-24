@@ -27,6 +27,16 @@ class UserWListHash:
 
         print(self.data_hash_table)
 
+    def wish_lists_by_user(self, user_id) -> list:
+        find_user = self.data_hash_table.find(user_id)
+
+        if not find_user:
+            raise Exception(f"El usuario con id {user_id} no tiene wish lists")
+        else:
+            cur_wish_list_ids:list = self.data_hash_table.get(user_id)
+            return cur_wish_list_ids
+
+
     def insert(self, user_id:int, wish_list_id:int):
         find_user = self.data_hash_table.find(user_id)
 
