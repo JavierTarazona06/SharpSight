@@ -24,7 +24,6 @@ class WishListHeap:
 
             self.list = HeapMax()
             self.indices_csv :dict = {}
-
             self.id = wish_list_id
             self.name = wish_list_name
             
@@ -41,8 +40,7 @@ class WishListHeap:
 
             i = 0
             for product_json in wish_list_content:
-                curProd = Product(product_json["titulo"], product_json["precio"], product_json["link"], product_json["tienda"], product_json["imagen"], product_json["marca"], )
-                print(curProd)
+                curProd = Product(product_json["titulo"], product_json["precio"], product_json["link"], product_json["tienda"], product_json["imagen"], product_json["marca"])
                 self.insert(curProd)
                 self.indices_csv[str(curProd)] = i
                 i += 1
@@ -67,6 +65,8 @@ class WishListHeap:
     def load_data(self, wish_list_id) -> list:
 
         wish_lists_hashTable = WishListsHash()
+
+        wish_list_id = str(wish_list_id)
 
         if not wish_lists_hashTable.find(wish_list_id):
             raise Exception(f"Error: No existe la lista con id {wish_list_id}")
@@ -105,7 +105,7 @@ class WishListHeap:
 
     def save_data_list_wl(self, nombre=None):
         list_wl_hashTable = WishListsHash()
-        if not self.id:
+        if self.id==None:
             raise Exception("No se ha creado la lista de desos")
         list_wl_hashTable.set(wish_list_id=self.id, name=nombre, wish_list_content=self.view_whish_list_json())
 

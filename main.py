@@ -71,6 +71,12 @@ async def root():
 #Global Variables
 user_active = {"active":None}
 
+def validate_session() -> bool:
+    if user_active["active"] != None:
+        return True
+    else:
+        raise Exception("La sesión no está activa")
+
 #Users
 
 @app.get("/user/", tags=["User"])
@@ -216,40 +222,61 @@ async def get_products__by_brand(brands:str=None) -> JSONResponse:
 
 #WishList
 
+def validate_user_has_wish_list(wish_list_id) -> bool:
+    flag = False
+
+    cur_user:User = user_active["active"]
+
+    if cur_user != None:
+        user_wishList_hash = UserWListHash()
+        user_wish_lists = user_wishList_hash.wish_lists_by_user(cur_user.id)
+        if wish_list_id in user_wish_lists:
+            return True
+        else:
+            raise Exception(f"El usuario no tiene la wish list {wish_list_id}")
+    else:
+        raise Exception("No ha iniciado sesión")
+    
+    return flag
+
 @app.get("/wish_list/", tags=["Wish List"])
 def show_wish_list_by_id(id:int) -> JSONResponse:
     try:
-        wish_lists_imp = WishListHeap(id)
-        return wish_lists_imp.view_whish_list_json()
+        if validate_user_has_wish_list(id):
+            wish_lists_imp = WishListHeap(id)
+            return wish_lists_imp.view_whish_list_json()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.post("/wish_list/product", tags=["Wish List"])
 def new_in_wish_list(wish_list_id:int, titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
-        whishListHeap_imp = WishListHeap(wish_list_id)
-        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
-        whishListHeap_imp.insert(cur_product)
-        return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title} en la lista {wish_list_id}"})
+        if validate_user_has_wish_list(wish_list_id):
+            whishListHeap_imp = WishListHeap(wish_list_id)
+            cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
+            whishListHeap_imp.insert(cur_product)
+            return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title} en la lista {wish_list_id}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error al ingresar el producto: {titulo} ya que {e}"})
 
 @app.delete("/wish_list/product", tags=["Wish List"])
 def delete_in_wish_list(wish_list_id:int, titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
-        wishListHeap_imp = WishListHeap(wish_list_id)
-        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
-        wishListHeap_imp.delete(cur_product)
-        return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title} en la lista {wish_list_id}"})
+        if validate_user_has_wish_list(wish_list_id):
+            wishListHeap_imp = WishListHeap(wish_list_id)
+            cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
+            wishListHeap_imp.delete(cur_product)
+            return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title} en la lista {wish_list_id}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
 @app.delete("/wish_list/max_product", tags=["Wish List"])
 def delete_max_in_wish_List(wish_list_id:int) -> JSONResponse:
     try:
-        wishListHeap_imp = WishListHeap(wish_list_id)
-        prod_del = wishListHeap_imp.delete_max()
-        return JSONResponse(content={"message":f"Se eliminó el producto: {prod_del.title}"})
+        if validate_user_has_wish_list(wish_list_id):
+            wishListHeap_imp = WishListHeap(wish_list_id)
+            prod_del = wishListHeap_imp.delete_max()
+            return JSONResponse(content={"message":f"Se eliminó el producto: {prod_del.title}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"No se eliminó el producto con menor precio ya que {e}"})
     
@@ -258,40 +285,75 @@ def delete_max_in_wish_List(wish_list_id:int) -> JSONResponse:
 
 @app.post("/wish_list/", tags=["Wish List"])
 def post_wish_list(name:str=None) -> JSONResponse:
-    wish_lists_hashTable = WishListsHash()
-    wish_list_id = wish_lists_hashTable.create(name, [])
-    return JSONResponse(content={"message":f"Lista creada exitosamente con ID: {wish_list_id}"})
+    try:
+        if validate_session():
+            wish_lists_hashTable = WishListsHash()
+            wish_list_id = wish_lists_hashTable.create(name, [])
+
+            cur_user:User = user_active["active"]
+
+            user_wishList = UserWListHash()
+            user_wishList.insert(cur_user.id, wish_list_id)
+            return JSONResponse(content={"message":f"Lista creada exitosamente con ID: {wish_list_id}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.get("/wish_list/id", tags=["Wish List"])
 def wish_list_by_name(name:str) -> JSONResponse:
     try:
-        wish_lists_hashTable = WishListsHash()
-        wish_list_id = wish_lists_hashTable.find_id(name)
-        return JSONResponse(content={"ID":wish_list_id})
+        if validate_session():
+            wish_lists_hashTable = WishListsHash()
+            wish_list_ids:list = wish_lists_hashTable.find_id(name)
+            wish_list_id = None
+
+            for id in wish_list_ids:
+                try:
+                   flag = validate_user_has_wish_list(id) 
+                except Exception:
+                    flag = False
+                if flag:
+                    wish_list_id = id
+                    break
+            
+            if wish_list_id == None:
+                raise Exception(f"El usuario no tiene una lista de deseos guardada como {name}")
+
+            return JSONResponse(content={"ID":wish_list_id})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
     
 @app.get("/wish_list/name", tags=["Wish List"])
 def wish_list_by_id(id:int) -> JSONResponse:
     try:
-        wish_lists_hashTable = WishListsHash()
-        wish_list_name = wish_lists_hashTable.find_name(str(id))
-        return JSONResponse(content={"Name":wish_list_name})
+        if validate_user_has_wish_list(id):
+            wish_lists_hashTable = WishListsHash()
+            wish_list_name = wish_lists_hashTable.find_name(str(id))
+            return JSONResponse(content={"Name":wish_list_name})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
     
 @app.put("/wish_list/name", tags=["Wish List"])
-def update_wish_list_name(id, new_name:str) -> JSONResponse:
-    wish_lists_hashTable = WishListsHash()
-    wish_list_name = wish_lists_hashTable.update_name(id, new_name)
-    return JSONResponse(content={"message":f"Nombre actualizado exitosamente a {new_name}"})
+def update_wish_list_name(id:int, new_name:str) -> JSONResponse:
+    try:
+        if validate_user_has_wish_list(id):
+            wish_lists_hashTable = WishListsHash()
+            wish_list_name = wish_lists_hashTable.update_name(id, new_name)
+            return JSONResponse(content={"message":f"Nombre actualizado exitosamente a {new_name}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
     
 @app.delete("/wish_list/", tags=["Wish List"])
 def delete_wish_list_by_id(id:int) -> JSONResponse:
     try:
-        wish_lists_hashTable = WishListsHash()
-        wish_lists_hashTable.delete_wish_list(id)
-        return JSONResponse(content={"message":f"Wish list con id {id} eliminada con exito"})
+        if validate_user_has_wish_list(id):
+            wish_lists_hashTable = WishListsHash()
+            wish_lists_hashTable.delete_wish_list(id)
+
+            user_wishList = UserWListHash()
+            cur_user:User = user_active["active"]
+            user_wishList.delete_wish_list(cur_user.id, id)
+
+            return JSONResponse(content={"message":f"Wish list con id {id} eliminada con exito"})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 

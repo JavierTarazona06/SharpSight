@@ -52,7 +52,7 @@ class WishListsHash:
     def find(self, wish_list_id) -> bool:
         return self.data_hash_table.find(wish_list_id)
     
-    def find_id(self, name:str) -> int:
+    def find_id(self, name:str) -> list:
         if not os.path.exists(self.data_path):
             raise Exception("No hay Wish List cargadas")
 
@@ -68,9 +68,12 @@ class WishListsHash:
         if len(data.keys())==0:
             raise Exception("No hay Wish List cargadas")
         else:
+            possible_ids = []
             for id in data.keys():
                 if name == data[id]["name"]:
-                    return int(id)
+                    possible_ids.append(int(id))
+                    
+            return possible_ids
 
         raise Exception(f"No existen Wish List con el nombre {name}")
     
