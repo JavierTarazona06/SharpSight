@@ -1,9 +1,5 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 import time
 import pandas as pd
 from tqdm import tqdm
@@ -31,19 +27,13 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
             break
         last_height = new_height
 
-    # Extract DOM all product prices
-    # xpath = '//*[@id="js-hits"]/div/div/ol/li/div[2]/div[3]/div[2]/div[1]/div[2]/div/div/span'
-    xpath2 = "//div[@id='js-hits']/div/div/ol/li[not(contains(@class, 'some-class'))]//span[contains(@class, 'price')]"
-
-    # time.sleep(30)
-
     # Extract all product titles
     title_products = driver.find_elements(by=By.XPATH, value='//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
     title_texts = [title.text for title in title_products]
 
     # Extract all product prices
-    price_products = driver.find_elements(By.XPATH, xpath2)
-    price_products= [int(price.text.replace("$", "").replace(".", "")) for price in price_products]
+    price_products = driver.find_elements(By.CLASS_NAME, "price")
+    price_values = [price.text.strip().replace('$', '') for price in price_products if price.text.strip()]
 
     # Extract all product links
     link_elements = driver.find_elements(By.XPATH, '//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
@@ -81,7 +71,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
     # diccionario
     data_product["titulo"].extend(title_texts)
-    data_product["precio"].extend(price_products)
+    data_product["precio"].extend(price_values)
     data_product["link"].extend(links_products)
     data_product["marca"].extend(brand_products)
     data_product["imagen"].extend(image_urls)
