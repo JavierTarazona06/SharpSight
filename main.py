@@ -206,14 +206,14 @@ def show_wish_list() -> JSONResponse:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.post("/wish_list/product", tags=["Wish List"])
-def new_in_wish_list(product:Products) -> JSONResponse:
+def new_in_wish_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
         whishListHeap_imp = WishListHeap()
-        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
         whishListHeap_imp.insert(cur_product)
         return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.title} ya que {e}"})
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {titulo} ya que {e}"})
 
 @app.delete("/wish_list/product", tags=["Wish List"])
 def delete_in_wish_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
@@ -269,15 +269,14 @@ def show_ComparisonList_comparison() -> JSONResponse:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
 @app.post("/comparison_list/product", tags=["Comparison List"])
-def new_in_comparison_list(product:Products) -> JSONResponse:
-    cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+def new_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
         comparison = ComparisonListAVL()
-        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
         comparison.insert(cur_product)
         return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.title} ya que {e}"})
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {titulo} ya que {e}"})
     
 @app.delete("/comparison_list/product", tags=["Comparison List"])
 def delete_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
