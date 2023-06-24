@@ -18,6 +18,18 @@ class StaticList(Generic[T]):
             self.list.append(None)
         self.index = 0
 
+    def __iter__(self):
+        self.iter_pointer = 0
+        return self
+    
+    def __next__(self):
+        if self.iter_pointer == self.size:
+            raise StopIteration
+        else:
+            current = self.list[self.iter_pointer]
+            self.iter_pointer += 1
+            return current
+
     def pushFront(self,key:T):
         if (self.full()):
             raise Error("Fail pushFront. La lista esta llena. No se pueden guardar más datos")
@@ -82,6 +94,20 @@ class StaticList(Generic[T]):
                 a = i
             list += str(self.list[a+1])
             return list
+        
+    def json(self):
+        if self.empty():
+            return []
+        elif (self.size==1):
+            return [self.list[0].json()]
+        else:
+            list = []
+            a = 0
+            for i in range(0,self.index-1):
+                list.append(self.list[i].json())
+                a = i
+            list.append(self.list[a+1].json())
+            return list
 
     def find(self, key:T) -> bool:
         found:bool = False
@@ -89,7 +115,7 @@ class StaticList(Generic[T]):
             raise Error("Fail find. La lista esta vacia");
         else :
             for i in range(0,self.index):
-                if (self.list[i] == key):
+                if (str(self.list[i]) == str(key)):
                     found = True
                     self.positionFound = i
                     break

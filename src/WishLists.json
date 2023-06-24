@@ -1,0 +1,44 @@
+{
+    "1": {
+        "name": "prueba",
+        "content": [
+            {
+                "titulo": "Control Rojo Para Ps4 Play Station 4 Dualshock Aaa",
+                "precio": 77864,
+                "link": "https://www.exito.com/mandocontrol-para-ps4-play-station-4-dualshock-rojo-100870822-mp/p",
+                "tienda": "Exito",
+                "imagen": "https://exitocol.vtexassets.com/arquivos/ids/4671303-500-auto?v=1773884968&width=500&height=auto&aspect=true",
+                "marca": "Otra"
+            }
+        ]
+    },
+    "0": {
+        "name": "la Prueba",
+        "content": [
+            {
+                "titulo": "Play Station Vr2. Ed. Horizon Call Of The Mountain",
+                "precio": 3719900,
+                "link": "https://articulo.mercadolibre.com.co/MCO-1274791329-play-station-vr2-ed-horizon-call-of-the-mountain-_JM#position=17&search_layout=stack&type=item&tracking_id=8df97cb5-5897-4791-9d4f-13ad900e2fb0",
+                "tienda": "Mercado Libre",
+                "imagen": "https://http2.mlstatic.com/D_NQ_NP_766724-MCO54589681481_032023-V.webp",
+                "marca": "Otra"
+            },
+            {
+                "titulo": "Consola Play Station 5 Edición Disco Ps5 Mejor Precio",
+                "precio": 2899900,
+                "link": "https://articulo.mercadolibre.com.co/MCO-615669500-consola-play-station-5-edicion-disco-ps5-mejor-precio-_JM#position=27&search_layout=stack&type=item&tracking_id=8df97cb5-5897-4791-9d4f-13ad900e2fb0",
+                "tienda": "Mercado Libre",
+                "imagen": "https://http2.mlstatic.com/D_NQ_NP_900821-MCO53335824637_012023-V.webp",
+                "marca": "Otra"
+            },
+            {
+                "titulo": "Base de Carga Para Control PS4 Play Station 4",
+                "precio": 20623,
+                "link": "https://www.exito.com/base-de-carga-para-control-ps4-play-station-4-100846850-mp/p",
+                "tienda": "Exito",
+                "imagen": "https://exitocol.vtexassets.com/arquivos/ids/7342882-500-auto?v=1773888759&width=500&height=auto&aspect=true",
+                "marca": "Otra"
+            }
+        ]
+    }
+}
