@@ -27,6 +27,9 @@ from data.SetSeller import SetSeller
 from data import GraphProducts
 from data.WishListsHash import WishListsHash
 from data.UserWhListHash import UserWListHash
+from data.UserCmpListHash import UserCmpListHash
+from data.ComparisonListAVL2 import ComparisonListAVL2
+from data.ComparisonListHash import ComparisonListHash
 
 #Users
 from Models.user import User
@@ -319,7 +322,7 @@ def wish_list_by_name(name:str) -> JSONResponse:
             if wish_list_id == None:
                 raise Exception(f"El usuario no tiene una lista de deseos guardada como {name}")
 
-            return JSONResponse(content={"ID":wish_list_id})
+            return JSONResponse(content={"message":wish_list_id})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
     
@@ -329,7 +332,7 @@ def wish_list_by_id(id:int) -> JSONResponse:
         if validate_user_has_wish_list(id):
             wish_lists_hashTable = WishListsHash()
             wish_list_name = wish_lists_hashTable.find_name(str(id))
-            return JSONResponse(content={"Name":wish_list_name})
+            return JSONResponse(content={"message":wish_list_name})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
     
@@ -342,7 +345,7 @@ def all_wish_list_by_user() -> JSONResponse:
             user_wishlist = UserWListHash()
             wish_list_ids:list = user_wishlist.wish_lists_by_user(cur_user.id)
 
-            return JSONResponse(content={"wish List IDs":wish_list_ids})
+            return JSONResponse(content={"message":wish_list_ids})
     
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
@@ -427,6 +430,185 @@ def delete_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JS
         print(e)
         return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
+#Comparison List2
+def validate_user_has_comparison_list(comparison_list_id) -> bool:
+    flag = False
+
+    cur_user:User = user_active["active"]
+
+    if cur_user != None:
+        user_comparisonList_hash = UserCmpListHash()
+        user_comparison_lists = user_comparisonList_hash.comparison_lists_by_user(cur_user.id)
+        if comparison_list_id in user_comparison_lists:
+            return True
+        else:
+            raise Exception(f"El usuario no tiene la comparison list {comparison_list_id}")
+    else:
+        raise Exception("No ha iniciado sesión")
+    
+    return flag
+
+@app.get("/comparison_list2/", tags=["Comparison List2"])
+def show_comparison_list(id_comparison:int) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison = ComparisonListAVL2(id_comparison)
+            return comparison.view_comparison_list_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+
+@app.get("/comparison_list2/order/", tags=["Comparison List2"])
+def show_ComparisonList_order(id_comparison:int) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison = ComparisonListAVL2(id_comparison)
+            return comparison.inOrder_JSON()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+
+@app.get("/comparison_list2/order_inverted/", tags=["Comparison List2"])
+def show_ComparisonList_order_inverted(id_comparison:int) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison = ComparisonListAVL2(id_comparison)
+            return comparison.inOrderInv_JSON()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+
+
+@app.get("/comparison_list2/comparison/", tags=["Comparison List2"])
+def show_ComparisonList_comparison(id_comparison:int) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison = ComparisonListAVL2(id_comparison)
+            return comparison.compareByPrice_json()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
+
+@app.post("/comparison_list2/product", tags=["Comparison List2"])
+def new_in_comparison_list(id_comparison:int, titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison = ComparisonListAVL2(id_comparison)
+            cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
+            comparison.insert(cur_product)
+            return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {titulo} ya que {e}"})
+
+
+@app.delete("/comparison_list2/product", tags=["Comparison List2"])
+def delete_in_comparison_list(id_comparison:int, titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison = ComparisonListAVL2(id_comparison)
+            cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
+            comparison.delete(cur_product)
+            return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
+    except Exception as e:
+        print(e)
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
+
+#List of comparison lists
+
+@app.post("/comparison_list2/", tags=["Comparison List2"])
+def post_comparison_list(name:str=None) -> JSONResponse:
+    try:
+        if validate_session():
+            comparison_lists_hashTable = ComparisonListHash()
+            comparison_list_id = comparison_lists_hashTable.create(name, [])
+
+            cur_user:User = user_active["active"]
+
+            user_comparisonList = UserCmpListHash()
+            user_comparisonList.insert(cur_user.id, comparison_list_id)
+            return JSONResponse(content={"message":f"Lista creada exitosamente con ID: {comparison_list_id}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+
+@app.get("/comparison_list2/id", tags=["Comparison List2"])
+def comparison_list_by_name(name:str) -> JSONResponse:
+    try:
+        if validate_session():
+            comparison_lists_hashTable = ComparisonListHash()
+            comparison_list_ids:list = comparison_lists_hashTable.find_id(name)
+            comparison_list_id = None
+
+            for id in comparison_list_ids:
+                try:
+                   flag = validate_user_has_comparison_list(id) 
+                except Exception:
+                    flag = False
+                if flag:
+                    comparison_list_id = id
+                    break
+            
+            if comparison_list_id == None:
+                raise Exception(f"El usuario no tiene una comparison list guardada como {name}")
+
+            return JSONResponse(content={"message":comparison_list_id})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+    
+@app.get("/comparison_list2/name", tags=["Comparison List2"])
+def comparison_list_by_id(id_comparison:int) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison_lists_hashTable = ComparisonListHash()
+            comparison_list_name = comparison_lists_hashTable.find_name(str(id_comparison))
+            return JSONResponse(content={"message":comparison_list_name})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+    
+@app.get("/comparison_list2/ids", tags=["Comparison List2"])
+def all_comparison_list_by_user() -> JSONResponse:
+    try:
+        if validate_session():
+            cur_user:User = user_active["active"]
+
+            user_comparisonlist = UserCmpListHash()
+            comparison_list_ids:list = user_comparisonlist.comparison_lists_by_user(cur_user.id)
+
+            return JSONResponse(content={"message":comparison_list_ids})
+    
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+    
+@app.put("/comparison_list2/name", tags=["Comparison List2"])
+def update_comparison_list_name(id_comparison:int, new_name:str) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison_lists_hashTable = ComparisonListHash()
+            comparison_list_name = comparison_lists_hashTable.update_name(id_comparison, new_name)
+            return JSONResponse(content={"message":f"Nombre actualizado exitosamente a {new_name}"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+    
+@app.delete("/comparison_list2/", tags=["Comparison List2"])
+def delete_comparison_list_by_id(id_comparison:int) -> JSONResponse:
+    try:
+        if validate_user_has_comparison_list(id_comparison):
+            comparison_lists_hashTable = ComparisonListHash()
+            comparison_lists_hashTable.delete_comparison_list(id_comparison)
+
+            user_comparisonList = UserCmpListHash()
+            cur_user:User = user_active["active"]
+            user_comparisonList.delete_comparison_list(cur_user.id, id_comparison)
+
+            return JSONResponse(content={"message":f"Wish list con id {id_comparison} eliminada con exito"})
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+
 #Other
 
 @app.get("/sellers", tags=["Other"])
