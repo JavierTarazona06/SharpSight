@@ -115,7 +115,7 @@ class StaticList(Generic[T]):
             raise Error("Fail find. La lista esta vacia");
         else :
             for i in range(0,self.index):
-                if (self.list[i] == key):
+                if (str(self.list[i]) == str(key)):
                     found = True
                     self.positionFound = i
                     break

@@ -86,9 +86,9 @@ async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
         return {"Error:" : str(e)}
     
 @app.post("/user/", tags=["User"])
-async def create_user(in_user:Users) -> JSONResponse:
+async def create_user(email, password, nombre, apellido) -> JSONResponse:
     try:
-        cur_user = User(email=in_user.email, password=in_user.password, operation=2, name=in_user.nombre, last_name=in_user.apellido)
+        cur_user = User(email=email, password=password, operation=2, name=nombre, last_name=apellido)
         return cur_user.json()
     except Exception as e:
         return {"Error:" : str(e)}
@@ -213,17 +213,17 @@ def new_in_wish_list(product:Products) -> JSONResponse:
         whishListHeap_imp.insert(cur_product)
         return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.title} ya que {e}"})
 
 @app.delete("/wish_list/product", tags=["Wish List"])
-def delete_in_wish_list(product:Products) -> JSONResponse:
+def delete_in_wish_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
         wishListHeap_imp = WishListHeap()
-        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
         wishListHeap_imp.delete(cur_product)
         return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
 @app.delete("/wish_list/max_product", tags=["Wish List"])
 def delete_max_in_wish_List() -> JSONResponse:
@@ -270,24 +270,25 @@ def show_ComparisonList_comparison() -> JSONResponse:
 
 @app.post("/comparison_list/product", tags=["Comparison List"])
 def new_in_comparison_list(product:Products) -> JSONResponse:
+    cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
     try:
         comparison = ComparisonListAVL()
         cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
         comparison.insert(cur_product)
         return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.title} ya que {e}"})
     
 @app.delete("/comparison_list/product", tags=["Comparison List"])
-def delete_in_comparison_list(product:Products) -> JSONResponse:
+def delete_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
         comparison = ComparisonListAVL()
-        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
         comparison.delete(cur_product)
         return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
     except Exception as e:
         print(e)
-        return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
 @app.get("/sellers", tags=["Other"])
 def get_sellers() -> JSONResponse:
