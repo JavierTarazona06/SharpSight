@@ -12,13 +12,20 @@ import menu
 from data.WishListHeap import WishListHeap
 from data.ComparisonListAVL import ComparisonListAVL
 from data.SetSeller import SetSeller
+from data.UserWhListHash import UserWListHash
 
 #Data Base
 from config.Data_base import data_base
 from Models.user import User
 
 def __init__():
+    u_wl_h = UserWListHash()
+    u_wl_h.insert(5,2)
+    u_wl_h.insert(5,3)
+    u_wl_h.insert(6,4)
 
+    
+    '''
     users_path = "src/Users.json"
 
     if not os.path.exists(users_path):
@@ -68,7 +75,8 @@ def __init__():
 
     else:
         raise Exception(f"El usuario con email {id} ya existe")
-
+    '''
+        
     '''
     archivo = open("src/Users.json", "w", encoding="utf-8")
     json.dump({"a":"es"}, archivo, ensure_ascii=False, indent=4)

@@ -24,7 +24,7 @@ from data.WishListHeap import WishListHeap
 from data.Product import Product
 from data.ComparisonListAVL import ComparisonListAVL
 from data.SetSeller import SetSeller
-from data import GraphProductsBySeller
+from data import GraphProducts
 from data import GraphProductsByBrand
 
 #Users
@@ -86,9 +86,9 @@ async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
         return {"Error:" : str(e)}
     
 @app.post("/user/", tags=["User"])
-async def create_user(in_user:Users) -> JSONResponse:
+async def create_user(email, password, nombre, apellido) -> JSONResponse:
     try:
-        cur_user = User(email=in_user.email, password=in_user.password, operation=2, name=in_user.nombre, last_name=in_user.apellido)
+        cur_user = User(email=email, password=password, operation=2, name=nombre, last_name=apellido)
         return cur_user.json()
     except Exception as e:
         return {"Error:" : str(e)}
@@ -175,8 +175,8 @@ async def get_products__by_seller(sellers:str=None) -> JSONResponse:
     #sellers is a str separeted by '_'
     try:
         if not sellers is None:
-            graph_companies_implementation = GraphProductsBySeller.graph_seller_implementation()
-            return graph_companies_implementation.get_products(sellers)
+            graph_implementation = GraphProducts.graph_implementation()
+            return graph_implementation.get_products_seller(sellers)
         else:
             resulAVL_imp = ResultsAVL.results_AVL_imp()
             return resulAVL_imp.view_results()
@@ -188,8 +188,8 @@ async def get_products__by_brand(brands:str=None) -> JSONResponse:
     #brands is a str separeted by '_'
     try:
         if not brands is None:
-            graph_brands_implementation = GraphProductsByBrand.graph_brand_implementation()
-            return graph_brands_implementation.get_products(brands)
+            graph_implementation = GraphProducts.graph_implementation()
+            return graph_implementation.get_products_brand(brands)
         else:
             resulAVL_imp = ResultsAVL.results_AVL_imp()
             return resulAVL_imp.view_results()
@@ -213,17 +213,17 @@ def new_in_wish_list(product:Products) -> JSONResponse:
         whishListHeap_imp.insert(cur_product)
         return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.title} ya que {e}"})
 
 @app.delete("/wish_list/product", tags=["Wish List"])
-def delete_in_wish_list(product:Products) -> JSONResponse:
+def delete_in_wish_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
         wishListHeap_imp = WishListHeap()
-        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
         wishListHeap_imp.delete(cur_product)
         return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
 @app.delete("/wish_list/max_product", tags=["Wish List"])
 def delete_max_in_wish_List() -> JSONResponse:
@@ -270,25 +270,68 @@ def show_ComparisonList_comparison() -> JSONResponse:
 
 @app.post("/comparison_list/product", tags=["Comparison List"])
 def new_in_comparison_list(product:Products) -> JSONResponse:
+    cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
     try:
         comparison = ComparisonListAVL()
         cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
         comparison.insert(cur_product)
         return JSONResponse(content={"message":f"Se registró el producto: {cur_product.title}"})
     except Exception as e:
-        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.titulo} ya que {e}"})
+        return JSONResponse(content={f"message":f"Error al ingresar el producto: {cur_product.title} ya que {e}"})
     
 @app.delete("/comparison_list/product", tags=["Comparison List"])
-def delete_in_comparison_list(product:Products) -> JSONResponse:
+def delete_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JSONResponse:
     try:
         comparison = ComparisonListAVL()
-        cur_product = Product(title=product.titulo, price=product.precio, link=product.link, seller=product.tienda, image=product.imagen, brand=product.marca)
+        cur_product = Product(title=titulo, price=precio, link=link, seller=tienda, image=imagen, brand=marca)
         comparison.delete(cur_product)
         return JSONResponse(content={"message":f"Se eliminó el producto: {cur_product.title}"})
     except Exception as e:
         print(e)
-        return JSONResponse(content={f"message":f"No se eliminó el producto: {product.titulo} ya que no existe y/o {e}"})
+        return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
+@app.get("/sellers", tags=["Other"])
+def get_sellers() -> JSONResponse:
+    try:
+        graph_implementation = GraphProducts.graph_implementation()
+        return graph_implementation.get_sellers()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
+@app.get("/brands", tags=["Other"])
+def get_brands() -> JSONResponse:
+    try:
+        graph_implementation = GraphProducts.graph_implementation()
+        return graph_implementation.get_brands()
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
+
+@app.get("/brands/seller", tags=["Other"])
+def get_brands_by_seller(sellers:str=None) -> JSONResponse:
+    #Sellers is a str separated by '_'
+    try:
+        graph_implementation = GraphProducts.graph_implementation()
+        if not sellers is None:
+            graph_implementation = GraphProducts.graph_implementation()
+            return graph_implementation.get_brands_sellers(sellers)
+        else:
+            print(graph_implementation.get_sellers()["tiendas"])
+            tiendas_raw:list = graph_implementation.get_sellers()["tiendas"]
+            n_tiendas = len(tiendas_raw)
+            sellers = ""
+            for i in range(len(tiendas_raw)):
+                if i == n_tiendas -1:
+                    sellers += str(tiendas_raw[i])
+                else:
+                    sellers += str(tiendas_raw[i]) + "_"
+            print(sellers)
+            return graph_implementation.get_brands_sellers(sellers)
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+
+
+'''
 @app.get("/sellers", tags=["Other"])
 def get_sellers() -> JSONResponse:
     try:
@@ -296,16 +339,7 @@ def get_sellers() -> JSONResponse:
         return mySet.sellers_json()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
-    
-@app.get("/brands", tags=["Other"])
-def get_brands() -> JSONResponse:
-    try:
-        graph_brands_implementation = GraphProductsByBrand.graph_brand_implementation()
-        return graph_brands_implementation.get_brands()
-    except Exception as e:
-        return JSONResponse(content={f"message":f"Error: {e}"})
 
-'''
 #Set by seller
 @app.get("/products/filter/seller", tags=["Set"])
 def get_products_seller(seller:str) -> JSONResponse:
