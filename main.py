@@ -86,7 +86,7 @@ async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
         user_active["active"] = cur_user
         return cur_user.json()
     except Exception as e:
-        return {"Error:" : str(e)}
+        return {"message" : str(e)}
     
 @app.get("/user/session", tags=["User"])
 async def session_user() -> JSONResponse:
@@ -94,9 +94,9 @@ async def session_user() -> JSONResponse:
         if user_active["active"]:
             return user_active["active"].json()
         else:
-            return {"Error" : "No se ha iniciado sesión"}    
+            return {"message" : "No se ha iniciado sesión"}    
     except Exception as e:
-        return {"Error" : str(e)}
+        return {"message" : str(e)}
     
 @app.put("/user/log_out", tags=["User"])
 async def log_out_user() -> JSONResponse:
@@ -113,27 +113,28 @@ async def create_user(email, password, nombre, apellido) -> JSONResponse:
         user_active["active"] = cur_user
         return cur_user.json()
     except Exception as e:
-        return {"Error:" : str(e)}
+        return {"message" : str(e)}
     
 @app.put("/user/", tags=["User"])
-async def modify_user(cur_email:str, cur_password:str, in_user:Users) -> JSONResponse:
+async def modify_user(nombre=None, apellido=None, email=None, password=None) -> JSONResponse:
     try:
-        cur_user = User(email=cur_email, password=cur_password, operation=1)
-        cur_user.update(name=in_user.nombre, last_name=in_user.apellido, email=in_user.email, password=in_user.password)
-        user_active["active"] = cur_user
-        return cur_user.json()
+        if validate_session():
+            cur_user:User = user_active["active"]
+            cur_user.update(name=nombre, last_name=apellido, email=email, password=password)
+            return cur_user.json()
     except Exception as e:
-        return {"Error:" : str(e)}
+        return {"message" : str(e)}
     
 @app.delete("/user/", tags=["User"])
-async def delete_user(cur_email:str, cur_password:str) -> JSONResponse:
+async def delete_user() -> JSONResponse:
     try:
-        cur_user = User(email=cur_email, password=cur_password, operation=1)
-        cur_user.delete()
-        user_active["active"] = None
-        return {"Message": f"Usuario con email {cur_email} eliminado exitosamente"}
+        if validate_session():
+            cur_user:User = user_active["active"]
+            cur_user.delete()
+            user_active["active"] = None
+            return {"message": f"Usuario con email {cur_user.email} eliminado exitosamente"}
     except Exception as e:
-        return {"Error:" : str(e)}
+        return {"message" : str(e)}
 
 
 #Results
@@ -332,6 +333,20 @@ def wish_list_by_id(id:int) -> JSONResponse:
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
     
+@app.get("/wish_list/ids", tags=["Wish List"])
+def all_wish_list_by_user() -> JSONResponse:
+    try:
+        if validate_session():
+            cur_user:User = user_active["active"]
+
+            user_wishlist = UserWListHash()
+            wish_list_ids:list = user_wishlist.wish_lists_by_user(cur_user.id)
+
+            return JSONResponse(content={"wish List IDs":wish_list_ids})
+    
+    except Exception as e:
+        return JSONResponse(content={f"message":f"Error: {e}"})
+    
 @app.put("/wish_list/name", tags=["Wish List"])
 def update_wish_list_name(id:int, new_name:str) -> JSONResponse:
     try:
@@ -412,6 +427,8 @@ def delete_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JS
         print(e)
         return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
     
+#Other
+
 @app.get("/sellers", tags=["Other"])
 def get_sellers() -> JSONResponse:
     try:
