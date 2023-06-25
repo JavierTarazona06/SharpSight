@@ -75,13 +75,22 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
         EC.visibility_of_all_elements_located(
             (By.XPATH, '//*[@class="a-section aok-relative s-image-fixed-height"]//img'))
     )
-    image_urls = [image.get_attribute("src") for image in image_elements]
+    #image_urls = [image.get_attribute("src") for image in image_elements]
 
-    marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
-              'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
-              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
-              'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
+    image_urls = []
+    for image in image_elements:
+        cur_image = image.get_attribute("src")
+        if str(cur_image) == "None" or cur_image == "nan" or cur_image == None:
+            image_urls.append("https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png")
+        else:
+            image_urls.append(cur_image)
+
+
+    marcas = ['GE', 'HP', 'LG', 'TCL', 'ROG', 'Xiaomi', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
+              'Honor', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
+              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'Philips', 
+              'Acer', 'Acros', 'vivo', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'Tecno', 'Legion', 'Moto', 'Apple', 
+              'Nintendo', 'Microsoft', 'Sony']
     
     
     #Evitar que no consiga todas las imagenes: Arreglo temporal (Temporal fix)
