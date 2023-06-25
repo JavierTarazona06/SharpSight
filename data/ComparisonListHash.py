@@ -98,7 +98,18 @@ class ComparisonListHash:
                 raise Exception(f"No existen Comparison List con el id {id}")
             
 
-    def update_name(self, id, new_name:str) -> str:
+    def update_name(self, id, new_name:str, id_comparison_lists_to_check:list) -> str:
+
+        flag_repeated_name = False
+
+        for hash in self.data_hash_table:
+            if int(hash.key) in id_comparison_lists_to_check:
+                if str(hash.value["name"]) == str(new_name):
+                    flag_repeated_name = True
+
+        if flag_repeated_name:
+            raise Exception(f"Ya hay un Comparison List con nombre {new_name}")
+
         id = str(id)
         if not os.path.exists(self.data_path):
             raise Exception("No hay Comparison List cargadas")
