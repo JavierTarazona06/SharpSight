@@ -10,3 +10,14 @@ For running the project, open the terminal and run:
   pip install -r requirements.txt 
   
   uvicorn main:app --reload
+
+
+For MAC:
+
+python3 -m venv .env
+
+source .env/bin/activate
+
+pip install -r requirements.txt
+
+uvicorn main:app --reload
