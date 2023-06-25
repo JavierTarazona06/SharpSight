@@ -4,6 +4,7 @@ import time
 import pandas as pd
 from tqdm import tqdm
 
+
 def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dict:
 
     driver.get("https://www.ktronix.com/")
