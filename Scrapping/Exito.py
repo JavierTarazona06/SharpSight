@@ -53,8 +53,13 @@ def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> di
     image_elements = driver.find_elements(By.XPATH,'//img[@class="vtex-product-summary-2-x-imageNormal vtex-product-summary-2-x-image vtex-product-summary-2-x-mainImageHovered"]')
     image_urls = [image.get_attribute("src") for image in image_elements]
 
+    print(image_urls)
+
     #Evitar que no consiga todas las imagenes: Arreglo temporal (Temporal fix)
-    cur_image :str = image_urls[0]
+    if len(image_urls) == 0:
+         cur_image = "https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png"
+    else:
+        cur_image :str = image_urls[0]
     for i in range(len(titles_products)-len(image_urls)):
          image_urls.append(cur_image)
 
