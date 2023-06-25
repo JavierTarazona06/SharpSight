@@ -33,7 +33,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
     # Extract all product prices
     price_products = driver.find_elements(By.CLASS_NAME, "price")
-    price_values = [price.text.strip().replace('$', '') for price in price_products if price.text.strip()]
+    price_values = [int(price.text.strip().replace('$', '').replace('.','')) for price in price_products if price.text.strip()]
 
     # Extract all product links
     link_elements = driver.find_elements(By.XPATH, '//*[@id="js-hits"]/div/div/ol/li/div[1]/h3/a')
@@ -48,7 +48,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
               'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
               'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
               'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto', 'Nintendo', 'Microsoft', 'Sony']
+              'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
 
     marcas_productos = []
     for title in title_texts:
