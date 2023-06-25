@@ -124,7 +124,17 @@ class ComparisonListHash:
                 raise Exception(f"No existen Comparison List con el id {id}")
     
 
-    def create(self, comparison_list_name, comparison_list_content:list) -> int:
+    def create(self, comparison_list_name, comparison_list_content:list, id_comparison_lists_to_check:list) -> int:
+
+        flag_repeated_name = False
+
+        for hash in self.data_hash_table:
+            if int(hash.key) in id_comparison_lists_to_check:
+                if str(hash.value["name"]) == str(comparison_list_name):
+                    flag_repeated_name = True
+
+        if flag_repeated_name:
+            raise Exception(f"Ya hay un Comparison List con nombre {comparison_list_name}")
 
         get_id_comparison_list = self.get_new_id()
         comparison_list_value = {"name":comparison_list_name, "content":comparison_list_content}
