@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 import random
 import undetected_chromedriver as uc
 import time
-from selenium.webdriver.chrome.options import Options
 
 
 def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
