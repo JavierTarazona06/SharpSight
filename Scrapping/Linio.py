@@ -53,6 +53,14 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
               'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
               'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
               'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
+    
+    #Evitar que no consiga todas las imagenes: Arreglo temporal (Temporal fix)
+    if len(links_image) == 0:
+         cur_image = "https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png"
+    else:
+        cur_image :str = links_image[0]
+    for i in range(len(titles_products)-len(links_image)):
+         links_image.append(cur_image)
 
     marcas_productos = []
     for title in titles_products:
