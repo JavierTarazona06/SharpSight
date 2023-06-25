@@ -114,7 +114,7 @@ async def create_user(email, password, nombre, apellido) -> JSONResponse:
     try:
         cur_user = User(email=email, password=password, operation=2, name=nombre, last_name=apellido)
         user_active["active"] = cur_user
-        return cur_user.json()
+        return JSONResponse(content={f"message":f"Usuario creado con email {cur_user.email} y sesión iniciada"})
     except Exception as e:
         return {"message" : str(e)}
     
@@ -124,7 +124,7 @@ async def modify_user(nombre=None, apellido=None, email=None, password=None) -> 
         if validate_session():
             cur_user:User = user_active["active"]
             cur_user.update(name=nombre, last_name=apellido, email=email, password=password)
-            return cur_user.json()
+            return JSONResponse(content={f"message":f"Usuario con email {cur_user.email} actualizado"})
     except Exception as e:
         return {"message" : str(e)}
     
@@ -300,7 +300,13 @@ def post_wish_list(name:str=None) -> JSONResponse:
             cur_user:User = user_active["active"]
 
             user_wishlist = UserWListHash()
-            wish_list_ids:list = user_wishlist.wish_lists_by_user(cur_user.id)
+            user_has_wish_lists =  user_wishlist.data_hash_table.find(cur_user.id)
+
+            if user_has_wish_lists:
+                wish_list_ids:list = user_wishlist.wish_lists_by_user(cur_user.id)
+            else:
+                wish_list_ids = []
+                
 
             wish_lists_hashTable = WishListsHash()
             wish_list_id = wish_lists_hashTable.create(name, [], wish_list_ids)
@@ -392,7 +398,7 @@ def delete_wish_list_by_id(id:int) -> JSONResponse:
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
-
+'''
 #ComparisonList
 @app.get("/comparison_list/", tags=["Comparison List"])
 def show_comparison_list() -> JSONResponse:
@@ -446,7 +452,8 @@ def delete_in_comparison_list(titulo, precio, link, tienda, imagen, marca) -> JS
     except Exception as e:
         print(e)
         return JSONResponse(content={f"message":f"No se eliminó el producto: {titulo} ya que no existe y/o {e}"})
-    
+'''
+
 #Comparison List2
 def validate_user_has_comparison_list(comparison_list_id) -> bool:
     flag = False
@@ -540,7 +547,12 @@ def post_comparison_list(name:str=None) -> JSONResponse:
             cur_user:User = user_active["active"]
 
             user_comparisonlist = UserCmpListHash()
-            comparison_list_ids:list = user_comparisonlist.comparison_lists_by_user(cur_user.id)
+            user_has_comparisonlist = user_comparisonlist.data_hash_table.find(cur_user.id)
+
+            if user_has_comparisonlist:
+                comparison_list_ids:list = user_comparisonlist.comparison_lists_by_user(cur_user.id)
+            else:
+                comparison_list_ids = []
         
             comparison_lists_hashTable = ComparisonListHash()
             comparison_list_id = comparison_lists_hashTable.create(name, [], comparison_list_ids)
