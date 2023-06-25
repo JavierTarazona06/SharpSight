@@ -13,7 +13,7 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
     options.add_argument("--headless")
     driver = uc.Chrome(options=options)
     driver.get("https://www.linio.com.co/")
-
+    driver.maximize_window()
     def simulate_human_behavior(a, b):
         time.sleep(random.uniform(a, b))  # Agregar un retraso aleatorio
 
