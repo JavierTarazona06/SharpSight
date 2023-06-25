@@ -22,8 +22,8 @@ class Search:
         driver : webdriver.Chrome = self.reload_driver()
         data_product = Ktronix.searchProduct(product_to_search, data_product, driver)
 
-        driver : webdriver.Chrome = self.reload_driver()
-        data_product = Exito.searchProduct(product_to_search, data_product, driver)
+        #driver : webdriver.Chrome = self.reload_driver()
+        #data_product = Exito.searchProduct(product_to_search, data_product, driver)
 
         driver : webdriver.Chrome = self.reload_driver()
         data_product = Linio.searchProduct(product_to_search, data_product, driver)
