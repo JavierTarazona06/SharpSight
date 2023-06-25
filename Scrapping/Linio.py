@@ -42,8 +42,8 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
     figures = [img.find_element(By.TAG_NAME, "figure") for img in img_elements]
     pictures = [img.find_element(By.TAG_NAME, "picture") for img in figures]
     sources = [img.find_element(By.TAG_NAME, "source") for img in pictures]
-    links_image = [source.get_attribute("srcset") or source.get_attribute("data-lazy") for source in sources]
-    #links_image = [link.replace("//", "") for link in links_image]
+    links_img = [source.get_attribute("srcset") or source.get_attribute("data-lazy") for source in sources]
+    links_img = [link if link.startswith("http://") else "http://" + link.replace("//", "") for link in links_img]
 
     links_image = []
     for link in links_image:
@@ -85,7 +85,7 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
     print(prices)
     print(link_element)
     print(brand_products)
-    print(links_image)
+    print(links_img)
     print(marcas_productos)
 
     data_product["titulo"].extend(titles_products)

@@ -14,7 +14,9 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
         time.sleep(random.uniform(2, 5))  # Agregar un retraso aleatorio
 
     def change_currency():
-        elemento = driver.find_element(By.ID, "icp-touch-link-cop")
+        elemento = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.ID, "icp-touch-link-cop"))
+        )
         elemento.click()
 
         currency_dropdown_element = driver.find_element(By.ID, "icp-currency-dropdown-selected-item-prompt")
@@ -25,8 +27,11 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
         time.sleep(2)
 
-        back_button = driver.find_element(By.CSS_SELECTOR,
-                                          "input.a-button-input[aria-labelledby='icp-save-button-announce']")
+        back_button = WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                (By.CSS_SELECTOR, "input.a-button-input[aria-labelledby='icp-save-button-announce']"))
+        )
+
         back_button.click()
 
         time.sleep(2)
