@@ -25,11 +25,11 @@ class Search:
         #driver : webdriver.Chrome = self.reload_driver()
         #data_product = Exito.searchProduct(product_to_search, data_product, driver)
 
-        driver : webdriver.Chrome = self.reload_driver()
-        data_product = Amazon.searchProduct(product_to_search, data_product, driver)
-
         #driver : webdriver.Chrome = self.reload_driver()
-        #data_product = Linio.searchProduct(product_to_search, data_product, driver)
+        #data_product = Amazon.searchProduct(product_to_search, data_product, driver)
+
+        driver : webdriver.Chrome = self.reload_driver()
+        data_product = Linio.searchProduct(product_to_search, data_product, driver)
 
         print(len(data_product.get("titulo")))
         print(len(data_product.get("precio")))
