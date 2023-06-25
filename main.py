@@ -144,12 +144,17 @@ async def delete_user() -> JSONResponse:
 
 @app.get("/product/", tags=["Products"])
 def get_products_key(keyProd:str) -> JSONResponse:
+    Search.Search(str(keyProd))
+    resulAVL_imp = ResultsAVL.results_AVL_imp()
+    return resulAVL_imp.view_results()
+    '''
     try:
         Search.Search(str(keyProd))
         resulAVL_imp = ResultsAVL.results_AVL_imp()
         return resulAVL_imp.view_results()
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
+    '''
 
 @app.get("/products/", tags=["Products"])
 def get_products() -> JSONResponse:

@@ -1,7 +1,7 @@
 import copy
 import pandas as pd
 
-from Scrapping import Exito, Ktronix, MercadoLibre
+from Scrapping import Exito, Ktronix, MercadoLibre, Amazon, Linio
 
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
@@ -16,14 +16,27 @@ class Search:
 
         data_product = {"titulo": [], "precio": [], "link": [], "marca":[], "imagen":[], "empresa":[]}
 
-        driver : webdriver.Chrome = self.reload_driver()
-        data_product = MercadoLibre.searchProduct(product_to_search, data_product, driver)
+        #driver : webdriver.Chrome = self.reload_driver()
+        #data_product = MercadoLibre.searchProduct(product_to_search, data_product, driver)
  
         #driver : webdriver.Chrome = self.reload_driver()
         #data_product = Ktronix.searchProduct(product_to_search, data_product, driver)
 
+        #driver : webdriver.Chrome = self.reload_driver()
+        #data_product = Exito.searchProduct(product_to_search, data_product, driver)
+
+        #driver : webdriver.Chrome = self.reload_driver()
+        #data_product = Amazon.searchProduct(product_to_search, data_product, driver)
+
         driver : webdriver.Chrome = self.reload_driver()
-        data_product = Exito.searchProduct(product_to_search, data_product, driver)
+        data_product = Linio.searchProduct(product_to_search, data_product, driver)
+
+        print(len(data_product.get("titulo")))
+        print(len(data_product.get("precio")))
+        print(len(data_product.get("link")))
+        print(len(data_product.get("marca")))
+        print(len(data_product.get("imagen")))
+        print(len(data_product.get("empresa")))
 
         #Integridad de los titulos
         hash = HashTable()
@@ -60,11 +73,11 @@ class Search:
         PATH = "chromedriver"
 
         #Ventana Visible
-        driver = webdriver.Chrome(PATH)
+        #driver = webdriver.Chrome(PATH)
                 
         # Ejecutar en modo headless sin ventana visible
-        #chrome_options = Options()
-        #chrome_options.add_argument("--headless")
-        #driver = webdriver.Chrome(PATH, options=chrome_options)
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        driver = webdriver.Chrome(PATH, options=chrome_options)
 
         return driver

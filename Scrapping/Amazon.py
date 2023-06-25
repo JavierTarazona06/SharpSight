@@ -48,7 +48,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
 
     # Extract all product prices
     elements_prices = driver.find_elements(By.XPATH, ".//span[@class='a-price-whole']")
-    prices = [elemento.text for elemento in elements_prices]
+    prices = [int(price.text.replace(',','')) for price in elements_prices]
 
     # Extract all product links
     links_elements = driver.find_elements(By.XPATH,
@@ -66,13 +66,13 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
               'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
               'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
               'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto', "Apple"]
+              'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
 
     marcas_productos = []
     for title in titles_products:
         marca_encontrada = False
         for marca in marcas:
-            if marca in title:
+            if marca.lower() in title.lower():
                 marcas_productos.append(marca)
                 marca_encontrada = True
                 break
