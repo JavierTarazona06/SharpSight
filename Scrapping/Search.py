@@ -73,11 +73,11 @@ class Search:
         PATH = "chromedriver"
 
         #Ventana Visible
-        driver = webdriver.Chrome(PATH)
+        #driver = webdriver.Chrome(PATH)
                 
         # Ejecutar en modo headless sin ventana visible
-        #chrome_options = Options()
-        #chrome_options.add_argument("--headless")
-        #driver = webdriver.Chrome(PATH, options=chrome_options)
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")
+        driver = webdriver.Chrome(PATH, options=chrome_options)
 
         return driver
