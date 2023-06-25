@@ -31,7 +31,13 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
     links_products = [link.get_attribute("href") for link in links_products]
 
     image_products = driver.find_elements(by=By.XPATH, value="//img[contains(@class, 'ui-search-result-image__element') and contains(@class, 'shops__image-element')]")
-    image_urls = [image.get_attribute("data-src") for image in image_products]
+    image_urls = []
+    for image in image_products:
+        cur_image = image.get_attribute("data-src")
+        if str(cur_image) == "None" or cur_image == "nan" or cur_image == None:
+            image_urls.append("https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png")
+        else:
+            image_urls.append(cur_image)
 
     marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
               'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
