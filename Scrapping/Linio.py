@@ -43,13 +43,22 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
     pictures = [img.find_element(By.TAG_NAME, "picture") for img in figures]
     sources = [img.find_element(By.TAG_NAME, "source") for img in pictures]
     links_image = [source.get_attribute("srcset") or source.get_attribute("data-lazy") for source in sources]
-    links_image = [link.replace("//", "") for link in links_image]
+    #links_image = [link.replace("//", "") for link in links_image]
 
-    marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
-              'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
-              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
-              'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
+    links_image = []
+    for link in links_image:
+        cur_image = link.replace("//", "")
+        if str(cur_image) == "None" or cur_image == "nan" or cur_image == None:
+            links_image.append("https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png")
+        else:
+            links_image.append(cur_image)
+
+
+    marcas = ['GE', 'HP', 'LG', 'TCL', 'ROG', 'Xiaomi', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
+              'Honor', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
+              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'Philips', 
+              'Acer', 'Acros', 'vivo', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'Tecno', 'Legion', 'Moto', 'Apple', 
+              'Nintendo', 'Microsoft', 'Sony']
     
     #Evitar que no consiga todas las imagenes: Arreglo temporal (Temporal fix)
     if len(links_image) == 0:

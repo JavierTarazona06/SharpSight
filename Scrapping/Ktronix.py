@@ -44,12 +44,20 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     image_elements = driver.find_elements(By.XPATH, '//a[@class="js-algolia-product-click"]/img[@srcset]')
     image_urls = [f"https://www.ktronix.com{element.get_attribute('srcset').split(', ')[0].split(' ')[0]}" for element
                   in image_elements]
+    
+    image_urls = []
+    for element in image_elements:
+        cur_image = f"https://www.ktronix.com{element.get_attribute('srcset').split(', ')[0].split(' ')[0]}"
+        if str(cur_image) == "None" or cur_image == "nan" or cur_image == None:
+            image_urls.append("https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png")
+        else:
+            image_urls.append(cur_image)
 
-    marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
-              'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
-              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
-              'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
+    marcas = ['GE', 'HP', 'LG', 'TCL', 'ROG', 'Xiaomi', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
+              'Honor', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
+              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'Philips', 
+              'Acer', 'Acros', 'vivo', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'Tecno', 'Legion', 'Moto', 'Apple', 
+              'Nintendo', 'Microsoft', 'Sony']
     
     #Evitar que no consiga todas las imagenes: Arreglo temporal (Temporal fix)
     if len(image_urls) == 0:

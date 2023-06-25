@@ -51,7 +51,15 @@ def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> di
     print(brand_products)
 
     image_elements = driver.find_elements(By.XPATH,'//img[@class="vtex-product-summary-2-x-imageNormal vtex-product-summary-2-x-image vtex-product-summary-2-x-mainImageHovered"]')
-    image_urls = [image.get_attribute("src") for image in image_elements]
+    #image_urls = [image.get_attribute("src") for image in image_elements]
+
+    image_urls = []
+    for image in image_elements:
+        cur_image = image.get_attribute("src")
+        if str(cur_image) == "None" or cur_image == "nan" or cur_image == None:
+            image_urls.append("https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png")
+        else:
+            image_urls.append(cur_image)
 
     print(image_urls)
 
@@ -66,11 +74,11 @@ def searchProduct(keyWord, data_product : dict, driver : webdriver.Chrome) -> di
 
     print(image_urls)
 
-    marcas = ['Xiaomi', 'Sony', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
-              'Honor', 'TCL', 'LG', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
-              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'GE',
-              'Philips', 'Acer', 'Acros', 'vivo', 'ROG', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'HP',
-              'Tecno', 'Legion', 'Moto', 'Apple', 'Nintendo', 'Microsoft', 'Sony']
+    marcas = ['GE', 'HP', 'LG', 'TCL', 'ROG', 'Xiaomi', 'Kalley', 'Braun', 'Maytag', 'Realme', 'Alcatel', 'Challenger', 'Alexa', 'Babyliss',
+              'Honor', 'Nokia', 'Huawei', 'Haceb', 'Panasonic', 'Lenovo', 'Whirlpool', 'MSI', 'Gama',
+              'Zte', 'Conair', 'Remington', 'Samsung', 'Oppo', 'Mabe', 'Canon', 'Asus', 'Electrolux', 'iPhone', 'Philips', 
+              'Acer', 'Acros', 'vivo', 'Motorola', 'Wahl', 'Fujifilm', 'GoPro', 'Google Home', 'Tecno', 'Legion', 'Moto', 'Apple', 
+              'Nintendo', 'Microsoft', 'Sony']
 
     marcas_productos = []
     for title in titles_products:
