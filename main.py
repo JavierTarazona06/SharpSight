@@ -365,8 +365,14 @@ def all_wish_list_by_user() -> JSONResponse:
 def update_wish_list_name(id:int, new_name:str) -> JSONResponse:
     try:
         if validate_user_has_wish_list(id):
+
+            cur_user:User = user_active["active"]
+
+            user_wishlist = UserWListHash()
+            wish_list_ids:list = user_wishlist.wish_lists_by_user(cur_user.id)
+
             wish_lists_hashTable = WishListsHash()
-            wish_list_name = wish_lists_hashTable.update_name(id, new_name)
+            wish_list_name = wish_lists_hashTable.update_name(id, new_name, wish_list_ids)
             return JSONResponse(content={"message":f"Nombre actualizado exitosamente a {new_name}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
@@ -603,8 +609,14 @@ def all_comparison_list_by_user() -> JSONResponse:
 def update_comparison_list_name(id_comparison:int, new_name:str) -> JSONResponse:
     try:
         if validate_user_has_comparison_list(id_comparison):
+
+            cur_user:User = user_active["active"]
+
+            user_comparisonlist = UserCmpListHash()
+            comparison_list_ids:list = user_comparisonlist.comparison_lists_by_user(cur_user.id)
+
             comparison_lists_hashTable = ComparisonListHash()
-            comparison_list_name = comparison_lists_hashTable.update_name(id_comparison, new_name)
+            comparison_list_name = comparison_lists_hashTable.update_name(id_comparison, new_name, comparison_list_ids)
             return JSONResponse(content={"message":f"Nombre actualizado exitosamente a {new_name}"})
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
