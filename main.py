@@ -296,8 +296,14 @@ def delete_max_in_wish_List(wish_list_id:int) -> JSONResponse:
 def post_wish_list(name:str=None) -> JSONResponse:
     try:
         if validate_session():
+
+            cur_user:User = user_active["active"]
+
+            user_wishlist = UserWListHash()
+            wish_list_ids:list = user_wishlist.wish_lists_by_user(cur_user.id)
+
             wish_lists_hashTable = WishListsHash()
-            wish_list_id = wish_lists_hashTable.create(name, [])
+            wish_list_id = wish_lists_hashTable.create(name, [], wish_list_ids)
 
             cur_user:User = user_active["active"]
 
@@ -524,8 +530,14 @@ def delete_in_comparison_list(id_comparison:int, titulo, precio, link, tienda, i
 def post_comparison_list(name:str=None) -> JSONResponse:
     try:
         if validate_session():
+
+            cur_user:User = user_active["active"]
+
+            user_comparisonlist = UserCmpListHash()
+            comparison_list_ids:list = user_comparisonlist.comparison_lists_by_user(cur_user.id)
+        
             comparison_lists_hashTable = ComparisonListHash()
-            comparison_list_id = comparison_lists_hashTable.create(name, [])
+            comparison_list_id = comparison_lists_hashTable.create(name, [], comparison_list_ids)
 
             cur_user:User = user_active["active"]
 

@@ -25,11 +25,11 @@ class Search:
         driver : webdriver.Chrome = self.reload_driver()
         data_product = Exito.searchProduct(product_to_search, data_product, driver)
 
-        #driver : webdriver.Chrome = self.reload_driver()
-        #data_product = Amazon.searchProduct(product_to_search, data_product, driver)
+        driver : webdriver.Chrome = self.reload_driver()
+        data_product = Linio.searchProduct(product_to_search, data_product, driver)
 
         #driver : webdriver.Chrome = self.reload_driver()
-        #data_product = Linio.searchProduct(product_to_search, data_product, driver)
+        #data_product = Amazon.searchProduct(product_to_search, data_product, driver)
 
         print(len(data_product.get("titulo")))
         print(len(data_product.get("precio")))
@@ -55,6 +55,7 @@ class Search:
                 acc -= 1
             acc += 1
 
+        print("R-K")
         print(len(data_product.get("titulo")))
         print(len(data_product.get("precio")))
         print(len(data_product.get("link")))
@@ -68,16 +69,19 @@ class Search:
         df = pd.DataFrame(data_product)
         df.to_csv("src/productos.csv")
 
-    def reload_driver(self) -> webdriver.Chrome:
+    def reload_driver(self, headless=True) -> webdriver.Chrome:
 
         PATH = "chromedriver"
 
-        #Ventana Visible
-        #driver = webdriver.Chrome(PATH)
+        if headless:
+            # Ejecutar en modo headless sin ventana visible
+            chrome_options = Options()
+            chrome_options.add_argument("--headless")
+            driver = webdriver.Chrome(PATH, options=chrome_options)
+        else:
+            #Ventana Visible
+            driver = webdriver.Chrome(PATH)
                 
-        # Ejecutar en modo headless sin ventana visible
-        chrome_options = Options()
-        chrome_options.add_argument("--headless")
-        driver = webdriver.Chrome(PATH, options=chrome_options)
+ 
 
         return driver

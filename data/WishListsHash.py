@@ -123,7 +123,17 @@ class WishListsHash:
                 raise Exception(f"No existen Wish List con el id {id}")
     
 
-    def create(self, wish_list_name, wish_list_content:list) -> int:
+    def create(self, wish_list_name, wish_list_content:list, id_wish_lists_to_check:list) -> int:
+
+        flag_repeated_name = False
+
+        for hash in self.data_hash_table:
+            if int(hash.key) in id_wish_lists_to_check:
+                if str(hash.value["name"]) == str(wish_list_name):
+                    flag_repeated_name = True
+
+        if flag_repeated_name:
+            raise Exception(f"Ya hay un Comparison List con nombre {wish_list_name}")
 
         get_id_wish_list = self.get_new_id()
         wish_list_value = {"name":wish_list_name, "content":wish_list_content}
