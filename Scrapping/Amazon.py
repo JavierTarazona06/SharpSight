@@ -11,7 +11,7 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     driver.get("https://www.amazon.com/-/es/")
 
     def simulate_human_behavior():
-        time.sleep(random.uniform(2, 10))  # Agregar un retraso aleatorio
+        time.sleep(random.uniform(2, 5))  # Agregar un retraso aleatorio
 
     def change_currency():
         elemento = driver.find_element(By.ID, "icp-touch-link-cop")
@@ -41,14 +41,27 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     simulate_human_behavior()
     search_bar.submit()
 
+    WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.XPATH, '//div[@data-component-type="s-search-result"]')))
+    all_products = driver.find_elements(By.XPATH, '//div[@data-component-type="s-search-result"]')
+    print("Total de productos encontrados:", len(all_products))
+
+    prices_products = []
+    for product in all_products:
+        try:
+            if len(product.find_elements(By.XPATH, ".//span[@class='a-price-whole']")) > 0:
+                elements_prices = product.find_elements(By.XPATH, ".//span[@class='a-price-whole']")
+                for price in elements_prices:
+                    prices_products.append(price.text)
+            else:
+                prices_products.append("0")
+        except:
+            pass
+
     # Extract all product titles
     titles = driver.find_elements(By.XPATH, "//h2/a/span")
     titles_products = [element.text for element in titles]
-    simulate_human_behavior()
 
-    # Extract all product prices
-    elements_prices = driver.find_elements(By.XPATH, ".//span[@class='a-price-whole']")
-    prices = [int(price.text.replace(',','')) for price in elements_prices]
 
     # Extract all product links
     links_elements = driver.find_elements(By.XPATH,
@@ -101,14 +114,14 @@ def searchProduct(keyWord, data_product : dict, driver: webdriver.Chrome) -> dic
     print(brand_products)
 
     print(titles_products)
-    print(prices)
+    print(prices_products)
     print(links)
     print(brand_products)
     print(image_urls)
     print(marcas_productos)
 
     data_product["titulo"].extend(titles_products)
-    data_product["precio"].extend(prices)
+    data_product["precio"].extend(prices_products)
     data_product["link"].extend(links)
     data_product["marca"].extend(brand_products)
     data_product["imagen"].extend(image_urls)
