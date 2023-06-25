@@ -14,20 +14,19 @@ def searchProduct(keyWord, data_product:dict, driver:webdriver.Chrome) -> dict:
     driver = uc.Chrome(options=options)
     driver.get("https://www.linio.com.co/")
     driver.maximize_window()
+
     def simulate_human_behavior(a, b):
         time.sleep(random.uniform(a, b))  # Agregar un retraso aleatorio
 
     print(driver.title)
     search_bar = driver.find_element(By.CSS_SELECTOR, 'input[name="q"].form-control.search-bar-input')
     search_bar.clear()
-    search= [f"{keyWord}"]
+    search_bar.send_keys(f"{keyWord}")
+    search_bar.submit()
 
-    search_bar = driver.find_element(by=By.CLASS_NAME, value="nav-search-input")
-    search_bar.clear()
-    search_bar.send_keys(search)
-    search_bar.send_keys(Keys.RETURN)
-
+    time.sleep(5)
     #TITLES
+
     elements = driver.find_elements(By.CLASS_NAME, 'title-section')
     titles_products = [element.text for element in elements]
 
