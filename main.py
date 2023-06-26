@@ -672,10 +672,25 @@ def get_brands() -> JSONResponse:
 @app.get("/brands/seller", tags=["Other"])
 def get_brands_by_seller(sellers:str=None) -> JSONResponse:
     #Sellers is a str separated by '_'
+    graph_implementation = GraphProducts.graph_implementation()
+    if not sellers is None:
+        return graph_implementation.get_brands_sellers(sellers)
+    else:
+        print(graph_implementation.get_sellers()["tiendas"])
+        tiendas_raw:list = graph_implementation.get_sellers()["tiendas"]
+        n_tiendas = len(tiendas_raw)
+        sellers = ""
+        for i in range(len(tiendas_raw)):
+            if i == n_tiendas -1:
+                sellers += str(tiendas_raw[i])
+            else:
+                sellers += str(tiendas_raw[i]) + "_"
+        print(sellers)
+        return graph_implementation.get_brands_sellers(sellers)
+    '''
     try:
         graph_implementation = GraphProducts.graph_implementation()
         if not sellers is None:
-            graph_implementation = GraphProducts.graph_implementation()
             return graph_implementation.get_brands_sellers(sellers)
         else:
             print(graph_implementation.get_sellers()["tiendas"])
@@ -691,6 +706,7 @@ def get_brands_by_seller(sellers:str=None) -> JSONResponse:
             return graph_implementation.get_brands_sellers(sellers)
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
+    '''
 
 
 '''
