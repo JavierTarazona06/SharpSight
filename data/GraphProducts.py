@@ -87,4 +87,4 @@ class GraphProducts:
 
 
 def graph_implementation() -> GraphProducts:
-    return GraphProducts("src\productos.csv")
+    return GraphProducts("src/productos.csv")
