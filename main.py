@@ -87,7 +87,7 @@ async def validate_user(cur_email:str, cur_password:str) -> JSONResponse:
     try:
         cur_user = User(email=cur_email, password=cur_password, operation=1)
         user_active["active"] = cur_user
-        return cur_user.json()
+        return {"message" : f"Se ha iniciado la sesión con éxito para el usuario {cur_email}"}
     except Exception as e:
         return {"message" : str(e)}
     
@@ -508,7 +508,11 @@ def show_ComparisonList_comparison(id_comparison:int) -> JSONResponse:
     try:
         if validate_user_has_comparison_list(id_comparison):
             comparison = ComparisonListAVL2(id_comparison)
-            return comparison.compareByPrice_json()
+            return_best_worst:list = []
+            return_best_worst.append(comparison.compareByPrice_json()[0]["best"])
+            return_best_worst.append(comparison.compareByPrice_json()[0]["worst"])
+
+            return return_best_worst
     except Exception as e:
         return JSONResponse(content={f"message":f"Error: {e}"})
 
