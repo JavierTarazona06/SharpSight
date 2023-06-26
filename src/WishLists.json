@@ -22,6 +22,30 @@
                 "tienda": "Mercado Libre",
                 "imagen": "https://http2.mlstatic.com/D_NQ_NP_900821-MCO53335824637_012023-V.webp",
                 "marca": "Otra"
+            },
+            {
+                "titulo": "Xiaomi Redmi Note 11S Dual SIM 128 GB gris grafito 8 GB RAM",
+                "precio": 868053,
+                "link": "https://www.mercadolibre.com.co/xiaomi-redmi-note-11s-dual-sim-128-gb-gris-grafito-8-gb-ram/p/MCO18983362?pdp_filters=category:MCO1055#searchVariation=MCO18983362&position=1&search_layout=stack&type=product&tracking_id=7ce9ea85-4bd6-4c5d-85f3-e537df6d7e6b",
+                "tienda": "Mercado Libre",
+                "imagen": "Xiaomi",
+                "marca": "https://blog.up.edu.mx/hubfs/Por%20qu%C3%A9%20el%20producto%20es%20lo%20m%C3%A1s%20importante%20para%20una%20estrategia%20comercial%20exitosa.png"
+            },
+            {
+                "titulo": "Xiaomi Pocophone Poco M5 (5 Mpx) Dual SIM 128 GB black 4 GB RAM",
+                "precio": 649900,
+                "link": "https://www.mercadolibre.com.co/xiaomi-pocophone-poco-m5-5-mpx-dual-sim-128-gb-black-4-gb-ram/p/MCO19676461?pdp_filters=category:MCO1055#searchVariation=MCO19676461&position=14&search_layout=stack&type=product&tracking_id=7ce9ea85-4bd6-4c5d-85f3-e537df6d7e6b",
+                "tienda": "Mercado Libre",
+                "imagen": "Xiaomi",
+                "marca": "https://http2.mlstatic.com/D_NQ_NP_858267-MLA51811704234_102022-V.webp"
+            },
+            {
+                "titulo": "Xiaomi Redmi 10C Dual SIM 64 GB azul océano 3 GB RAM",
+                "precio": 389900,
+                "link": "https://www.mercadolibre.com.co/xiaomi-redmi-10c-dual-sim-64-gb-azul-oceano-3-gb-ram/p/MCO19373054?pdp_filters=category:MCO1055#searchVariation=MCO19373054&position=13&search_layout=stack&type=product&tracking_id=7ce9ea85-4bd6-4c5d-85f3-e537df6d7e6b",
+                "tienda": "Mercado Libre",
+                "imagen": "Xiaomi",
+                "marca": "https://http2.mlstatic.com/D_NQ_NP_712361-MLA50342739146_062022-V.webp"
             }
         ]
     }
